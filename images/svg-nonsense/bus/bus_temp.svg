@@ -1,0 +1,367 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg id="vb" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="100%" height="100%" onload="main(evt)">
+  <title>Bus Data via SVG Abuse</title>
+  <script type="text/ecmascript"><![CDATA[
+    // DEFINE JOURNEYS HERE.
+    // Format: 
+    //   { name: <some useful mnemonic or identifier>,
+    //     steps:[ { r:'<route ID>', s:'<stop ID where you get on the bus>', e:'<stop ID where you get off the bus>' },
+    //             { <further stops...> } ]
+    //   }
+    // Journeys can have any number of steps.  Each step defines a route, a starting point, and an
+    // ending point.  Route IDs can be found most easily by looking them up on the onebusaway
+    // website; they're not necessarily related to the route number provided on the schedule.  The same is generally true for Stop IDs
+    var journeysHomeFromTheBar = [
+      { name:'44 -> E-Line',
+        steps:[ { r:'1_100224', s:'1_29213',  e:'1_29200' },
+                { r:'1_102615', s:'1_75409',  e:'1_7730'  } ]
+      },
+      { name:'40 -> E-Line',
+        steps:[ { r:'1_102574', s:'1_18720', e:'1_40068' },
+                { r:'1_102615', s:'1_7080',  e:'1_7160'  } ]
+      },
+      { name:'40 -> 45',
+        steps:[ {r:'1_102574', s:'1_18720', e:'1_35580' },
+                {r:'1_100225', s:'1_35580', e:'1_5370' } ]
+      },
+      { name:'D-Line -> 45',
+        steps:[ {r:'1_102581', s:'1_14230', e:'1_14360'  },
+                {r:'1_100225', s:'1_35600', e:'1_5370' } ]
+      }
+    ];
+    
+    var journeyDefinitions = journeysHomeFromTheBar;
+      
+    var urlBase = 'http://api.pugetsound.onebusaway.org/api/where/';
+    var doc;
+    var g;
+    var vb, vbx, vby, vbh, vbw;
+    var border;
+    var colorToUse = 'blue';
+    var timeFactor = 1000 * 6;
+    var testTimeAdjustment = 0;
+
+    var callbacks = new Object();
+    function request(url, callback) {
+      var callbackName = 'cb' + (new Date()).getTime();
+      while (typeof callbacks[callbackName] !== 'undefined') callbackName = callbackName + '_';
+      var scriptTag = createElement('script');
+      callbacks[callbackName] = {
+        url: url,
+        cb: function(r) {
+          callback(r);
+          vb.removeChild(scriptTag);
+          delete callbacks[callbackName];
+        }
+      };
+      scriptTag.setAttributeNS("http://www.w3.org/1999/xlink", 'href', url + '&callback=callbacks.' + callbackName + '.cb');
+      scriptTag.setAttributeNS("http://www.w3.org/1999/xlink", 'type', 'text/ecmascript');
+      vb.appendChild(scriptTag);
+    }
+    
+    function addParams(url, params) {
+      var result = url;
+      for (paramIndex in params)
+        result += params[paramIndex];
+      return result;
+    }
+
+    function type1Method(methodName, params) {
+      return addParams(urlBase + methodName + '.json?key=TEST&dummy='+(new Date()).getTime(), params);
+    }
+
+    function type2Method(methodName, id, params) {
+      return addParams(urlBase + methodName + '/' + id + '.json?key=TEST&dummy='+(new Date()).getTime(), params);
+    }
+
+    function optParam(pValue, pName) {
+      return typeof pValue !== 'undefined'
+           ? '&' + pName + '=' + pValue
+           : '';
+    }
+
+    function queryStop(stopId, callback, minBefore, minAfter) {
+      var url = type2Method(
+        'arrivals-and-departures-for-stop', stopId, 
+        [ optParam(minBefore, 'minutesBefore'), optParam(minAfter, 'minutesAfter') ]);
+      request(url, callback);
+    }
+    
+    function queryTripAtStop(stopId, tripId, serviceDate, callback) {
+      var url = type2Method(
+        'arrival-and-departure-for-stop', stopId,
+        [ optParam(tripId, 'tripId'), optParam(serviceDate, 'serviceDate') ] );
+      request(url, callback);
+    }
+
+    function getFirstByRoute(adList, routeId) {
+      for (adIndex in adList) {
+        ad = adList[adIndex];
+        if (ad.routeId == routeId) {
+          return ad;
+        }
+      }
+      return null;
+    }
+
+    function resize(x,y,w,h) {
+      var changed = false;
+      if (x < vbx) {
+        vbx = x;
+        changed = true;
+      }
+      if (y < vby) {
+        vby = y;
+        changed = true;
+      }
+      var newWidth = x + w - vbx;
+      var newHeight = y + h - vby;
+      if (newHeight > vbh) {
+        vbh = newHeight;
+        changed = true;
+      }
+      if (newWidth > vbw) {
+        vbw = newWidth;
+        changed = true;
+      }
+      if (changed) {
+        vb.setAttribute('viewBox', '' + (vbx - 10) + ' ' + (vby - 5) + ' ' + (vbw + 20) + ' ' + (vbh + 20));
+        border.setAttribute('x', vbx - 5);
+        border.setAttribute('y', vby - 3);
+        border.setAttribute('width', vbw + 10);
+        border.setAttribute('height', vbh + 18);
+      }
+    }
+
+    function createElement(elementName) {
+      return doc.createElementNS('http://www.w3.org/2000/svg', elementName);
+    }
+
+    var baseMinutesAfter = 60;
+    var Journey_Step = function(stepDef) {
+      this.route = stepDef.r;
+      this.start = stepDef.s;
+      this.end = stepDef.e;
+      
+      this.process = function(completionCallback, tOffset) {
+        this.onComplete = completionCallback;
+        this.processStart(tOffset);
+      };
+      
+      this.processStart = function(tOffset) {
+        // CLOSURE
+        queryStop(
+          this.start,
+          function(startResponse) {
+            this.startResponse = startResponse;
+            this.startData = getFirstByRoute(startResponse.data.entry.arrivalsAndDepartures, this.route);
+            this.processEnd(this.startData.tripId);
+          }.bind(this),
+          -1 * tOffset,
+          baseMinutesAfter + tOffset
+        );
+      };
+      
+      this.processEnd = function(tripId) {
+        queryTripAtStop(
+          this.end,
+          tripId,
+          this.startData.serviceDate,
+          function(endResponse) {
+            this.endResponse = endResponse;
+            this.endData = endResponse.data.entry;
+            this.processData();
+          }.bind(this)
+        );
+      };
+      
+      this.processData = function() {
+        if (this.startData.predicted) {
+          this.predicted = true;
+          this.startTime = this.startData.predictedDepartureTime;
+          if (this.endData.predicted) {
+            this.endTime = this.endData.predictedArrivalTime;
+          } else {
+            var offSet = this.startTime - this.startResponse.currentTime;
+            this.endTime = this.endData.scheduledArrivalTime + offSet;
+          }
+        } else {
+          if (this.endData.predicted) {
+            this.predicted = true;
+            this.endTime = this.endData.predictedArrivalTime;
+            var offset = this.endData.predictedArrivalTime - this.endResponse.currentTime;
+            this.startTime = this.startData.scheduledDepartureTime + offset;
+          } else {
+            this.predicted = false;
+            this.startTime = this.startData.scheduledDepartureTime;
+            this.endTime = this.endData.scheduledArrivalTime;
+          }
+        }
+        this.currentTime = this.startResponse.currentTime;
+        this.endOffset = Math.ceil((this.endTime - this.startResponse.currentTime)/60000);
+        
+        this.adjustTimes();
+        
+        this.onComplete(this.endOffset);
+      };
+      
+      this.adjustTimes = function() {
+        var adjustment = testTimeAdjustment * 60 * 1000;
+        this.startTime -= adjustment;
+        this.endTime -= adjustment;
+      };
+      
+      this.drawSegment = function(t0, y) {
+        var x = (this.startTime - t0) / timeFactor;
+        var width = (this.endTime - this.startTime) / timeFactor;
+        var color;
+        var eString;
+        if (!this.predicted) {
+          color = 'lightgray';
+          eString = 'Unknown';
+        } else {
+          var lateBy = this.startTime - this.startData.scheduledDepartureTime;
+          if (lateBy < -60000) {
+            color = 'red';
+            eString = msToMinAndSec(-lateBy) + ' early';
+          } else if (lateBy > 60000) {
+            color = 'cyan';
+            eString = msToMinAndSec(lateBy) + ' late';
+          } else {
+            color = 'limegreen';
+            eString = 'On time';
+          }
+        }
+        
+        drawRectangle(x, y, width, 24, color);
+        
+        var rtext = createElement('text');
+        rtext.setAttribute('x', x + 2);
+        rtext.setAttribute('y', y+14);
+        rtext.textContent = this.startData.routeShortName;
+        g.appendChild(rtext);
+        
+        var eText = createElement('text');
+        eText.setAttribute('x', x + 2);
+        eText.setAttribute('y', y + 22);
+        eText.setAttribute('font-size', '8px');
+        eText.textContent = eString;
+        g.appendChild(eText);
+        
+        drawTimeMark(x, y + 24, this.startTime - t0, true);
+        drawTimeMark(x + width, y + 24, this.endTime - t0, false);
+      }
+    }
+    
+    function drawRectangle(x,y,width,height,color) {
+      var adRect = createElement('rect');
+      adRect.setAttribute('x', x);
+      adRect.setAttribute('y', y);
+      adRect.setAttribute('width', width);
+      adRect.setAttribute('height', height);
+      adRect.setAttribute('fill', color);
+      adRect.setAttribute('stroke', 'black');
+      g.insertBefore(adRect, g.childNodes[0]);
+      resize(x,y,width,height);
+    }
+
+    function drawTimeMark(x, y, ms, isStart) {
+      var caret = createElement('polyline');
+      caret.setAttribute('points', '' +    x    + ',' + y + ' '
+                                           + (x - 2) + ',' + (y + 3) + ' '
+                                           + (x + 2) + ',' + (y + 3) );
+      caret.setAttribute('fill', 'black');
+      g.appendChild(caret);
+      
+      var anchor = typeof isStart !== 'undefined'
+                   ? isStart ? 'start' : 'end'
+                   : 'middle';
+      var text = createElement('text');
+      text.textContent = msToMinAndSec(ms);
+      text.setAttribute('x', x);
+      text.setAttribute('y', y + 9.5);
+      text.setAttribute('text-anchor', anchor );
+      text.setAttribute('font-size', '7.5px');
+      g.appendChild(text);
+    }
+    
+    function msToMinAndSec(ms) {
+      var negative = false;
+      var seconds = Math.round(ms / 1000);
+      if (seconds < 0) {
+        negative = true;
+        seconds = -seconds;
+      }
+      var minutes = Math.floor(seconds / 60);
+      var remainder = seconds % 60;
+      if (remainder < 10) { remainder = '0' + remainder; }
+      return (negative ? '-' : '') + minutes + ':' + remainder;
+    }
+    
+    var Journey = function(steps) {
+      this.stepDefs = steps;
+      this.steps = [];
+      
+      for (stepIndex in steps) {
+        this.steps.push(new Journey_Step(steps[stepIndex]));
+      }
+      
+      this.load = function(y) {
+        // CLOSURE
+        var nextCallbackObj = {};
+        nextCallbackObj.fn = function(unused) { this.drawSegments(y); }.bind(this);
+        nextCallbackObj.debug_name = 'final_callback';
+        for (stepIndex in this.steps) {
+          var realIndex = (this.steps.length - stepIndex) - 1;
+          var callbackObj = {};
+          callbackObj.nextObj = nextCallbackObj;
+          callbackObj.targetStep = this.steps[realIndex];
+          callbackObj.debug_name = 'callback ' + realIndex;
+          callbackObj.fn = function(tOffset) { this.targetStep.process(this.nextObj.fn, tOffset); }.bind(callbackObj);
+          nextCallbackObj = callbackObj;
+        }
+        nextCallbackObj.fn(testTimeAdjustment);
+      };
+      
+      this.drawSegments = function(y) {
+        var t0 = 0;
+        for (stepIndex in this.steps) {
+          if (t0 == 0 || this.steps[stepIndex].currentTime < t0) {
+            t0 = this.steps[stepIndex].currentTime
+          }
+        }
+        
+        for (stepIndex in this.steps) {
+          this.steps[stepIndex].drawSegment(t0, y);
+        }
+      };
+    };
+    
+    function main(evt) {
+      doc = evt.target.ownerDocument
+      g = doc.getElementById('block')
+      vb = doc.getElementById('vb');
+      vbx = 0;
+      vby = 0;
+      vbh = 0;
+      vbw = 0;
+      border = doc.getElementById('border');
+      var status = doc.getElementById('status');
+      var y = 0;
+      var journeys = [];
+      
+      for (journeyIndex in journeyDefinitions) {
+        var journey = new Journey(journeyDefinitions[journeyIndex].steps);
+        journeys.push(journey);
+        journey.load(y);
+        y += 36;
+      }
+    }
+  ]]></script>
+  <g id="block" fill="black" font-family="sans-serif" font-size="14px">
+    <rect id="border" stroke="black" fill="none" x="0" y="0" width="0" height="0"></rect>
+  </g>
+</svg>
+
+

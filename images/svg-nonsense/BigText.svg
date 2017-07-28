@@ -1,0 +1,84 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg id="vb" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="100%" height="100%" onload="main(evt)" style="background-color: black">
+  <script type="text/ecmascript">
+  //<![CDATA[
+  var doc, bigtext, entireView, canvas;
+  function main(evt){
+    Initialize(evt);
+    ReadTextFromQueryString();
+    AdjustSizeAndSpacing();
+  }
+  function Initialize(evt){
+    doc = evt.target.ownerDocument;
+    entireView = doc.getElementById('vb');
+    canvas = doc.getElementById('textCanvas');
+    bigtext = doc.getElementById('bigtext');
+    window.onresize = AdjustSizeAndSpacing;
+  }
+  function createElement(elementName) {
+    return doc.createElementNS('http://www.w3.org/2000/svg', elementName);
+  }
+
+  function ReadTextFromQueryString(){
+    var loc = window.location.href;
+    var split = loc.split('?');
+    split.shift();
+    var queryString = split.join('?');
+    var text = queryString.split('&');
+    if (text.length == 1 && text[0] === ""){
+      text = ["No text provided"];
+    }
+    
+    var first = true;
+    for (var i in text){
+      var tspan = createElement('tspan');
+      tspan.setAttribute('x', 0);
+      if (first) {
+        first = false;
+      } else {
+        tspan.setAttribute('dy', 16);
+      }
+      tspan.textContent = unescape(text[i]);
+      bigtext.appendChild(tspan);
+    }
+  }
+  function AdjustSizeAndSpacing(evt){
+    var textBox = bigtext.getBBox();
+    canvas.setAttribute('width', window.innerWidth);
+    canvas.setAttribute('height', window.innerHeight);
+    /*
+    var dr = doc.getElementById("debugRect");
+    dr.setAttribute('x', 0);
+    dr.setAttribute('y', 0);
+    dr.setAttribute('width', window.innerWidth);
+    dr.setAttribute('height', window.innerHeight);
+    //*/
+    
+    //alert("width: " + window.innerWidth +", height: " + window.innerHeight);
+    var widthFactor = window.innerWidth / textBox.width;
+    var heightFactor = window.innerHeight / textBox.height;
+    var factor = Math.min(widthFactor, heightFactor);
+    var factoredTextWidth = textBox.width * factor;
+    var factoredTextHeight = textBox.height * factor;
+    var xSpacing = (window.innerWidth - factoredTextWidth) / 2;
+    var ySpacing = (window.innerHeight - factoredTextHeight) / 2;
+    var transform = "matrix(" + 
+        factor + " 0 0 " + factor + " " +
+        (factor * -textBox.x + xSpacing) + " " +
+        (factor * -textBox.y + ySpacing) +
+      ")";
+    //alert(transform);
+    canvas.setAttribute('transform', transform);
+  }
+  //]]>
+  </script>
+  <!--<rect id="debugRect" stroke="red" fill="transparent" />-->
+  <g id="textCanvas" x="0" y="0">
+    <text id="bigtext" text-anchor="middle"
+          fill="white"
+          font-family="sans-serif"
+          font-size="16">
+    </text>
+  </g>
+</svg>

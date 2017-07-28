@@ -1,0 +1,557 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg id="vb" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="100%" height="100%" onload="main(evt)">
+  <title>Bus Data via SVG Abuse</title>
+  <script type="text/ecmascript"><![CDATA[
+    // DEFINE JOURNEYS HERE.
+    // Format: 
+    //   { name: <some useful mnemonic or identifier>,
+    //     steps:[ { r:'<route ID>', s:'<stop ID where you get on the bus>', e:'<stop ID where you get off the bus>' },
+    //             { <further stops...> } ]
+    //   }
+    // Journeys can have any number of steps.  Each step defines a route, a starting point, and an
+    // ending point.  Route IDs can be found most easily by looking them up on the onebusaway
+    // website; they're not necessarily related to the route number provided on the schedule.  The same is generally true for Stop IDs
+    var d = defineIdentifiers();
+    var journeyDefinitions = [
+      { name:'45 -> 5',
+        steps:[ { r: d.ROUTE_45,  s: d.STOP_AURORA_85TH_WB,     e: d.STOP_GREENWOOD_85TH_WB }, { w: 2  },
+                { r: d.ROUTE_5,   s: d.STOP_GREENWOOD_85TH_SB,  e: d.STOP_AURORA_38TH_SEB   }, { w: 15 } ]
+      },
+      { name:'45 -> 28X',
+        steps:[ { r: d.ROUTE_45,   s: d.STOP_AURORA_85TH_WB,  e: d.STOP_8TH_85TH_WB     }, { w: 3  },
+                { r: d.ROUTE_28X,  s: d.STOP_8TH_85TH_SB,     e: d.STOP_AURORA_38TH_SEB }, { w: 15 } ]
+      },/*
+      { name:'45 -> 40',
+        steps:[ { r: d.ROUTE_45,  s: d.STOP_AURORA_85TH_WB,  e: d.STOP_15TH_85TH_WB },
+                { r: d.ROUTE_40,  s: d.STOP_15TH_85TH_WB,    e: d.STOP_FREMONT_34TH_SB } ]
+      },*/
+      { name:'E-Line -> 28X',
+        steps:[ { r: d.ROUTE_ELINE,  s: d.STOP_AURORA_85TH_SB,   e: d.STOP_AURORA_GALER_SB }, { w: 2  },
+                { r: d.ROUTE_28X,    s: d.STOP_AURORA_GALER_NB,  e: d.STOP_AURORA_38TH_NWB }, { w: 16 } ]
+      },
+      { name:'E-Line -> 62',
+        steps:[ { r: d.ROUTE_ELINE,  s: d.STOP_AURORA_85TH_SB,   e: d.STOP_AURORA_GALER_SB }, { w: 3 },
+                { r: d.ROUTE_62,     s: d.STOP_DEXTER_GALER_NB,  e: d.STOP_STONE_35TH_EB   }, { w: 7 } ]
+      },/*
+      { name:'E-Line -> 40',
+        steps:[ { r: d.ROUTE_ELINE,  s: d.STOP_AURORA_85TH_NB,   e: d.STOP_AURORA_105TH_NB },
+                { r: d.ROUTE_40,     s: d.STOP_AURORA_105TH_WB,  e: d.STOP_FREMONT_34TH_SB } ]
+      },*/
+      { name:'45 -> 62',
+        steps:[ { r: d.ROUTE_45,  s: d.STOP_STONE_85TH_EB,         e: d.STOP_RAVENNA_WOODLAWN_SEB }, { w: 2 },
+                { r: d.ROUTE_62,  s: d.STOP_RAVENNA_WOODLAWN_SWB,  e: d.STOP_STONE_35TH_WB        }, { w: 8 } ]
+      }
+    ];
+    
+    function defineIdentifiers(){
+      return {
+        ROUTE_45: '1_100225',
+        ROUTE_5: '1_100229',
+        ROUTE_28X: '1_100169',
+        ROUTE_40: '1_102574',
+        ROUTE_ELINE: '1_102615',
+        ROUTE_62: '1_100252',
+        ROUTE_31: '1_100184',
+        ROUTE_32: '1_100193',
+        
+        STOP_AURORA_85TH_NB: '1_7730',
+        STOP_AURORA_85TH_SB: '1_7160',
+        STOP_AURORA_85TH_WB: '1_5450',
+        STOP_AURORA_85TH_EB: '1_5370',
+        STOP_STONE_85TH_WB: '1_5440',
+        STOP_STONE_85TH_EB: '1_5380',
+        
+        STOP_AURORA_105TH_NB: '1_7810',
+        STOP_AURORA_105TH_SB: '1_7080',
+        STOP_AURORA_105TH_EB: '1_40068',
+        STOP_AURORA_105TH_WB: '1_40032',
+        
+        STOP_GREENWOOD_85TH_WB: '1_41450',
+        STOP_GREENWOOD_85TH_EB: '1_5330',
+        STOP_GREENWOOD_85TH_SB: '1_5790',
+        STOP_GREENWOOD_85TH_NB: '1_6640',
+        
+        STOP_8TH_85TH_WB: '1_37060',
+        STOP_8TH_85TH_EB: '1_41430',
+        STOP_8TH_85TH_NB: '1_28600',
+        STOP_8TH_85TH_SB: '1_28080',
+        
+        STOP_15TH_85TH_NB: '1_14360',
+        STOP_15TH_85TH_SB: '1_13600',
+        STOP_15TH_85TH_EB: '1_35600',
+        STOP_15TH_85TH_WB: '1_37081',
+        
+        STOP_20TH_85TH_WB: '1_37083',
+        STOP_20TH_85TH_EB: '1_35580',
+        
+        STOP_RAVENNA_WOODLAWN_NWB: '1_16520',
+        STOP_RAVENNA_WOODLAWN_SWB: '1_17170',
+        STOP_RAVENNA_WOODLAWN_NEB: '1_17550',
+        STOP_RAVENNA_WOODLAWN_SEB: '1_16390',
+        
+        STOP_AURORA_38TH_NWB: '1_6340',
+        STOP_AURORA_38TH_SEB: '1_6050',
+        
+        STOP_FREMONT_34TH_NB: '1_26860',
+        STOP_FREMONT_34TH_SB: '1_26510',
+        
+        STOP_STONE_35TH_WB: '1_26480',
+        STOP_STONE_35TH_EB: '1_26885',
+        
+        STOP_WOODLAWN_35TH_WB: '1_26460',
+        STOP_WOODLAWN_35TH_EB: '1_26901',
+        
+        STOP_AURORA_GALER_NB: '1_6300',
+        STOP_AURORA_GALER_SB: '1_6100',
+        STOP_DEXTER_GALER_NB: '1_18505',
+        STOP_DEXTER_GALER_SB: '1_18340',
+        
+        STOP_UNIVERSITY_CAMPUS_EB: '1_9575',
+        STOP_UNIVERSITY_CAMPUS_WB: '1_9138',
+        STOP_UNIVERSITY_41ST_NB: '1_9581',
+        STOP_UNIVERSITY_41ST_SB: '1_9142'
+      };
+    }
+    
+    var urlBase = 'http://api.pugetsound.onebusaway.org/api/where/';
+    var doc;
+    var g;
+    var vb, vbx, vby, vbh, vbw;
+    var border;
+    var colorToUse = 'blue';
+    var timeFactor = 1000 * 6;
+    var testTimeAdjustment = 0;
+    var DEFAULT_TRIES = 10;
+    var ticksPerMinute = 60000;
+
+    var callbacks = new Object();
+    function request(url, callback, tries) {
+      if (typeof(tries) === 'undefined'){
+        tries = DEFAULT_TRIES;
+      }
+      var callbackName = 'cb' + (new Date()).getTime();
+      while (typeof callbacks[callbackName] !== 'undefined') callbackName = callbackName + '_';
+      var scriptTag = createElement('script');
+      callbacks[callbackName] = {
+        url: url,
+        cb: function(r) {
+          if (r.code == 200){
+            callback(r);
+          } else if (tries > 0) {
+            request(url, callback, tries - 1);
+          } else {
+            debug.log("Oh fucking goddamn everything.");
+          }
+          vb.removeChild(scriptTag);
+          delete callbacks[callbackName];
+        }
+      };
+      scriptTag.setAttributeNS("http://www.w3.org/1999/xlink", 'href', url + '&callback=callbacks.' + callbackName + '.cb');
+      scriptTag.setAttributeNS("http://www.w3.org/1999/xlink", 'type', 'text/ecmascript');
+      vb.appendChild(scriptTag);
+    }
+    
+    function addParams(url, params) {
+      var result = url;
+      for (paramIndex in params)
+        result += params[paramIndex];
+      return result;
+    }
+
+    var API_KEY = '4f632354-2bad-4b81-8539-fc5be95aaf56';
+    function type1Method(methodName, params) {
+      return addParams(urlBase + methodName + '.json?key='+API_KEY+'&dummy='+(new Date()).getTime(), params);
+    }
+
+    function type2Method(methodName, id, params) {
+      return addParams(urlBase + methodName + '/' + id + '.json?key='+API_KEY+'&dummy='+(new Date()).getTime(), params);
+    }
+
+    function optParam(pValue, pName) {
+      return typeof pValue !== 'undefined'
+           ? '&' + pName + '=' + pValue
+           : '';
+    }
+
+    function queryStop(stopId, callback, minBefore, minAfter) {
+      var url = type2Method(
+        'arrivals-and-departures-for-stop', stopId, 
+        [ optParam(minBefore, 'minutesBefore'), optParam(minAfter, 'minutesAfter') ]);
+      request(url, callback);
+    }
+    
+    function queryTripDetails(tripId, serviceDate, callback){
+      var url = type2Method(
+        'trip-details', tripId,
+        [ optParam(serviceDate, 'serviceDate') ] );
+      request(url, callback);
+    }
+    
+    function queryTripAtStop(stopId, tripId, serviceDate, callback) {
+      var url = type2Method(
+        'arrival-and-departure-for-stop', stopId,
+        [ optParam(tripId, 'tripId'), optParam(serviceDate, 'serviceDate') ] );
+      request(url, callback);
+    }
+    
+    function actuallyGetTripAtStop(stopId, tripId, serviceDate, callback) {
+      queryTripDetails(tripId, serviceDate, function(tripResponse){
+        var entry = tripResponse.data.entry;
+        var correctTrip = false;
+        for (var i in entry.schedule.stopTimes) {
+          var _stopId = entry.schedule.stopTimes[i].stopId;
+          if (_stopId === stopId){
+            correctTrip = true;
+            queryTripAtStop(stopId, tripId, serviceDate, callback);
+            break;
+          }
+        }
+        if (!correctTrip){
+          var nextTripId = entry.schedule.nextTripId;
+          if (nextTripId !== ""){
+            actuallyGetTripAtStop(stopId, nextTripId, serviceDate, callback);
+          }
+        }
+      });
+    }
+    
+    function bestArrivalTimeEstimate(arrival){
+      return arrival.predicted ? arrival.predictedArrivalTime : arrival.scheduledArrivalTime;
+    }
+
+    function getFirstByRoute(adList, routeId, tOffset) {
+      for (adIndex in adList) {
+        ad = adList[adIndex];
+        if (ad.routeId == routeId && bestArrivalTimeEstimate(ad)>tOffset) {
+          return ad;
+        }
+      }
+      return null;
+    }
+
+    function resize(x,y,w,h) {
+      var changed = false;
+      if (x < vbx) {
+        vbx = x;
+        changed = true;
+      }
+      if (y < vby) {
+        vby = y;
+        changed = true;
+      }
+      var newWidth = x + w - vbx;
+      var newHeight = y + h - vby;
+      if (newHeight > vbh) {
+        vbh = newHeight;
+        changed = true;
+      }
+      if (newWidth > vbw) {
+        vbw = newWidth;
+        changed = true;
+      }
+      if (changed) {
+        vb.setAttribute('viewBox', '' + (vbx - 10) + ' ' + (vby - 5) + ' ' + (vbw + 20) + ' ' + (vbh + 20));
+        border.setAttribute('x', vbx - 5);
+        border.setAttribute('y', vby - 3);
+        border.setAttribute('width', vbw + 10);
+        border.setAttribute('height', vbh + 18);
+      }
+    }
+
+    function createElement(elementName) {
+      return doc.createElementNS('http://www.w3.org/2000/svg', elementName);
+    }
+
+    var baseMinutesAfter = 60;
+    var Journey_Step = function(stepDef) {
+      this.route = stepDef.r;
+      this.start = stepDef.s;
+      this.end = stepDef.e;
+      this.walkTime = stepDef.w;
+      
+      this.process = function(completionCallback, tOffset) {
+        this.onComplete = completionCallback;
+        this.processStart(tOffset);
+      };
+      
+      this.processStart = function(tOffset) {
+        var minBefore = -1 * Math.ceil(tOffset / ticksPerMinute);
+        var minAfter = baseMinutesAfter - minBefore;
+        if (typeof(this.walkTime) === 'undefined') {
+          this.isWalkSegment = false;
+          // CLOSURE
+          queryStop(
+            this.start,
+            function(startResponse) {
+              this.startResponse = startResponse;
+              this.startData = getFirstByRoute(
+                startResponse.data.entry.arrivalsAndDepartures,
+                this.route,
+                startResponse.currentTime + tOffset);
+              this.processEnd(this.startData.tripId);
+            }.bind(this),
+            minBefore,
+            minAfter
+          );
+        } else {
+          this.isWalkSegment = true;
+          this.startTime = tOffset;
+          this.endTime = tOffset + this.walkTime * ticksPerMinute;
+          this.onComplete(tOffset + this.walkTime * ticksPerMinute);
+        }
+      };
+      
+      this.processEnd = function(tripId) {
+        actuallyGetTripAtStop(
+          this.end,
+          tripId,
+          this.startData.serviceDate,
+          function(endResponse) {
+            this.endResponse = endResponse;
+            this.endData = endResponse.data.entry;
+            this.processData();
+          }.bind(this)
+        );
+      };
+      
+      this.processData = function() {
+        if (this.startData.predicted) {
+          this.predicted = true;
+          this.startTime = this.startData.predictedDepartureTime;
+          if (this.endData.predicted) {
+            this.endTime = this.endData.predictedArrivalTime;
+          } else {
+            var offSet = this.startTime - this.startResponse.currentTime;
+            this.endTime = this.endData.scheduledArrivalTime + offSet;
+          }
+        } else {
+          if (this.endData.predicted) {
+            this.predicted = true;
+            this.endTime = this.endData.predictedArrivalTime;
+            var offset = this.endData.predictedArrivalTime - this.endResponse.currentTime;
+            this.startTime = this.startData.scheduledDepartureTime + offset;
+          } else {
+            this.predicted = false;
+            this.startTime = this.startData.scheduledDepartureTime;
+            this.endTime = this.endData.scheduledArrivalTime;
+          }
+        }
+        this.currentTime = this.startResponse.currentTime;
+        this.endOffset = this.endTime - this.startResponse.currentTime;
+        
+        this.adjustTimes();
+        
+        this.onComplete(this.endOffset);
+      };
+      
+      this.adjustTimes = function() {
+        var adjustment = testTimeAdjustment * ticksPerMinute;
+        this.startTime -= adjustment;
+        this.endTime -= adjustment;
+      };
+      
+      this.drawSegment = function(t0, y){
+        if (this.isWalkSegment) {
+          this.drawWalkSegment(t0, y);
+        } else {
+          this.drawBusSegment(t0, y);
+        }
+      };
+      
+      this.drawWalkSegment = function(t0, y) {
+        var x = this.startTime / timeFactor;
+        var width = (this.endTime - this.startTime) / timeFactor;
+        drawWalkArrow(x, y+12, width);
+        
+        drawTimeMark(x + width, y + 24, this.endTime, false);
+      }
+      
+      this.drawBusSegment = function(t0, y) {
+        var x = (this.startTime - t0) / timeFactor;
+        var width = (this.endTime - this.startTime) / timeFactor;
+        var color;
+        var eString;
+        if (!this.predicted) {
+          color = 'lightgray';
+          eString = 'Unknown';
+        } else {
+          var lateBy = this.startTime - this.startData.scheduledDepartureTime;
+          if (lateBy < -1 * ticksPerMinute) {
+            color = 'red';
+            eString = msToMinAndSec(-lateBy) + ' early';
+          } else if (lateBy > 1 * ticksPerMinute) {
+            color = 'cyan';
+            eString = msToMinAndSec(lateBy) + ' late';
+          } else {
+            color = 'limegreen';
+            eString = 'On time';
+          }
+        }
+        
+        drawRectangle(x, y, width, 24, color);
+        
+        var rtext = createElement('text');
+        rtext.setAttribute('x', x + 2);
+        rtext.setAttribute('y', y+14);
+        rtext.textContent = this.startData.routeShortName;
+        g.appendChild(rtext);
+        
+        var eText = createElement('text');
+        eText.setAttribute('x', x + 2);
+        eText.setAttribute('y', y + 22);
+        eText.setAttribute('font-size', '8px');
+        eText.textContent = eString;
+        g.appendChild(eText);
+        
+        drawTimeMark(x, y + 24, this.startTime - t0, true);
+        drawTimeMark(x + width, y + 24, this.endTime - t0, false);
+      }
+    }
+    
+    function drawRectangle(x,y,width,height,color) {
+      var adRect = createElement('rect');
+      adRect.setAttribute('x', x);
+      adRect.setAttribute('y', y);
+      adRect.setAttribute('width', width);
+      adRect.setAttribute('height', height);
+      adRect.setAttribute('fill', color);
+      adRect.setAttribute('stroke', 'black');
+      g.insertBefore(adRect, g.childNodes[0]);
+      resize(x,y,width,height);
+    }
+    
+    function drawWalkArrow(x, y, width) {
+      var arrowHalfHeight = 3;
+      var arrowWidth = 5;
+      var lineWidth = width - arrowWidth;
+      var adLine = createElement('line');
+      adLine.setAttribute('x1', x);
+      adLine.setAttribute('x2', x+lineWidth);
+      adLine.setAttribute('y1', y);
+      adLine.setAttribute('y2', y);
+      adLine.setAttribute('stroke', 'black');
+      adLine.setAttribute('stroke-width', 1);
+      adLine.setAttribute('stroke-dasharray', '5,3');
+      g.insertBefore(adLine, g.childNodes[0]);
+      
+      var arrowHead = createElement('polyline');
+      arrowHead.setAttribute('points', ''
+        + (x + lineWidth) + ',' + (y - arrowHalfHeight) + ' '
+        +   (x + width)   + ',' +           y           + ' '
+        + (x + lineWidth) + ',' + (y + arrowHalfHeight));
+      arrowHead.setAttribute('fill', 'black');
+      g.insertBefore(arrowHead, adLine);
+      
+      var stopLine = createElement('line');
+      stopLine.setAttribute('x1', x + width);
+      stopLine.setAttribute('x2', x + width);
+      stopLine.setAttribute('y1', y - 12);
+      stopLine.setAttribute('y2', y + 12);
+      stopLine.setAttribute('stroke', 'black');
+      stopLine.setAttribute('stroke-width', 0.5);
+      g.insertBefore(stopLine, arrowHead);
+      
+      resize(x, y - arrowHalfHeight, width, 2 * arrowHalfHeight);
+    }
+
+    function drawTimeMark(x, y, ms, isStart) {
+      var caret = createElement('polyline');
+      caret.setAttribute('points', '' +    x    + ',' + y + ' '
+                                           + (x - 2) + ',' + (y + 3) + ' '
+                                           + (x + 2) + ',' + (y + 3) );
+      caret.setAttribute('fill', 'black');
+      g.appendChild(caret);
+      
+      var anchor = typeof isStart !== 'undefined'
+                   ? isStart ? 'start' : 'end'
+                   : 'middle';
+      var text = createElement('text');
+      text.textContent = msToMinAndSec(ms);
+      text.setAttribute('x', x);
+      text.setAttribute('y', y + 9.5);
+      text.setAttribute('text-anchor', anchor );
+      text.setAttribute('font-size', '7.5px');
+      g.appendChild(text);
+    }
+    
+    function msToMinAndSec(ms) {
+      var negative = false;
+      var seconds = Math.round(ms / 1000);
+      if (seconds < 0) {
+        negative = true;
+        seconds = -seconds;
+      }
+      var minutes = Math.floor(seconds / 60);
+      var remainder = seconds % 60;
+      if (remainder < 10) { remainder = '0' + remainder; }
+      return (negative ? '-' : '') + minutes + ':' + remainder;
+    }
+    
+    var Journey = function(steps) {
+      this.stepDefs = steps;
+      this.steps = [];
+      
+      for (stepIndex in steps) {
+        this.steps.push(new Journey_Step(steps[stepIndex]));
+      }
+      
+      this.load = function(y) {
+        // CLOSURE
+        var nextCallbackObj = {};
+        nextCallbackObj.fn = function(unused) { this.drawSegments(y); }.bind(this);
+        nextCallbackObj.debug_name = 'final_callback';
+        for (stepIndex in this.steps) {
+          var realIndex = (this.steps.length - stepIndex) - 1;
+          var callbackObj = {};
+          callbackObj.nextObj = nextCallbackObj;
+          callbackObj.targetStep = this.steps[realIndex];
+          callbackObj.debug_name = 'callback ' + realIndex;
+          callbackObj.fn = function(tOffset) { this.targetStep.process(this.nextObj.fn, tOffset); }.bind(callbackObj);
+          nextCallbackObj = callbackObj;
+        }
+        nextCallbackObj.fn(testTimeAdjustment);
+      };
+      
+      this.drawSegments = function(y) {
+        var t0;
+        for (stepIndex in this.steps) {
+          if (typeof(t0) === 'undefined' || this.steps[stepIndex].currentTime < t0) {
+            t0 = this.steps[stepIndex].currentTime
+          }
+        }
+        
+        for (stepIndex in this.steps) {
+          this.steps[stepIndex].drawSegment(t0, y);
+        }
+      };
+    };
+
+    function main(evt) {
+      doc = evt.target.ownerDocument
+      g = doc.getElementById('block')
+      vb = doc.getElementById('vb');
+      vbx = 0;
+      vby = 0;
+      vbh = 0;
+      vbw = 0;
+      border = doc.getElementById('border');
+      var status = doc.getElementById('status');
+      var y = 0;
+      
+      var journeys = [];
+      
+      for (journeyIndex in journeyDefinitions) {
+        var journey = new Journey(journeyDefinitions[journeyIndex].steps);
+        journeys.push(journey);
+        journey.load(y);
+        y += 36;
+      }
+    }
+  ]]></script>
+  <g id="block" fill="black" font-family="sans-serif" font-size="14px">
+    <rect id="border" stroke="black" fill="none" x="0" y="0" width="0" height="0"></rect>
+  </g>
+</svg>
+
+
