@@ -91,7 +91,7 @@ var handleStopResponse;
 function QueryStop(stopId) {
     var url = "./dummy.json";
     if (stopId !== "dummy") {
-        url = "http://api.pugetsound.onebusaway.org/api/where/"
+        url = "https://api.pugetsound.onebusaway.org/api/where/"
             + "arrivals-and-departures-for-stop/"
             + stopId + ".json?"
             + "key=" + urlParams["key"]
@@ -120,7 +120,7 @@ function LoadStopInfo(response) {
 }
 
 function QueryStopInfo(stopId) {
-    url = "http://api.pugetsound.onebusaway.org/api/where/"
+    url = "https://api.pugetsound.onebusaway.org/api/where/"
             + "stop/"
             + stopId + ".json?"
             + "key=" + urlParams["key"]
