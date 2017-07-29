@@ -13,6 +13,24 @@ function defineJourneys() {
     var d = defineIdentifiers();
     return [
         {
+            name: '62 -> 45',
+            steps: [
+                walkStep(8),
+                busStep(d.route.Number62, d.stop.OnStone.At35th.EB, d.stop.OnRavenna.AtWoodlawn.SEB),
+                walkStep(2),
+                busStep(d.route.Number45, d.stop.OnRavenna.AtWoodlawn.NWB, d.stop.OnStone.At85th.WB)
+            ]
+        },
+        {
+            name: '62 NB -> E-Line',
+            steps: [
+                walkStep(8),
+                busStep(d.route.Number62, d.stop.OnStone.At35th.EB, d.stop.OnStone.At45th.EB),
+                walkStep(7),
+                busStep(d.route.ELine, d.stop.OnAurora.At46th.NB, d.stop.OnAurora.At85th.NB)
+            ]
+        },
+        {
             name: '28X -> 45',
             steps: [
                 walkStep(15),
@@ -40,21 +58,12 @@ function defineJourneys() {
             ]
         },
         {
-            name: '62 -> E-Line',
+            name: '62 SB -> E-Line',
             steps: [
                 walkStep(7),
                 busStep(d.route.Number62, d.stop.OnStone.At35th.WB, d.stop.OnDexter.AtGaler.SB),
                 walkStep(4),
                 busStep(d.route.ELine, d.stop.OnAurora.AtGaler.NB, d.stop.OnAurora.At85th.NB)
-            ]
-        },
-        {
-            name: '62 -> 45',
-            steps: [
-                walkStep(8),
-                busStep(d.route.Number62, d.stop.OnStone.At35th.EB, d.stop.OnRavenna.AtWoodlawn.SEB),
-                walkStep(2),
-                busStep(d.route.Number45, d.stop.OnRavenna.AtWoodlawn.NWB, d.stop.OnStone.At85th.WB)
             ]
         },
         {

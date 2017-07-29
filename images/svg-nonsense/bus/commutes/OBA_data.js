@@ -63,6 +63,18 @@ function prettifyStops(raw) {
             SB: raw.STOP_UNIVERSITY_41ST_SB
         },
     };
+    var On45th = {
+        AtStone: {
+            SB: raw.STOP_STONE_45TH_SB,
+            EB: raw.STOP_STONE_45TH_EB
+        }
+    };
+    var On46th = {
+        AtAurora: {
+            NB: raw.STOP_AURORA_46TH_NB,
+            SB: raw.STOP_AURORA_46TH_SB
+        }
+    };
     var On85th = {
         At8th: On8th.At85th,
         At15th: On15th.At85th,
@@ -94,6 +106,7 @@ function prettifyStops(raw) {
     };
     var OnAurora = {
         At38th: On38th.AtAurora,
+        At46th: On46th.AtAurora,
         At85th: On85th.AtAurora,
         At105th: On105th.AtAurora,
         AtGaler: {
@@ -166,6 +179,7 @@ function prettifyStops(raw) {
     };
     var OnStone = {
         At35th: On35th.AtStone,
+        At45th: On45th.AtStone,
         At85th: On85th.AtStone
     };
     var OnUniversity = {
@@ -201,6 +215,8 @@ function prettifyStops(raw) {
         On35th: On35th,
         On38th: On38th,
         On41st: On41st,
+        On45th: On45th,
+        On46th: On46th,
         On85th: On85th,
         On105th: On105th,
         OnAurora: OnAurora,
@@ -277,6 +293,11 @@ function defineIdentifiers() {
         STOP_RAVENNA_WOODLAWN_NEB: '1_17550',
         STOP_RAVENNA_WOODLAWN_SEB: '1_16390',
 
+        STOP_AURORA_46TH_NB: '1_75409',
+        STOP_AURORA_46TH_SB: '1_75408',
+        STOP_STONE_45TH_SB: '1_7350',
+        STOP_STONE_45TH_EB: '1_29231',
+
         STOP_AURORA_38TH_NWB: '1_6340',
         STOP_AURORA_38TH_SEB: '1_6050',
 
@@ -334,9 +355,6 @@ function defineIdentifiers() {
         ELine: raw.ROUTE_ELINE,
         Link: raw.ROUTE_LINK
     };
-
-    // prettify stops
-
 
     return { raw: raw, route: route, stop: prettifyStops(raw) };
 }

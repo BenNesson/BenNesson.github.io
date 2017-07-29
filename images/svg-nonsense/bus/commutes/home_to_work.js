@@ -30,6 +30,22 @@ function defineJourneys() {
             ]
         },
         {
+            name: 'E-Line -> walk',
+            steps: [
+                busStep(d.route.ELine, d.stop.OnAurora.At85th.SB, d.stop.OnAurora.At46th.SB),
+                walkStep(30)
+            ]
+        },
+        {
+            name: 'E-Line -> 62 SB',
+            steps: [
+                busStep(d.route.ELine, d.stop.OnAurora.At85th.SB, d.stop.OnAurora.At46th.SB),
+                walkStep(7),
+                busStep(d.route.Number62, d.stop.OnStone.At45th.SB, d.stop.OnStone.At35th.WB),
+                walkStep(8)
+            ]
+        },
+        {
             name: 'E-Line -> 28X',
             steps: [
                 busStep(d.route.ELine, d.stop.OnAurora.At85th.SB, d.stop.OnAurora.AtGaler.SB),
@@ -39,7 +55,7 @@ function defineJourneys() {
             ]
         },
         {
-            name: 'E-Line -> 62',
+            name: 'E-Line -> 62 NB',
             steps: [
                 busStep(d.route.ELine, d.stop.OnAurora.At85th.SB, d.stop.OnAurora.AtGaler.SB),
                 walkStep(3),
