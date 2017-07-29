@@ -13,6 +13,33 @@ function defineJourneys() {
     var d = defineIdentifiers();
     return [
         {
+            name: '32 -> 45',
+            steps: [
+                walkStep(3),
+                busStep(d.route.Number32, d.stop.OnWoodlawn.At35th.EB, d.stop.OnUniversity.AtCampusParkway.EB),
+                walkStep(2),
+                busStep(d.route.Number45, d.stop.OnUniversity.At41st.NB, d.stop.OnStone.At85th.WB)
+            ]
+        },
+        {
+            name: '31 -> 45',
+            steps: [
+                walkStep(3),
+                busStep(d.route.Number31, d.stop.OnWoodlawn.At35th.EB, d.stop.OnUniversity.AtCampusParkway.EB),
+                walkStep(2),
+                busStep(d.route.Number45, d.stop.OnUniversity.At41st.NB, d.stop.OnStone.At85th.WB)
+            ]
+        },
+        {
+            name: '62 SB -> E-Line',
+            steps: [
+                walkStep(7),
+                busStep(d.route.Number62, d.stop.OnStone.At35th.WB, d.stop.OnDexter.AtGaler.SB),
+                walkStep(4),
+                busStep(d.route.ELine, d.stop.OnAurora.AtGaler.NB, d.stop.OnAurora.At85th.NB)
+            ]
+        },
+        {
             name: '62 -> 45',
             steps: [
                 walkStep(8),
@@ -55,33 +82,6 @@ function defineJourneys() {
                 busStep(d.route.Number28X, d.stop.OnAurora.At38th.SEB, d.stop.OnAurora.AtGaler.SB),
                 walkStep(2),
                 busStep(d.route.ELine, d.stop.OnAurora.AtGaler.NB, d.stop.OnAurora.At85th.NB)
-            ]
-        },
-        {
-            name: '62 SB -> E-Line',
-            steps: [
-                walkStep(7),
-                busStep(d.route.Number62, d.stop.OnStone.At35th.WB, d.stop.OnDexter.AtGaler.SB),
-                walkStep(4),
-                busStep(d.route.ELine, d.stop.OnAurora.AtGaler.NB, d.stop.OnAurora.At85th.NB)
-            ]
-        },
-        {
-            name: '32 -> 45',
-            steps: [
-                walkStep(3),
-                busStep(d.route.Number32, d.stop.OnWoodlawn.At35th.EB, d.stop.OnUniversity.AtCampusParkway.EB),
-                walkStep(2),
-                busStep(d.route.Number45, d.stop.OnUniversity.At41st.NB, d.stop.OnStone.At85th.WB)
-            ]
-        },
-        {
-            name: '31 -> 45',
-            steps: [
-                walkStep(3),
-                busStep(d.route.Number31, d.stop.OnWoodlawn.At35th.EB, d.stop.OnUniversity.AtCampusParkway.EB),
-                walkStep(2),
-                busStep(d.route.Number45, d.stop.OnUniversity.At41st.NB, d.stop.OnStone.At85th.WB)
             ]
         }
     ];
