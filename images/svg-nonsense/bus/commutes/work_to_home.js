@@ -1,35 +1,47 @@
 function defineJourneys() {
-    var d = defineIdentifiers();
+    var d = _defineIdentifiers();
     return [
         {
-            name: '45 -> 5',
-            steps: [{ r: d.ROUTE_45, s: d.STOP_AURORA_85TH_WB, e: d.STOP_GREENWOOD_85TH_WB }, { w: 2 },
-            { r: d.ROUTE_5, s: d.STOP_GREENWOOD_85TH_SB, e: d.STOP_AURORA_38TH_SEB }, { w: 15 }]
+            name: '28X -> 45',
+            steps: [{ w: 15 }, { r: d.ROUTE_28X, s: d.STOP_AURORA_38TH_NWB, e: d.STOP_8TH_85TH_NB },
+            { w: 3 }, { r: d.ROUTE_45, s: d.STOP_8TH_85TH_EB, e: d.STOP_AURORA_85TH_EB }]
         },
         {
-            name: '45 -> 28X',
-            steps: [{ r: d.ROUTE_45, s: d.STOP_AURORA_85TH_WB, e: d.STOP_8TH_85TH_WB }, { w: 3 },
-            { r: d.ROUTE_28X, s: d.STOP_8TH_85TH_SB, e: d.STOP_AURORA_38TH_SEB }, { w: 15 }]
+            name: '5 -> 45',
+            steps: [{ w: 15 }, { r: d.ROUTE_5, s: d.STOP_AURORA_38TH_NWB, e: d.STOP_GREENWOOD_85TH_NB },
+            { w: 2 }, { r: d.ROUTE_45, s: d.STOP_GREENWOOD_85TH_EB, e: d.STOP_AURORA_85TH_EB }]
         },
         {
-            name: 'E-Line -> 28X',
-            steps: [{ r: d.ROUTE_ELINE, s: d.STOP_AURORA_85TH_SB, e: d.STOP_AURORA_GALER_SB }, { w: 2 },
-            { r: d.ROUTE_28X, s: d.STOP_AURORA_GALER_NB, e: d.STOP_AURORA_38TH_NWB }, { w: 16 }]
+            name: '28X -> E-Line',
+            steps: [{ w: 16 }, { r: d.ROUTE_28X, s: d.STOP_AURORA_38TH_SEB, e: d.STOP_AURORA_GALER_SB },
+            { w: 2 }, { r: d.ROUTE_ELINE, s: d.STOP_AURORA_GALER_NB, e: d.STOP_AURORA_85TH_NB }]
         },
         {
-            name: 'E-Line -> 62',
-            steps: [{ r: d.ROUTE_ELINE, s: d.STOP_AURORA_85TH_SB, e: d.STOP_AURORA_GALER_SB }, { w: 3 },
-            { r: d.ROUTE_62, s: d.STOP_DEXTER_GALER_NB, e: d.STOP_STONE_35TH_EB }, { w: 7 }]
+            name: '62 -> E-Line',
+            steps: [{ w: 7 }, { r: d.ROUTE_62, s: d.STOP_STONE_35TH_WB, e: d.STOP_DEXTER_GALER_SB },
+            { w: 4 }, { r: d.ROUTE_ELINE, s: d.STOP_AURORA_GALER_NB, e: d.STOP_AURORA_85TH_NB }]
         },
         {
-            name: '45 -> 62',
-            steps: [{ r: d.ROUTE_45, s: d.STOP_STONE_85TH_EB, e: d.STOP_RAVENNA_WOODLAWN_SEB }, { w: 2 },
-            { r: d.ROUTE_62, s: d.STOP_RAVENNA_WOODLAWN_SWB, e: d.STOP_STONE_35TH_WB }, { w: 8 }]
+            name: '62 -> 45',
+            steps: [{ w: 8 }, { r: d.ROUTE_62, s: d.STOP_STONE_35TH_EB, e: d.STOP_RAVENNA_WOODLAWN_SEB },
+            { w: 2 }, { r: d.ROUTE_45, s: d.STOP_RAVENNA_WOODLAWN_NWB, e: d.STOP_STONE_85TH_WB }]
+        },
+        {
+            name: '32 -> 45',
+            steps: [{ w: 3 }, { r: d.ROUTE_32, s: d.STOP_WOODLAWN_35TH_EB, e: d.STOP_UNIVERSITY_CAMPUS_EB },
+            { w: 2 }, { r: d.ROUTE_45, s: d.STOP_UNIVERSITY_41ST_NB, e: d.STOP_STONE_85TH_WB }]
+        },
+        {
+            name: '31 -> 45',
+            steps: [{ w: 3 }, { r: d.ROUTE_31, s: d.STOP_WOODLAWN_35TH_EB, e: d.STOP_UNIVERSITY_CAMPUS_EB },
+            { w: 2 }, { r: d.ROUTE_45, s: d.STOP_UNIVERSITY_41ST_NB, e: d.STOP_STONE_85TH_WB }]
         }
     ];
 }
 
-function defineIdentifiers() {
+
+
+function _defineIdentifiers() {
     return {
         ROUTE_45: '1_100225',
         ROUTE_5: '1_100229',
