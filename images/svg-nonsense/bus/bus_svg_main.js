@@ -1,6 +1,6 @@
 var journeyDefinitions = defineJourneys();
 
-var urlBase = 'http://api.pugetsound.onebusaway.org/api/where/';
+var urlBase = 'https://api.pugetsound.onebusaway.org/api/where/';
 var doc;
 var g;
 var vb, vbx, vby, vbh, vbw;
