@@ -1,4 +1,4 @@
-/// <reference path="./OBA_data.js" />
+/// <reference path="../OBA_data.js" />
 
 function walkStep(min) {
     return { w: min };
