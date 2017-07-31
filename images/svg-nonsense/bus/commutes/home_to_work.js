@@ -40,7 +40,7 @@ function defineJourneys() {
             name: 'E-Line -> 62 SB',
             steps: [
                 busStep(d.route.ELine, d.stop.OnAurora.At85th.SB, d.stop.OnAurora.At46th.SB),
-                walkStep(7),
+                walkStep(6),
                 busStep(d.route.Number62, d.stop.OnStone.At45th.SB, d.stop.OnStone.At35th.WB),
                 walkStep(8)
             ]

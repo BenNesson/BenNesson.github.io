@@ -295,6 +295,11 @@ var Journey_Step = function (stepDef) {
     }
 }
 
+function RectangleClick(rect) {
+    rect.setAttribute('fill', rect.isSelected ? rect.unselectedColor : 'violet');
+    rect.isSelected = !rect.isSelected;
+}
+
 function drawRectangle(x, y, width, height, color) {
     var adRect = createElement('rect');
     adRect.setAttribute('x', x);
@@ -303,6 +308,10 @@ function drawRectangle(x, y, width, height, color) {
     adRect.setAttribute('height', height);
     adRect.setAttribute('fill', color);
     adRect.setAttribute('stroke', 'black');
+
+    adRect.unselectedColor = color;
+    adRect.onclick = function () { RectangleClick(adRect); }
+
     g.insertBefore(adRect, g.childNodes[0]);
     resize(x, y, width, height);
 }
@@ -374,12 +383,16 @@ function msToMinAndSec(ms) {
     return (negative ? '-' : '') + minutes + ':' + remainder;
 }
 
+function ParseStepDefinition(stepDef) {
+    return new Journey_Step(stepDef);
+}
+
 var Journey = function (steps) {
     this.stepDefs = steps;
     this.steps = [];
 
     for (stepIndex in steps) {
-        this.steps.push(new Journey_Step(steps[stepIndex]));
+        this.steps.push(ParseStepDefinition(steps[stepIndex]));
     }
 
     this.load = function (y) {
