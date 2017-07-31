@@ -34,7 +34,6 @@ function request(url, callback, tries) {
         }
     };
     scriptTag.setAttributeNS("http://www.w3.org/1999/xlink", 'href', url + '&callback=callbacks.' + callbackName + '.cb');
-    //scriptTag.setAttributeNS("http://www.w3.org/1999/xlink", 'type', 'text/ecmascript');
     vb.appendChild(scriptTag);
 }
 
