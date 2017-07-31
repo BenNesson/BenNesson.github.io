@@ -34,7 +34,7 @@ function request(url, callback, tries) {
         }
     };
     scriptTag.setAttributeNS("http://www.w3.org/1999/xlink", 'href', url + '&callback=callbacks.' + callbackName + '.cb');
-    scriptTag.setAttributeNS("http://www.w3.org/1999/xlink", 'type', 'text/ecmascript');
+    //scriptTag.setAttributeNS("http://www.w3.org/1999/xlink", 'type', 'text/ecmascript');
     vb.appendChild(scriptTag);
 }
 
@@ -296,8 +296,8 @@ var Journey_Step = function (stepDef) {
 }
 
 function RectangleClick(rect) {
-    rect.setAttribute('fill', rect.isSelected ? rect.unselectedColor : 'violet');
-    rect.isSelected = !rect.isSelected;
+    rect.setAttribute('fill', rect.isActivated ? rect.unselectedColor : 'violet');
+    rect.isActivated = !rect.isActivated;
 }
 
 function drawRectangle(x, y, width, height, color) {
