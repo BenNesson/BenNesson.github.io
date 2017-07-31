@@ -38,7 +38,7 @@ function request(url, callback, tries) {
 }
 
 function addParams(url, params) {
-    var result = url;
+    let result = url;
     for (paramIndex in params)
         result += params[paramIndex];
     return result;
