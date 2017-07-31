@@ -165,7 +165,6 @@ var Journey_Step = function (stepDef) {
         let minAfter = baseMinutesAfter - minBefore;
         if (typeof (this.walkTime) === 'undefined') {
             this.isWalkSegment = false;
-            // CLOSURE
             queryStop(
                 this.start,
                 function (startResponse) {
@@ -395,7 +394,6 @@ var Journey = function (steps) {
     }
 
     this.load = function (y) {
-        // CLOSURE
         let nextCallbackObj = {};
         nextCallbackObj.fn = function (unused) { this.drawSegments(y); }.bind(this);
         nextCallbackObj.debug_name = 'final_callback';
