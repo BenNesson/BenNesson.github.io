@@ -16,9 +16,9 @@ function request(url, callback, tries) {
     if (typeof (tries) === 'undefined') {
         tries = DEFAULT_TRIES;
     }
-    var callbackName = 'cb' + (new Date()).getTime();
+    let callbackName = 'cb' + (new Date()).getTime();
     while (typeof callbacks[callbackName] !== 'undefined') callbackName = callbackName + '_';
-    var scriptTag = createElement('script');
+    let scriptTag = createElement('script');
     callbacks[callbackName] = {
         url: url,
         cb: function (r) {
@@ -39,7 +39,7 @@ function request(url, callback, tries) {
 
 function addParams(url, params) {
     let result = url;
-    for (paramIndex in params)
+    for (let paramIndex in params)
         result += params[paramIndex];
     return result;
 }
@@ -60,21 +60,21 @@ function optParam(pValue, pName) {
 }
 
 function queryStop(stopId, callback, minBefore, minAfter) {
-    var url = type2Method(
+    let url = type2Method(
         'arrivals-and-departures-for-stop', stopId,
         [optParam(minBefore, 'minutesBefore'), optParam(minAfter, 'minutesAfter')]);
     request(url, callback);
 }
 
 function queryTripDetails(tripId, serviceDate, callback) {
-    var url = type2Method(
+    let url = type2Method(
         'trip-details', tripId,
         [optParam(serviceDate, 'serviceDate')]);
     request(url, callback);
 }
 
 function queryTripAtStop(stopId, tripId, serviceDate, callback) {
-    var url = type2Method(
+    let url = type2Method(
         'arrival-and-departure-for-stop', stopId,
         [optParam(tripId, 'tripId'), optParam(serviceDate, 'serviceDate')]);
     request(url, callback);
@@ -82,10 +82,10 @@ function queryTripAtStop(stopId, tripId, serviceDate, callback) {
 
 function actuallyGetTripAtStop(stopId, tripId, serviceDate, callback) {
     queryTripDetails(tripId, serviceDate, function (tripResponse) {
-        var entry = tripResponse.data.entry;
-        var correctTrip = false;
-        for (var i in entry.schedule.stopTimes) {
-            var _stopId = entry.schedule.stopTimes[i].stopId;
+        let entry = tripResponse.data.entry;
+        let correctTrip = false;
+        for (let i in entry.schedule.stopTimes) {
+            let _stopId = entry.schedule.stopTimes[i].stopId;
             if (_stopId === stopId) {
                 correctTrip = true;
                 queryTripAtStop(stopId, tripId, serviceDate, callback);
@@ -93,7 +93,7 @@ function actuallyGetTripAtStop(stopId, tripId, serviceDate, callback) {
             }
         }
         if (!correctTrip) {
-            var nextTripId = entry.schedule.nextTripId;
+            let nextTripId = entry.schedule.nextTripId;
             if (nextTripId !== "") {
                 actuallyGetTripAtStop(stopId, nextTripId, serviceDate, callback);
             }
@@ -106,7 +106,7 @@ function bestArrivalTimeEstimate(arrival) {
 }
 
 function getFirstByRoute(adList, routeId, tOffset) {
-    for (adIndex in adList) {
+    for (let adIndex in adList) {
         ad = adList[adIndex];
         if (ad.routeId == routeId && bestArrivalTimeEstimate(ad) > tOffset) {
             return ad;
@@ -116,7 +116,7 @@ function getFirstByRoute(adList, routeId, tOffset) {
 }
 
 function resize(x, y, w, h) {
-    var changed = false;
+    let changed = false;
     if (x < vbx) {
         vbx = x;
         changed = true;
@@ -125,8 +125,8 @@ function resize(x, y, w, h) {
         vby = y;
         changed = true;
     }
-    var newWidth = x + w - vbx;
-    var newHeight = y + h - vby;
+    let newWidth = x + w - vbx;
+    let newHeight = y + h - vby;
     if (newHeight > vbh) {
         vbh = newHeight;
         changed = true;
@@ -161,8 +161,8 @@ var Journey_Step = function (stepDef) {
     };
 
     this.processStart = function (tOffset) {
-        var minBefore = -1 * Math.ceil(tOffset / ticksPerMinute);
-        var minAfter = baseMinutesAfter - minBefore;
+        let minBefore = -1 * Math.ceil(tOffset / ticksPerMinute);
+        let minAfter = baseMinutesAfter - minBefore;
         if (typeof (this.walkTime) === 'undefined') {
             this.isWalkSegment = false;
             // CLOSURE
@@ -207,14 +207,14 @@ var Journey_Step = function (stepDef) {
             if (this.endData.predicted) {
                 this.endTime = this.endData.predictedArrivalTime;
             } else {
-                var offSet = this.startTime - this.startResponse.currentTime;
+                let offSet = this.startTime - this.startResponse.currentTime;
                 this.endTime = this.endData.scheduledArrivalTime + offSet;
             }
         } else {
             if (this.endData.predicted) {
                 this.predicted = true;
                 this.endTime = this.endData.predictedArrivalTime;
-                var offset = this.endData.predictedArrivalTime - this.endResponse.currentTime;
+                let offset = this.endData.predictedArrivalTime - this.endResponse.currentTime;
                 this.startTime = this.startData.scheduledDepartureTime + offset;
             } else {
                 this.predicted = false;
@@ -231,7 +231,7 @@ var Journey_Step = function (stepDef) {
     };
 
     this.adjustTimes = function () {
-        var adjustment = testTimeAdjustment * ticksPerMinute;
+        let adjustment = testTimeAdjustment * ticksPerMinute;
         this.startTime -= adjustment;
         this.endTime -= adjustment;
     };
@@ -245,23 +245,23 @@ var Journey_Step = function (stepDef) {
     };
 
     this.drawWalkSegment = function (t0, y) {
-        var x = this.startTime / timeFactor;
-        var width = (this.endTime - this.startTime) / timeFactor;
+        let x = this.startTime / timeFactor;
+        let width = (this.endTime - this.startTime) / timeFactor;
         drawWalkArrow(x, y + 12, width);
 
         drawTimeMark(x + width, y + 24, this.endTime, false);
     }
 
     this.drawBusSegment = function (t0, y) {
-        var x = (this.startTime - t0) / timeFactor;
-        var width = (this.endTime - this.startTime) / timeFactor;
-        var color;
-        var eString;
+        let x = (this.startTime - t0) / timeFactor;
+        let width = (this.endTime - this.startTime) / timeFactor;
+        let color;
+        let eString;
         if (!this.predicted) {
             color = 'lightgray';
             eString = 'Unknown';
         } else {
-            var lateBy = this.startTime - this.startData.scheduledDepartureTime;
+            let lateBy = this.startTime - this.startData.scheduledDepartureTime;
             if (lateBy < - 1 * ticksPerMinute) {
                 color = 'red';
                 eString = msToMinAndSec(-lateBy) + ' early';
@@ -276,13 +276,13 @@ var Journey_Step = function (stepDef) {
 
         drawRectangle(x, y, width, 24, color);
 
-        var rtext = createElement('text');
+        let rtext = createElement('text');
         rtext.setAttribute('x', x + 2);
         rtext.setAttribute('y', y + 14);
         rtext.textContent = this.startData.routeShortName;
         g.appendChild(rtext);
 
-        var eText = createElement('text');
+        let eText = createElement('text');
         eText.setAttribute('x', x + 2);
         eText.setAttribute('y', y + 22);
         eText.setAttribute('font-size', '8px');
@@ -300,7 +300,7 @@ function RectangleClick(rect) {
 }
 
 function drawRectangle(x, y, width, height, color) {
-    var adRect = createElement('rect');
+    let adRect = createElement('rect');
     adRect.setAttribute('x', x);
     adRect.setAttribute('y', y);
     adRect.setAttribute('width', width);
@@ -316,10 +316,10 @@ function drawRectangle(x, y, width, height, color) {
 }
 
 function drawWalkArrow(x, y, width) {
-    var arrowHalfHeight = 3;
-    var arrowWidth = 5;
-    var lineWidth = width - arrowWidth;
-    var adLine = createElement('line');
+    let arrowHalfHeight = 3;
+    let arrowWidth = 5;
+    let lineWidth = width - arrowWidth;
+    let adLine = createElement('line');
     adLine.setAttribute('x1', x);
     adLine.setAttribute('x2', x + lineWidth);
     adLine.setAttribute('y1', y);
@@ -329,7 +329,7 @@ function drawWalkArrow(x, y, width) {
     adLine.setAttribute('stroke-dasharray', '5,3');
     g.insertBefore(adLine, g.childNodes[0]);
 
-    var arrowHead = createElement('polyline');
+    let arrowHead = createElement('polyline');
     arrowHead.setAttribute('points', ''
         + (x + lineWidth) + ',' + (y - arrowHalfHeight) + ' '
         + (x + width) + ',' + y + ' '
@@ -337,7 +337,7 @@ function drawWalkArrow(x, y, width) {
     arrowHead.setAttribute('fill', 'black');
     g.insertBefore(arrowHead, adLine);
 
-    var stopLine = createElement('line');
+    let stopLine = createElement('line');
     stopLine.setAttribute('x1', x + width);
     stopLine.setAttribute('x2', x + width);
     stopLine.setAttribute('y1', y - 12);
@@ -350,17 +350,17 @@ function drawWalkArrow(x, y, width) {
 }
 
 function drawTimeMark(x, y, ms, isStart) {
-    var caret = createElement('polyline');
+    let caret = createElement('polyline');
     caret.setAttribute('points', '' + x + ',' + y + ' '
         + (x - 2) + ',' + (y + 3) + ' '
         + (x + 2) + ',' + (y + 3));
     caret.setAttribute('fill', 'black');
     g.appendChild(caret);
 
-    var anchor = typeof isStart !== 'undefined'
+    let anchor = typeof isStart !== 'undefined'
         ? isStart ? 'start' : 'end'
         : 'middle';
-    var text = createElement('text');
+    let text = createElement('text');
     text.textContent = msToMinAndSec(ms);
     text.setAttribute('x', x);
     text.setAttribute('y', y + 9.5);
@@ -370,14 +370,14 @@ function drawTimeMark(x, y, ms, isStart) {
 }
 
 function msToMinAndSec(ms) {
-    var negative = false;
-    var seconds = Math.round(ms / 1000);
+    let negative = false;
+    let seconds = Math.round(ms / 1000);
     if (seconds < 0) {
         negative = true;
         seconds = -seconds;
     }
-    var minutes = Math.floor(seconds / 60);
-    var remainder = seconds % 60;
+    let minutes = Math.floor(seconds / 60);
+    let remainder = seconds % 60;
     if (remainder < 10) { remainder = '0' + remainder; }
     return (negative ? '-' : '') + minutes + ':' + remainder;
 }
@@ -390,18 +390,18 @@ var Journey = function (steps) {
     this.stepDefs = steps;
     this.steps = [];
 
-    for (stepIndex in steps) {
+    for (let stepIndex in steps) {
         this.steps.push(ParseStepDefinition(steps[stepIndex]));
     }
 
     this.load = function (y) {
         // CLOSURE
-        var nextCallbackObj = {};
+        let nextCallbackObj = {};
         nextCallbackObj.fn = function (unused) { this.drawSegments(y); }.bind(this);
         nextCallbackObj.debug_name = 'final_callback';
-        for (stepIndex in this.steps) {
-            var realIndex = (this.steps.length - stepIndex) - 1;
-            var callbackObj = {};
+        for (let stepIndex in this.steps) {
+            let realIndex = (this.steps.length - stepIndex) - 1;
+            let callbackObj = {};
             callbackObj.nextObj = nextCallbackObj;
             callbackObj.targetStep = this.steps[realIndex];
             callbackObj.debug_name = 'callback ' + realIndex;
@@ -412,14 +412,14 @@ var Journey = function (steps) {
     };
 
     this.drawSegments = function (y) {
-        var t0;
-        for (stepIndex in this.steps) {
+        let t0;
+        for (let stepIndex in this.steps) {
             if (typeof (t0) === 'undefined' || this.steps[stepIndex].currentTime < t0) {
                 t0 = this.steps[stepIndex].currentTime
             }
         }
 
-        for (stepIndex in this.steps) {
+        for (let stepIndex in this.steps) {
             this.steps[stepIndex].drawSegment(t0, y);
         }
     };
@@ -434,12 +434,12 @@ function main(evt) {
     vbh = 0;
     vbw = 0;
     border = doc.getElementById('border');
-    var status = doc.getElementById('status');
-    var y = 0;
-    var journeys = [];
+    let status = doc.getElementById('status');
+    let y = 0;
+    let journeys = [];
 
-    for (journeyIndex in journeyDefinitions) {
-        var journey = new Journey(journeyDefinitions[journeyIndex].steps);
+    for (let journeyIndex in journeyDefinitions) {
+        let journey = new Journey(journeyDefinitions[journeyIndex].steps);
         journeys.push(journey);
         journey.load(y);
         y += 36;
