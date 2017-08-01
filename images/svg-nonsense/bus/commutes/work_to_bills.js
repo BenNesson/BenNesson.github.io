@@ -7,17 +7,35 @@ function defineJourneys() {
     let d = defineIdentifiers();
     let route = d.route;
     let stop = d.stop;
-    let ride62West = ride(route.Number62).from(stop.OnStone.At35th.WB),
-        ride62Downtown = ride62West.to(stop.On3rd.AtPine.SEB),
-        ride31East = ride(route.Number31).from(stop.OnWoodlawn.At35th.EB),
-        ride32East = ride(route.Number32).from(stop.OnWoodlawn.At35th.EB),
-        rideLinkUDistToCapHill = ride(route.Link)
+    // define the stuff that gets used multiple times.
+    let ride62West = ride(route.Number62)
+            .from(stop.OnStone.At35th.WB),
+        ride62Downtown = ride62West
+            .to(stop.On3rd.AtPine.SEB),
+        ride31East = ride(route.Number31)
+            .from(stop.OnWoodlawn.At35th.EB),
+        ride32East = ride(route.Number32)
+            .from(stop.OnWoodlawn.At35th.EB),
+        rideLink = ride(route.Link),
+        rideLinkUDistToCapHill = rideLink
             .from(stop.Misc.UniversityDistrictLinkStation.SB)
             .to(stop.Misc.CapitolHillLinkStation.SB),
-        ride49FromUDistToCapitolHill = ride(route.Number49)
+        ride49 = ride(route.Number49),
+        ride49FromUDistToCapitolHill = ride49
             .from(stop.On15th.AtCampusParkway.SB)
             .to(stop.OnBroadway.AtPine.WB);
     return [
+        {
+            name: '62 -> 8',
+            steps: [
+                walk(7),
+                ride62West.to(stop.OnDexter.AtDenny.SB),
+                ride(route.Number8)
+                    .from(stop.OnDexter.AtDenny.EB)
+                    .to(stop.OnOlive.AtDenny.EB),
+                walk(8)
+            ]
+        },
         {
             name: '62 -> 11',
             steps: [
@@ -31,22 +49,11 @@ function defineJourneys() {
             ]
         },
         {
-            name: '62 -> 8',
-            steps: [
-                walk(7),
-                ride62West.to(stop.OnDexter.AtDenny.SB),
-                ride(route.Number8)
-                    .from(stop.OnDexter.AtDenny.EB)
-                    .to(stop.OnOlive.AtDenny.EB),
-                walk(8)
-            ]
-        },
-        {
             name: '62 -> LINK',
             steps: [
                 walk(7),
                 ride62Downtown,
-                ride(route.Link)
+                rideLink
                     .from(stop.Misc.WestlakeStation.BayA.NEB)
                     .to(stop.Misc.CapitolHillLinkStation.NB),
                 walk(5)
@@ -58,7 +65,7 @@ function defineJourneys() {
                 walk(7),
                 ride62Downtown,
                 walk(3),
-                ride(route.Number49)
+                ride49
                     .from(stop.On3rd.AtPine.NWB)
                     .to(stop.OnBroadway.AtPine.EB)
             ]
