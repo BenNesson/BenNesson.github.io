@@ -1,3 +1,4 @@
+// This script does things in kind of a weird way for purposes of enabling convenient Intellisense in VS.
 function prettifyStops(raw) {
     let On3rd = {
         AtPine: {
