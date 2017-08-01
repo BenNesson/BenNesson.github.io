@@ -1,12 +1,13 @@
 /// <reference path="../OBA_data.js" />
 
-var walk = min => ({ w: min });
-var ride = route => ({ from: boardStop => ({ to: departStop => ({ r: route, s: boardStop, e:departStop }) }) });
-
 function defineJourneys() {
     let d = defineIdentifiers();
     let route = d.route;
     let stop = d.stop;
+
+    let walk = min => ({ w: min });
+    let ride = route => ({ from: boardStop => ({ to: departStop => ({ r: route, s: boardStop, e: departStop }) }) });
+
     // define the stuff that gets used multiple times.
     let ride62West = ride(route.Number62)
             .from(stop.OnStone.At35th.WB),
@@ -24,6 +25,8 @@ function defineJourneys() {
         ride49FromUDistToCapitolHill = ride49
             .from(stop.On15th.AtCampusParkway.SB)
             .to(stop.OnBroadway.AtPine.WB);
+
+    // return a big ol' array.
     return [
         {
             name: '62 -> 8',
