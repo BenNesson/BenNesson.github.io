@@ -59,27 +59,67 @@ function optParam(pValue, pName) {
         : '';
 }
 
+var CacheEntry = function () {
+    this.callbacks = [];
+    this.resolved = false;
+
+    let _this = this;
+    this.resolve = function (response) {
+        if (_this.resolved) {
+            // log error
+        } else {
+            _this.result = response;
+            _this.resolved = true;
+            for (let i in _this.callbacks) {
+                _this.callbacks[i](response);
+            }
+        }
+    };
+
+    this.onResolve = function (callback) {
+        if (_this.resolved) {
+            callback(_this.result);
+        } else {
+            _this.callbacks.push(callback);
+        }
+    }
+};
+
+function cacheQuery(cache, key, url, callback) {
+    if (!cache.has(key)) {
+        let entry = new CacheEntry();
+        request(url, entry.resolve);
+        cache.set(key, entry);
+    }
+    cache.get(key).onResolve(callback);
+}
+
+var stopCache = new Map();
 function queryStop(stopId, callback, minBefore, minAfter) {
     let url = type2Method(
         'arrivals-and-departures-for-stop', stopId,
         [optParam(minBefore, 'minutesBefore'), optParam(minAfter, 'minutesAfter')]);
-    request(url, callback);
+    cacheQuery(stopCache, [stopId, minBefore, minAfter].join('$'), url, callback);
 }
 
+var tripDetailsCache = new Map();
 function queryTripDetails(tripId, serviceDate, callback) {
     let url = type2Method(
         'trip-details', tripId,
         [optParam(serviceDate, 'serviceDate')]);
-    request(url, callback);
+    cacheQuery(tripDetailsCache, [tripId, serviceDate].join('$'), url, callback);
 }
 
+var tripAtStopCache = new Map();
 function queryTripAtStop(stopId, tripId, serviceDate, callback) {
     let url = type2Method(
         'arrival-and-departure-for-stop', stopId,
         [optParam(tripId, 'tripId'), optParam(serviceDate, 'serviceDate')]);
-    request(url, callback);
+    cacheQuery(tripAtStopCache, [stopId, tripId, serviceDate].join('$'), url, callback);
 }
 
+// Sometimes a given journey step will last multiple trips.  This function figures out what
+// trip actually gets to the given stop, and then queries for that trip at that stop.
 function actuallyGetTripAtStop(stopId, tripId, serviceDate, callback) {
     queryTripDetails(tripId, serviceDate, function (tripResponse) {
         let entry = tripResponse.data.entry;
@@ -291,7 +331,7 @@ var Journey_Step = function (stepDef) {
         drawTimeMark(x, y + 24, this.startTime - t0, true);
         drawTimeMark(x + width, y + 24, this.endTime - t0, false);
     }
-}
+};
 
 function RectangleClick(rect) {
     rect.setAttribute('fill', rect.isActivated ? rect.unselectedColor : 'violet');
