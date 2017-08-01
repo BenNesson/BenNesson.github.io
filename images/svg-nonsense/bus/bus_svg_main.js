@@ -5,7 +5,6 @@ var doc;
 var g;
 var vb, vbx, vby, vbh, vbw;
 var border;
-var colorToUse = 'blue';
 var timeFactor = 1000 * 6;
 var testTimeAdjustment = 0;
 var DEFAULT_TRIES = 10;
@@ -33,7 +32,7 @@ function request(url, callback, tries) {
             delete callbacks[callbackName];
         }
     };
-    scriptTag.setAttributeNS("http://www.w3.org/1999/xlink", 'href', url + '&callback=callbacks.' + callbackName + '.cb');
+    scriptTag.setAttribute('href', url + '&callback=callbacks.' + callbackName + '.cb');
     vb.appendChild(scriptTag);
 }
 
