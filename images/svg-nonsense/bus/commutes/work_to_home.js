@@ -9,14 +9,24 @@ function defineJourneys() {
     let busStep = (route, start, end) => ({ r: route, s: start, e: end });
     let ride = route => ({ from: boardStop => ({ to: departStop => ({ r: route, s: boardStop, e: departStop }) }) });
 
+    // define the stuff that gets used multiple times.
+    let ride62 = ride(route.Number62),
+        ride62East = ride62.from(stop.OnStone.At35th.EB);
+
     return [
         {
             name: '32 -> 45',
             steps: [
                 walkStep(3),
-                busStep(route.Number32, stop.OnWoodlawn.At35th.EB, stop.OnUniversity.AtCampusParkway.EB),
+                //busStep(route.Number32, stop.OnWoodlawn.At35th.EB, stop.OnUniversity.AtCampusParkway.EB),
+                ride(route.Number32)
+                    .from(stop.OnWoodlawn.At35th.EB)
+                    .to(stop.OnUniversity.AtCampusParkway.EB),
                 walkStep(2),
-                busStep(route.Number45, stop.OnUniversity.At41st.NB, stop.OnStone.At85th.WB)
+                //busStep(route.Number45, stop.OnUniversity.At41st.NB, stop.OnStone.At85th.WB)
+                ride(route.Number45)
+                    .from(stop.OnUniversity.At41st)
+                    .to(stop.OnStone.At85th.WB)
             ]
         },
         {
@@ -41,7 +51,7 @@ function defineJourneys() {
             name: '62 -> 45',
             steps: [
                 walkStep(8),
-                busStep(route.Number62, stop.OnStone.At35th.EB, stop.OnRavenna.AtWoodlawn.SEB),
+                ride62East.to(stop.OnRavenna.AtWoodlawn.SEB),
                 walkStep(2),
                 busStep(route.Number45, stop.OnRavenna.AtWoodlawn.NWB, stop.OnStone.At85th.WB)
             ]
@@ -50,7 +60,7 @@ function defineJourneys() {
             name: '62 NB -> E-Line',
             steps: [
                 walkStep(8),
-                busStep(route.Number62, stop.OnStone.At35th.EB, stop.OnStone.At45th.EB),
+                ride62East.to(stop.OnStone.At45th.EB),
                 walkStep(7),
                 busStep(route.ELine, stop.OnAurora.At46th.NB, stop.OnAurora.At85th.NB)
             ]
@@ -70,7 +80,7 @@ function defineJourneys() {
                 walkStep(15),
                 busStep(route.Number5, stop.OnAurora.At38th.NWB, stop.OnGreenwood.At85th.NB),
                 walkStep(2),
-                busStep(route.Number45, stop.OnGreenwooAt85th.EB, stop.OnAurora.At85th.EB)
+                busStep(route.Number45, stop.OnGreenwood.At85th.EB, stop.OnAurora.At85th.EB)
             ]
         },
         {
