@@ -1,12 +1,7 @@
 /// <reference path="../OBA_data.js" />
 
-function walkStep(min) {
-    return { w: min };
-}
-
-function busStep(route, start, end) {
-    return { r: route, s: start, e: end };
-}
+var walk = min => ({ w: min });
+var ride = route => ({ from: boardStop => ({ to: departStop => ({ r: route, s: boardStop, e:departStop }) }) });
 
 function defineJourneys() {
     var d = defineIdentifiers();
@@ -14,75 +9,108 @@ function defineJourneys() {
         {
             name: '62 -> 11',
             steps: [
-                walkStep(7),
-                busStep(d.route.Number62, d.stop.OnStone.At35th.WB, d.stop.On3rd.AtPine.SEB),
-                walkStep(3),
-                busStep(d.route.Number11, d.stop.On4th.AtPine.WB, d.stop.OnBroadway.AtPine.EB)
+                walk(7),
+                ride(d.route.Number62)
+                    .from(d.stop.OnStone.At35th.WB)
+                    .to(d.stop.On3rd.AtPine.SEB),
+                walk(3),
+                ride(d.route.Number11)
+                    .from(d.stop.On4th.AtPine.WB)
+                    .to(d.stop.OnBroadway.AtPine.EB)
+                    
             ]
         },
         {
             name: '62 -> 8',
             steps: [
-                walkStep(7),
-                busStep(d.route.Number62, d.stop.OnStone.At35th.WB, d.stop.OnDexter.AtDenny.SB),
-                busStep(d.route.Number8, d.stop.OnDexter.AtDenny.EB, d.stop.OnOlive.AtDenny.EB),
-                walkStep(8)
+                walk(7),
+                ride(d.route.Number62)
+                    .from(d.stop.OnStone.At35th.WB)
+                    .to(d.stop.OnDexter.AtDenny.SB),
+                ride(d.route.Number8)
+                    .from(d.stop.OnDexter.AtDenny.EB)
+                    .to(d.stop.OnOlive.AtDenny.EB),
+                walk(8)
             ]
         },
         {
             name: '62 -> LINK',
             steps: [
-                walkStep(7),
-                busStep(d.route.Number62, d.stop.OnStone.At35th.WB, d.stop.On3rd.AtPine.SEB),
-                busStep(d.route.Link, d.stop.Misc.WestlakeStation.BayA.NEB, d.stop.Misc.CapitolHillLinkStation.NB),
-                walkStep(5)
+                walk(7),
+                ride(d.route.Number62)
+                    .from(d.stop.OnStone.At35th.WB)
+                    .to(d.stop.On3rd.AtPine.SEB),
+                ride(d.route.Link)
+                    .from(d.stop.Misc.WestlakeStation.BayA.NEB)
+                    .to(d.stop.Misc.CapitolHillLinkStation.NB),
+                walk(5)
             ]
         },
         {
             name: '62 -> 49',
             steps: [
-                walkStep(7),
-                busStep(d.route.Number62, d.stop.OnStone.At35th.WB, d.stop.On3rd.AtPine.SEB),
-                walkStep(3),
-                busStep(d.route.Number49, d.stop.On3rd.AtPine.NWB, d.stop.OnBroadway.AtPine.EB)
+                walk(7),
+                ride(d.route.Number62)
+                    .from(d.stop.OnStone.At35th.WB)
+                    .to(d.stop.On3rd.AtPine.SEB),
+                walk(3),
+                ride(d.route.Number49)
+                    .from(d.stop.On3rd.AtPine.NWB)
+                    .to(d.stop.OnBroadway.AtPine.EB)
             ]
         },
         {
             name: '31 -> 49',
             steps: [
-                walkStep(3),
-                busStep(d.route.Number31, d.stop.OnWoodlawn.At35th.EB, d.stop.OnUniversity.AtCampusParkway.EB),
-                walkStep(3),
-                busStep(d.route.Number49, d.stop.On15th.AtCampusParkway.SB, d.stop.OnBroadway.AtPine.WB)
+                walk(3),
+                ride(d.route.Number31)
+                    .from(d.stop.OnWoodlawn.At35th.EB)
+                    .to(d.stop.OnUniversity.AtCampusParkway.EB),
+                walk(3),
+                ride(d.route.Number49)
+                    .from(d.stop.On15th.AtCampusParkway.SB)
+                    .to(d.stop.OnBroadway.AtPine.WB)
             ]
         },
         {
             name: '32 -> 49',
             steps: [
-                walkStep(3),
-                busStep(d.route.Number32, d.stop.OnWoodlawn.At35th.EB, d.stop.OnUniversity.AtCampusParkway.EB),
-                walkStep(3),
-                busStep(d.route.Number49, d.stop.On15th.AtCampusParkway.SB, d.stop.OnBroadway.AtPine.WB)
+                walk(3),
+                ride(d.route.Number32)
+                    .from(d.stop.OnWoodlawn.At35th.EB)
+                    .to(d.stop.OnUniversity.AtCampusParkway.EB),
+                walk(3),
+                ride(d.route.Number49)
+                    .from(d.stop.On15th.AtCampusParkway.SB)
+                    .to(d.stop.OnBroadway.AtPine.WB)
             ]
         },
         {
             name: '31 -> LINK',
             steps: [
-                walkStep(3),
-                busStep(d.route.Number31, d.stop.OnWoodlawn.At35th.EB, d.stop.OnStevens.AtRanierVis.NEB),
-                walkStep(5),
-                busStep(d.route.Link, d.stop.Misc.UniversityDistrictLinkStation.SB, d.stop.Misc.CapitolHillLinkStation.SB),
-                walkStep(5)
+                walk(3),
+                ride(d.route.Number31)
+                    .from(d.stop.OnWoodlawn.At35th.EB)
+                    .to(d.stop.OnStevens.AtRainierVis.NEB),
+                walk(5),
+                ride(d.route.Link)
+                    .from(d.stop.Misc.UniversityDistrictLinkStation.SB)
+                    .to(d.stop.Misc.CapitolHillLinkStation.SB),
+                walk(5)
             ]
         },
         {
             name: '32 -> LINK',
             steps: [
-                walkStep(3),
-                busStep(d.route.Number32, d.stop.OnWoodlawn.At35th.EB, d.stop.OnStevens.AtRanierVis.NEB),
-                walkStep(3),
-                busStep(d.route.Link, d.stop.Misc.UniversityDistrictLinkStation.SB, d.stop.Misc.CapitolHillLinkStation.SB),
-                walkStep(5)
+                walk(3),
+                ride(d.route.Number32)
+                    .from(d.stop.OnWoodlawn.At35th.EB)
+                    .to(d.stop.OnStevens.AtRainierVis.NEB),
+                walk(3),
+                ride(d.route.Link)
+                    .from(d.stop.Misc.UniversityDistrictLinkStation.SB)
+                    .to(d.stop.Misc.CapitolHillLinkStation.SB),
+                walk(5)
             ]
         }
     ];

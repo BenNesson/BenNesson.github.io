@@ -175,7 +175,7 @@ function prettifyStops(raw) {
         },
     };
     var OnStevens = {
-        AtRanierVis: OnRainierVis.AtStevens
+        AtRainierVis: OnRainierVis.AtStevens
     };
     var OnStone = {
         At35th: On35th.AtStone,
