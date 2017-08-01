@@ -1,16 +1,16 @@
 function prettifyStops(raw) {
-    var On3rd = {
+    let On3rd = {
         AtPine: {
             NWB: raw.STOP_3RD_PINE_NWB,
             SEB: raw.STOP_3RD_PINE_SEB
         },
     };
-    var On4th = {
+    let On4th = {
         AtPine: {
             WB: raw.STOP_4TH_PINE_WB
         },
     };
-    var On8th = {
+    let On8th = {
         At85th: {
             NB: raw.STOP_8TH_85TH_NB,
             SB: raw.STOP_8TH_85TH_SB,
@@ -18,7 +18,7 @@ function prettifyStops(raw) {
             WB: raw.STOP_8TH_85TH_WB
         }
     };
-    var On15th = {
+    let On15th = {
         At85th: {
             NB: raw.STOP_15TH_85TH_NB,
             SB: raw.STOP_15TH_85TH_SB,
@@ -29,19 +29,19 @@ function prettifyStops(raw) {
             SB: raw.STOP_15TH_CAMPUS_SB
         },
     };
-    var On20th = {
+    let On20th = {
         At85th: {
             EB: raw.STOP_20TH_85TH_EB,
             WB: raw.STOP_20TH_85TH_WB
         },
     };
-    var On34th = {
+    let On34th = {
         AtFremont: {
             NB: raw.STOP_FREMONT_34TH_NB,
             SB: raw.STOP_FREMONT_34TH_SB
         },
     };
-    var On35th = {
+    let On35th = {
         AtStone: {
             EB: raw.STOP_STONE_35TH_EB,
             WB: raw.STOP_STONE_35TH_WB
@@ -51,31 +51,31 @@ function prettifyStops(raw) {
             WB: raw.STOP_WOODLAWN_35TH_WB
         }
     };
-    var On38th = {
+    let On38th = {
         AtAurora: {
             NWB: raw.STOP_AURORA_38TH_NWB,
             SEB: raw.STOP_AURORA_38TH_SEB
         },
     };
-    var On41st = {
+    let On41st = {
         AtUniversity: {
             NB: raw.STOP_UNIVERSITY_41ST_NB,
             SB: raw.STOP_UNIVERSITY_41ST_SB
         },
     };
-    var On45th = {
+    let On45th = {
         AtStone: {
             SB: raw.STOP_STONE_45TH_SB,
             EB: raw.STOP_STONE_45TH_EB
         }
     };
-    var On46th = {
+    let On46th = {
         AtAurora: {
             NB: raw.STOP_AURORA_46TH_NB,
             SB: raw.STOP_AURORA_46TH_SB
         }
     };
-    var On85th = {
+    let On85th = {
         At8th: On8th.At85th,
         At15th: On15th.At85th,
         At20th: On20th.At85th,
@@ -96,7 +96,7 @@ function prettifyStops(raw) {
             WB: raw.STOP_STONE_85TH_WB
         }
     };
-    var On105th = {
+    let On105th = {
         AtAurora: {
             NB: raw.STOP_AURORA_105TH_NB,
             SB: raw.STOP_AURORA_105TH_SB,
@@ -104,7 +104,7 @@ function prettifyStops(raw) {
             WB: raw.STOP_AURORA_105TH_WB
         },
     };
-    var OnAurora = {
+    let OnAurora = {
         At38th: On38th.AtAurora,
         At46th: On46th.AtAurora,
         At85th: On85th.AtAurora,
@@ -114,20 +114,20 @@ function prettifyStops(raw) {
             SB: raw.STOP_AURORA_GALER_SB
         }
     };
-    var OnBroadway = {
+    let OnBroadway = {
         AtPine: {
             EB: raw.STOP_BROADWAY_PINE_EB,
             WB: raw.STOP_BROADWAY_PINE_WB
         },
     };
-    var OnCampusParkway = {
+    let OnCampusParkway = {
         At15th: On15th.AtCampusParkway,
         AtUniversity: {
             EB: raw.STOP_UNIVERSITY_CAMPUS_EB,
             WB: raw.STOP_UNIVERSITY_CAMPUS_WB
         }
     };
-    var OnDenny = {
+    let OnDenny = {
         AtDexter: {
             SB: raw.STOP_DEXTER_DENNY_SB,
             EB: raw.STOP_DEXTER_DENNY_EB
@@ -136,37 +136,37 @@ function prettifyStops(raw) {
             EB: raw.STOP_OLIVE_DENNY_EB
         }
     };
-    var OnDexter = {
+    let OnDexter = {
         AtDenny: OnDenny.AtDexter,
         AtGaler: {
             NB: raw.STOP_DEXTER_GALER_NB,
             SB: raw.STOP_DEXTER_GALER_SB
         }
     };
-    var OnFremont = {
+    let OnFremont = {
         At34th: On34th.AtFremont
     };
-    var OnGaler = {
+    let OnGaler = {
         AtAurora: OnAurora.AtGaler,
         AtDexter: OnDexter.AtGaler
     };
-    var OnGreenwood = {
+    let OnGreenwood = {
         At85th: On85th.AtGreenwood
     };
-    var OnOlive = {
+    let OnOlive = {
         AtDenny: OnDenny.AtOlive
     };
-    var OnPine = {
+    let OnPine = {
         At3rd: On3rd.AtPine,
         At4th: On4th.AtPine,
         AtBroadway: OnBroadway.AtPine
     };
-    var OnRainierVis = {
+    let OnRainierVis = {
         AtStevens: {
             NEB: raw.STOP_STEVENS_RAINIER_NEB
         },
     };
-    var OnRavenna = {
+    let OnRavenna = {
         AtWoodlawn: {
             NEB: raw.STOP_RAVENNA_WOODLAWN_NEB,
             NWB: raw.STOP_RAVENNA_WOODLAWN_NWB,
@@ -174,23 +174,23 @@ function prettifyStops(raw) {
             SWB: raw.STOP_RAVENNA_WOODLAWN_SWB
         },
     };
-    var OnStevens = {
+    let OnStevens = {
         AtRainierVis: OnRainierVis.AtStevens
     };
-    var OnStone = {
+    let OnStone = {
         At35th: On35th.AtStone,
         At45th: On45th.AtStone,
         At85th: On85th.AtStone
     };
-    var OnUniversity = {
+    let OnUniversity = {
         At41st: On41st.AtUniversity,
         AtCampusParkway: OnCampusParkway.AtUniversity
     };
-    var OnWoodlawn = {
+    let OnWoodlawn = {
         At35th: On35th.AtWoodlawn,
         AtRavenna: OnRavenna.AtWoodlawn
     };
-    var Misc = {
+    let Misc = {
         CapitolHillLinkStation: {
             NB: raw.STOP_CAPITOL_HILL_LINK_NB,
             SB: raw.STOP_CAPITOL_HILL_LINK_SB
@@ -205,7 +205,7 @@ function prettifyStops(raw) {
         }
     };
 
-    var stop = {
+    let stop = {
         On3rd: On3rd,
         On4th: On4th,
         On8th: On8th,
@@ -242,7 +242,7 @@ function prettifyStops(raw) {
 }
 
 function defineIdentifiers() {
-    var raw = {
+    let raw = {
         ROUTE_45: '1_100225',
         ROUTE_5: '1_100229',
         ROUTE_28X: '1_100169',
@@ -339,7 +339,7 @@ function defineIdentifiers() {
     };
 
     // prettify routes
-    var route = {
+    let route = {
         Number2: raw.ROUTE_2,
         Number5: raw.ROUTE_5,
         Number8: raw.ROUTE_8,
