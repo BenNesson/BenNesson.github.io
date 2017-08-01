@@ -104,12 +104,21 @@ function QueryStop(stopId) {
     var headElement = document.getElementById("h");
     var scriptTag = document.createElement("SCRIPT");
     scriptTag.setAttribute("src", url);
-    handleStopResponse = function(response) {
+    scriptTag.onerror = bleepbloop;
+    handleStopResponse = function(response, isError) {
         headElement.removeChild(scriptTag);
-        LoadStop(response);
-        setTimeout(Update, urlParams["refreshRate"] * 1000);
+        if (isError) {
+            setTimeout(Update, Math.min(urlParams["refreshRate"], 1) * 1000);
+        } else {
+            LoadStop(response);
+            setTimeout(Update, urlParams["refreshRate"] * 1000);
+        }
     };
     headElement.appendChild(scriptTag);
+}
+
+function bleepbloop(event, source, line, column, error) {
+    handleStopResponse(null, true);
 }
 
 function LoadStopInfo(response) {
