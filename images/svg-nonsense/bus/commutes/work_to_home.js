@@ -4,7 +4,7 @@ var walkStep = min => ({ w: min });
 var busStep = (route, start, end) => ({ r: route, s: start, e: end });
 
 function defineJourneys() {
-    var d = defineIdentifiers();
+    let d = defineIdentifiers();
     return [
         {
             name: '32 -> 45',
