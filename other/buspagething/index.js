@@ -104,7 +104,7 @@ function QueryStop(stopId) {
     var headElement = document.getElementById("h");
     var scriptTag = document.createElement("SCRIPT");
     scriptTag.setAttribute("src", url);
-    scriptTag.onerror = bleepbloop;
+    scriptTag.onerror = onScriptError;
     handleStopResponse = function(response, isError) {
         headElement.removeChild(scriptTag);
         if (isError) {
@@ -117,7 +117,7 @@ function QueryStop(stopId) {
     headElement.appendChild(scriptTag);
 }
 
-function bleepbloop(event, source, line, column, error) {
+function onScriptError(event, source, line, column, error) {
     handleStopResponse(null, true);
 }
 

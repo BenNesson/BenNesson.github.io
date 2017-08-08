@@ -187,6 +187,13 @@ function createElement(elementName) {
     return doc.createElementNS('http://www.w3.org/2000/svg', elementName);
 }
 
+var stopPageBaseUrl = "https://BenNesson.github.io/other/buspagething/index.html";
+function openStopPage(stopId) {
+    let pageUrl = stopPageBaseUrl + "?key=" + API_KEY + "&stopId=" + stopId;
+    let tab = window.open(pageUrl, "_blank");
+    tab.focus();
+}
+
 var baseMinutesAfter = 60;
 var Journey_Step = function (stepDef) {
     this.route = stepDef.r;
@@ -312,12 +319,21 @@ var Journey_Step = function (stepDef) {
             }
         }
 
-        drawRectangle(x, y, width, 24, color);
+        drawRectangle(x, y, width, 24, color, function (xPosition) {
+            if (xPosition > 0.0 && xPosition < 0.25) {
+                openStopPage(this.start);
+            } else if (xPosition > 0.75 && xPosition < 1.0) {
+                openStopPage(this.end);
+            }
+        }.bind(this));
 
         let rtext = createElement('text');
         rtext.setAttribute('x', x + 2);
         rtext.setAttribute('y', y + 14);
         rtext.textContent = this.startData.routeShortName;
+        rtext.onclick = function () {
+            openStopPage(this.start);
+        }.bind(this);
         g.appendChild(rtext);
 
         let eText = createElement('text');
@@ -332,12 +348,18 @@ var Journey_Step = function (stepDef) {
     }
 };
 
-function RectangleClick(rect) {
-    rect.setAttribute('fill', rect.isActivated ? rect.unselectedColor : 'violet');
-    rect.isActivated = !rect.isActivated;
+function RectangleClick(rect, clickEvent, onClick) {
+    let rectWidth = rect.width.baseVal.value;
+    let rectLeft = rect.x.baseVal.value;
+    let boundingRect = rect.getBoundingClientRect();
+    let ratio = rectWidth / boundingRect.width;
+    let xPosition = clickEvent.x * ratio + vb.viewBox.baseVal.x;
+    let xRelative = xPosition - rectLeft;
+    
+    onClick(xRelative / rectWidth);
 }
 
-function drawRectangle(x, y, width, height, color) {
+function drawRectangle(x, y, width, height, color, onClick) {
     let adRect = createElement('rect');
     adRect.setAttribute('x', x);
     adRect.setAttribute('y', y);
@@ -347,7 +369,9 @@ function drawRectangle(x, y, width, height, color) {
     adRect.setAttribute('stroke', 'black');
 
     adRect.unselectedColor = color;
-    adRect.onclick = function () { RectangleClick(adRect); }
+    adRect.onclick = function (clickEvent) {
+        RectangleClick(adRect, clickEvent, onClick);
+    }
 
     g.insertBefore(adRect, g.childNodes[0]);
     resize(x, y, width, height);
@@ -372,7 +396,6 @@ function drawWalkArrow(x, y, width) {
         + (x + lineWidth) + ',' + (y - arrowHalfHeight) + ' '
         + (x + width) + ',' + y + ' '
         + (x + lineWidth) + ',' + (y + arrowHalfHeight));
-    arrowHead.setAttribute('fill', 'black');
     g.insertBefore(arrowHead, adLine);
 
     let stopLine = createElement('line');

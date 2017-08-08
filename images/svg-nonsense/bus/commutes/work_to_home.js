@@ -79,6 +79,16 @@ function defineJourneys() {
             ]
         },
         {
+            name: 'Just the 26',
+            steps: [
+                walkStep(13),
+                ride(route.Number26)
+                    .from(stop.OnAshworth.At40th.EB)
+                    .to(stop.OnWallingford.At82nd.NB),
+                walkStep(10)
+            ]
+        },
+        {
             name: '28X -> 45',
             steps: [
                 walkStep(15),

@@ -58,6 +58,12 @@ function prettifyStops(raw) {
             SEB: raw.STOP_AURORA_38TH_SEB
         },
     };
+    let On40th = {
+        AtAshworth: {
+            EB: raw.STOP_ASHWORTH_40TH_EB,
+            WB: raw.STOP_ASHWORTH_40TH_WB
+        }
+    };
     let On41st = {
         AtUniversity: {
             NB: raw.STOP_UNIVERSITY_41ST_NB,
@@ -74,6 +80,12 @@ function prettifyStops(raw) {
         AtAurora: {
             NB: raw.STOP_AURORA_46TH_NB,
             SB: raw.STOP_AURORA_46TH_SB
+        }
+    };
+    let On82nd = {
+        AtWallingford: {
+            NB: raw.STOP_WALLINGFORD_82ND_NB,
+            SB: raw.STOP_WALLINGFORD_82ND_SB
         }
     };
     let On85th = {
@@ -104,6 +116,9 @@ function prettifyStops(raw) {
             EB: raw.STOP_AURORA_105TH_EB,
             WB: raw.STOP_AURORA_105TH_WB
         },
+    };
+    let OnAshworth = {
+        At40th: On40th.AtAshworth
     };
     let OnAurora = {
         At38th: On38th.AtAurora,
@@ -187,6 +202,9 @@ function prettifyStops(raw) {
         At41st: On41st.AtUniversity,
         AtCampusParkway: OnCampusParkway.AtUniversity
     };
+    let OnWallingford = {
+        At82nd : On82nd.AtWallingford
+    };
     let OnWoodlawn = {
         At35th: On35th.AtWoodlawn,
         AtRavenna: OnRavenna.AtWoodlawn
@@ -215,11 +233,14 @@ function prettifyStops(raw) {
         On34th: On34th,
         On35th: On35th,
         On38th: On38th,
+        On40th: On40th,
         On41st: On41st,
         On45th: On45th,
         On46th: On46th,
+        On82nd: On82nd,
         On85th: On85th,
         On105th: On105th,
+        OnAshworth: OnAshworth,
         OnAurora: OnAurora,
         OnBroadway: OnBroadway,
         OnCampusParkway: OnCampusParkway,
@@ -235,6 +256,7 @@ function prettifyStops(raw) {
         OnStevens: OnStevens,
         OnStone: OnStone,
         OnUniversity: OnUniversity,
+        OnWallingford: OnWallingford,
         OnWoodlawn: OnWoodlawn,
         Misc: Misc
     };
@@ -257,15 +279,19 @@ function defineIdentifiers() {
         ROUTE_LINK: '40_100479',
         ROUTE_8: '1_100275',
         ROUTE_2: '',
-        ROUTE_26: '',
+        ROUTE_26: '1_100151',
 
+        // Near Home
         STOP_AURORA_85TH_NB: '1_7730',
         STOP_AURORA_85TH_SB: '1_7160',
         STOP_AURORA_85TH_WB: '1_5450',
         STOP_AURORA_85TH_EB: '1_5370',
         STOP_STONE_85TH_WB: '1_5440',
         STOP_STONE_85TH_EB: '1_5380',
+        STOP_WALLINGFORD_82ND_NB: '1_17650',
+        STOP_WALLINGFORD_82ND_SB: '1_17070',
 
+        // Home <-> Work transfer points
         STOP_AURORA_105TH_NB: '1_7810',
         STOP_AURORA_105TH_SB: '1_7080',
         STOP_AURORA_105TH_EB: '1_40068',
@@ -302,15 +328,6 @@ function defineIdentifiers() {
         STOP_AURORA_38TH_NWB: '1_6340',
         STOP_AURORA_38TH_SEB: '1_6050',
 
-        STOP_FREMONT_34TH_NB: '1_26860',
-        STOP_FREMONT_34TH_SB: '1_26510',
-
-        STOP_STONE_35TH_WB: '1_26480',
-        STOP_STONE_35TH_EB: '1_26885',
-
-        STOP_WOODLAWN_35TH_WB: '1_26460',
-        STOP_WOODLAWN_35TH_EB: '1_26901',
-
         STOP_AURORA_GALER_NB: '1_6300',
         STOP_AURORA_GALER_SB: '1_6100',
         STOP_DEXTER_GALER_NB: '1_18505',
@@ -321,6 +338,21 @@ function defineIdentifiers() {
         STOP_UNIVERSITY_41ST_NB: '1_9581',
         STOP_UNIVERSITY_41ST_SB: '1_9142',
         STOP_15TH_CAMPUS_SB: '1_10914',
+
+        // Near Work
+        STOP_FREMONT_34TH_NB: '1_26860',
+        STOP_FREMONT_34TH_SB: '1_26510',
+
+        STOP_STONE_35TH_WB: '1_26480',
+        STOP_STONE_35TH_EB: '1_26885',
+
+        STOP_WOODLAWN_35TH_WB: '1_26460',
+        STOP_WOODLAWN_35TH_EB: '1_26901',
+
+        STOP_ASHWORTH_40TH_EB: '1_17360',
+        STOP_ASHWORTH_40TH_WB: '1_17350',
+
+        // Work -> Bill's transfer points
         STOP_STEVENS_RAINIER_NEB: '1_75415',
         STOP_UDIST_LINK_SB: '1_99604',
 
@@ -332,6 +364,7 @@ function defineIdentifiers() {
         STOP_WESTLAKE_STATION_A_NEB: '1_1121',
         STOP_3RD_PINE_NWB: '1_575',
 
+        // Near Bill's
         STOP_BROADWAY_PINE_WB: '1_11080',
         STOP_BROADWAY_PINE_EB: '1_11150',
         STOP_CAPITOL_HILL_LINK_NB: '1_99603',
