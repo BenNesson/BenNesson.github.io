@@ -38,7 +38,30 @@ function formatMillisecondTimespan(milliseconds){
     return (isNegative ? "-" : "") + totalMinutes + (totalSeconds < 10 ? ":0" : ":") + totalSeconds;
 }
 
-function generateRowForArrival(currentTime, arrival){
+function createCacheNode(arrival) {
+    return {
+        a: arrival,
+        get: function (update) {
+            if (update.lastUpdateTime > this.a.lastUpdateTime) {
+                this.a = update;
+            }
+            return this.a;
+        }
+    }
+}
+
+var cache = new Map();
+function getLatestData(currentTime, arrival) {
+    let tripId = arrival.tripId;
+    if (!cache.has(tripId)) {
+        cache.set(tripId, createCacheNode(arrival));
+    }
+
+    return cache.get(tripId).get(arrival);
+}
+
+function generateRowForArrival(currentTime, arrival) {
+    let latestArrival = getLatestData(currentTime, arrival);
     var row = document.createElement("TR");
     var routeCell = document.createElement("TD");
     var vehicleCell = document.createElement("TD");
@@ -52,14 +75,14 @@ function generateRowForArrival(currentTime, arrival){
     row.appendChild(howLateCell);
     row.appendChild(howOldCell);
     
-    routeCell.innerHTML = arrival.routeShortName;
-    vehicleCell.innerHTML = arrival.vehicleId;
+    routeCell.innerHTML = latestArrival.routeShortName;
+    vehicleCell.innerHTML = latestArrival.vehicleId;
     
-    var arrivalTime = arrival.predicted ? arrival.predictedArrivalTime : arrival.scheduledArrivalTime;
+    var arrivalTime = latestArrival.predicted ? latestArrival.predictedArrivalTime : latestArrival.scheduledArrivalTime;
     arrivalTimeCell.innerHTML = formatMillisecondTimespan(arrivalTime - currentTime);
-    if (arrival.predicted) {
+    if (latestArrival.predicted) {
         var threshold = 30 * 1000;
-        var howLate = arrival.predictedArrivalTime - arrival.scheduledArrivalTime;
+        var howLate = latestArrival.predictedArrivalTime - latestArrival.scheduledArrivalTime;
         var latenessClass = "on-time";
         if (howLate < 0) {
             latenessClass = "early";
@@ -68,7 +91,7 @@ function generateRowForArrival(currentTime, arrival){
         }
         row.setAttribute("class", latenessClass);
         howLateCell.innerHTML = formatMillisecondTimespan(howLate);
-        howOldCell.innerHTML = formatMillisecondTimespan(currentTime - arrival.tripStatus.lastUpdateTime);
+        howOldCell.innerHTML = formatMillisecondTimespan(currentTime - latestArrival.tripStatus.lastUpdateTime);
     } else {
         howLateCell.innerHTML = "???";
         howLateCell.setAttribute("class", "no-prediction");
@@ -142,14 +165,15 @@ function QueryStopInfo(stopId) {
 }
 
 function LoadStop(response) {
-    //var response = GetData(stopId);
     var currentTime = response.currentTime;
     var stopTable = document.getElementById("stopTable");
-    
+
+    // clear the table
     while (stopTable.childElementCount > 0) {
         stopTable.removeChild(stopTable.childNodes[0]);
     }
-    
+
+    //write the headers
     var headers = ["Route", "Vehicle ID", "Arrival In", "How Late?", "Ping Age?"];
     var headerRow = document.createElement("TR");
     for (var hi in headers) {
@@ -158,7 +182,8 @@ function LoadStop(response) {
         headerRow.appendChild(h);
     }
     stopTable.appendChild(headerRow);
-    
+
+    // populate the table
     var arrivalsAndDepartures = response.data.entry.arrivalsAndDepartures;
     for (var i in arrivalsAndDepartures) {
         stopTable.appendChild(generateRowForArrival(currentTime, arrivalsAndDepartures[i]));
