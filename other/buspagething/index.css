@@ -1,13 +1,17 @@
-body { font-family: Helvetica; }
+body {
+    font-family: Helvetica;
+    background-color: black;
+    color: lightgrey;
+}
 table, th, td {
-    border: 1px solid black;
+    border: 1px solid lightgrey;
     font-size: 5vmin;
     text-align: right;
 }
-.late { background-color: paleturquoise; }
-.early { background-color: lightpink; }
-.on-time { background-color: lightgreen; }
-.no-prediction { color: grey; }
+.late { background-color: darkblue; }
+.early { background-color: darkred; }
+.on-time { background-color: darkgreen; }
+.no-prediction { color: darkgrey; }
 .stop-name {
     font-size: 5vmin;
     text-align: center;
@@ -16,6 +20,6 @@ table, th, td {
 .stop-detail {
     font-size: 2vmin;
     text-align: center;
-    margin-bottom: 10;
+    margin-bottom: 10px;
     width: 100%;
 }
