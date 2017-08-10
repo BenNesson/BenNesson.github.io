@@ -10,6 +10,8 @@ function defineJourneys() {
 
     // define the stuff that gets used multiple times
     let ride45 = ride(route.Number45),
+        ride45East = ride45.from(stop.On85th.AtStone.EB),
+        ride45ToUDistrict = ride45East.to(stop.On41st.AtUniversity.SB),
         ride45West = ride45.from(stop.OnAurora.At85th.WB),
         rideELineSouth = ride(route.ELine).from(stop.OnAurora.At85th.SB),
         rideELineTo46th = rideELineSouth.to(stop.OnAurora.At46th.SB),
@@ -83,14 +85,34 @@ function defineJourneys() {
         {
             name: '45 -> 62',
             steps: [
-                ride45
-                    .from(stop.OnStone.At85th.EB)
-                    .to(stop.OnRavenna.AtWoodlawn.SEB),
+                ride45East.to(stop.OnRavenna.AtWoodlawn.SEB),
                 walkStep(2),
                 ride62
                     .from(stop.OnRavenna.AtWoodlawn.SWB)
                     .to(stop.OnStone.At35th.WB),
                 walkStep(8)
+            ]
+        },
+        {
+            name: '45 -> 31',
+            steps: [
+                ride45ToUDistrict,
+                walkStep(3),
+                ride(route.Number31)
+                    .from(stop.OnCampusParkway.AtUniversity.WB)
+                    .to(stop.On35th.AtWoodlawn.WB),
+                walkStep(3)
+            ]
+        },
+        {
+            name: '45 -> 32',
+            steps: [
+                ride45ToUDistrict,
+                walkStep(3),
+                ride(route.Number32)
+                    .from(stop.OnCampusParkway.AtUniversity.WB)
+                    .to(stop.On35th.AtWoodlawn.WB),
+                walkStep(3)
             ]
         },
         {
