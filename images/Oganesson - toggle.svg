@@ -1,0 +1,76 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <script type="text/ecmascript">//<![CDATA[
+  var isOld = false;
+  function toggle(){
+    let elem = document.getElementById('symbol');
+    elem.setAttribute('font-family', isOld ? "helvetica" : "Old English Text MT");
+    isOld = !isOld;
+  }
+  //]]></script>
+  <rect
+    x="3"
+    y="3"
+    width="194"
+    height="194"
+    stroke="black"
+    fill="white"
+    stroke-width="6"
+    ></rect>
+  <g id="all-content"
+     font-family="helvetica"
+     font-weight="bold">
+    <text id="symbol"
+          onclick="toggle(evt)"
+          x="90"
+          y="100"
+          text-anchor="middle"
+          alignment-baseline="middle"
+          font-size="100px"
+          font-family="helvetica">
+      Og
+    </text>
+    <text id="mass"
+          x="10"
+          y="14"
+          font-size="30px"
+          alignment-baseline="hanging">
+      (294)
+    </text>
+    <g id="oxidation-states"
+       font-size="20px"
+       text-anchor="end"
+       >
+      <text x="190" y="30">
+        -1
+      </text>
+      <text x="190" y="50">
+        0
+      </text>
+      <text x="190" y="70">
+        +1
+      </text>
+      <text x="190" y="90">
+        +2
+      </text>
+      <text x="190" y="110">
+        +4
+      </text>
+      <text x="190" y="130">
+        +6
+      </text>
+    </g>
+    <text id="atomic-number"
+          x="10"
+          y="170"
+          font-size="40px">
+      118
+    </text>
+    <text id="electrons-per-shell"
+          x="10"
+          y="190"
+          font-size="20px">
+      2-8-18-32-32-18-8
+    </text>
+  </g>
+</svg>
