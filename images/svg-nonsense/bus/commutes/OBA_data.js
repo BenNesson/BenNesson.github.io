@@ -5,11 +5,22 @@ function prettifyStops(raw) {
             NWB: raw.STOP_3RD_PINE_NWB,
             SEB: raw.STOP_3RD_PINE_SEB
         },
+        AtPike: {
+            NWB: raw.STOP_3RD_PIKE_NWB
+        },
+        AtVirginia: {
+            NWB: raw.STOP_3RD_VIRGINIA_NWB
+        }
     };
     let On4th = {
         AtPine: {
             WB: raw.STOP_4TH_PINE_WB
         },
+    };
+    let On5th = {
+        AtPine: {
+            SWB: raw.STOP_5TH_PINE_SWB
+        }
     };
     let On8th = {
         At85th: {
@@ -169,12 +180,21 @@ function prettifyStops(raw) {
     let OnGreenwood = {
         At85th: On85th.AtGreenwood
     };
+    let OnHarvard = {
+        AtSeneca: {
+            SB: raw.STOP_SENECA_HARVARD_SB
+        }
+    };
     let OnOlive = {
         AtDenny: OnDenny.AtOlive
+    };
+    let OnPike = {
+        At3rd: On3rd.AtPike
     };
     let OnPine = {
         At3rd: On3rd.AtPine,
         At4th: On4th.AtPine,
+        At5th: On5th.AtPine,
         AtBroadway: OnBroadway.AtPine
     };
     let OnRainierVis = {
@@ -190,6 +210,9 @@ function prettifyStops(raw) {
             SWB: raw.STOP_RAVENNA_WOODLAWN_SWB
         },
     };
+    let OnSeneca = {
+        AtHarvard: OnHarvard.AtSeneca
+    };
     let OnStevens = {
         AtRainierVis: OnRainierVis.AtStevens
     };
@@ -201,6 +224,9 @@ function prettifyStops(raw) {
     let OnUniversity = {
         At41st: On41st.AtUniversity,
         AtCampusParkway: OnCampusParkway.AtUniversity
+    };
+    let OnVirginia = {
+        At3rd: On3rd.AtVirginia
     };
     let OnWallingford = {
         At82nd : On82nd.AtWallingford
@@ -227,6 +253,7 @@ function prettifyStops(raw) {
     let stop = {
         On3rd: On3rd,
         On4th: On4th,
+        On5th: On5th,
         On8th: On8th,
         On15th: On15th,
         On20th: On20th,
@@ -249,13 +276,17 @@ function prettifyStops(raw) {
         OnFremont: OnFremont,
         OnGaler: OnGaler,
         OnGreenwood: OnGreenwood,
+        OnHarvard: OnHarvard,
         OnOlive: OnOlive,
+        OnPike: OnPike,
         OnPine: OnPine,
         OnRainierVis: OnRainierVis,
         OnRavenna: OnRavenna,
+        OnSeneca: OnSeneca,
         OnStevens: OnStevens,
         OnStone: OnStone,
         OnUniversity: OnUniversity,
+        OnVirginia: OnVirginia,
         OnWallingford: OnWallingford,
         OnWoodlawn: OnWoodlawn,
         Misc: Misc
@@ -278,7 +309,7 @@ function defineIdentifiers() {
         ROUTE_11: '1_100009',
         ROUTE_LINK: '40_100479',
         ROUTE_8: '1_100275',
-        ROUTE_2: '',
+        ROUTE_2: '1_100089',
         ROUTE_26: '1_100151',
 
         // Near Home
@@ -363,13 +394,17 @@ function defineIdentifiers() {
         STOP_4TH_PINE_WB: '1_1120',
         STOP_WESTLAKE_STATION_A_NEB: '1_1121',
         STOP_3RD_PINE_NWB: '1_575',
+        STOP_5TH_PINE_SWB: '1_1110',
+        STOP_3RD_PIKE_NWB: '1_578',
+        STOP_3RD_VIRGINIA_NWB: '1_600',
 
         // Near Bill's
         STOP_BROADWAY_PINE_WB: '1_11080',
         STOP_BROADWAY_PINE_EB: '1_11150',
         STOP_CAPITOL_HILL_LINK_NB: '1_99603',
         STOP_CAPITOL_HILL_LINK_SB: '1_99610',
-        STOP_OLIVE_DENNY_EB: '1_2265'
+        STOP_OLIVE_DENNY_EB: '1_2265',
+        STOP_SENECA_HARVARD_SB: '1_3033'
     };
 
     // prettify routes
