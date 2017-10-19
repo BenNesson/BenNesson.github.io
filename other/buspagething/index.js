@@ -38,10 +38,13 @@ function formatMillisecondTimespan(milliseconds){
     return (isNegative ? "-" : "") + totalMinutes + (totalSeconds < 10 ? ":0" : ":") + totalSeconds;
 }
 
+let maxTimeToLive = 20;
 function createCacheNode(arrival) {
     return {
         a: arrival,
+        ttl: maxTimeToLive,
         get: function (update) {
+            this.ttl = maxTimeToLive;
             if (update.lastUpdateTime > this.a.lastUpdateTime) {
                 this.a = update;
             }
@@ -58,6 +61,20 @@ function getLatestData(currentTime, arrival) {
     }
 
     return cache.get(tripId).get(arrival);
+}
+
+function keepCacheFresh() {
+    let staleKeys = [];
+    for (let kvp of cache.entries()) {
+        if (kvp[1].ttl <= 0) {
+            staleKeys.push(kvp[0]);
+        } else {
+            kvp[1].ttl--;
+        }
+    }
+    for (let key of staleKeys) {
+        cache.delete(key);
+    }
 }
 
 function generateRowForArrival(currentTime, arrival) {
@@ -165,6 +182,7 @@ function QueryStopInfo(stopId) {
 }
 
 function LoadStop(response) {
+    keepCacheFresh();
     var currentTime = response.currentTime;
     var stopTable = document.getElementById("stopTable");
 
