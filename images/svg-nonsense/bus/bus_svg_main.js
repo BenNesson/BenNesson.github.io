@@ -11,6 +11,8 @@ var testTimeAdjustment = 0;
 var DEFAULT_TRIES = 10;
 var ticksPerMinute = 60000;
 
+var DEBUGGING = false;
+
 var callbacks = new Object();
 function request(url, callback, tries) {
     if (typeof (tries) === 'undefined') {
@@ -493,7 +495,11 @@ var Journey = function (steps) {
     };
 };
 
-var setDebug = debugString => debugText.textContent = debugString;
+var setDebug = debugString => {
+    if (DEBUGGING) {
+        debugText.textContent = debugString;
+    }
+}
 
 var imageResize = () => {
     vb.width = "99%";
