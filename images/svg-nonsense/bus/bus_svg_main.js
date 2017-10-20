@@ -502,17 +502,14 @@ var setDebug = debugString => {
 }
 
 var imageResize = () => {
-    //vb.width = "99%";
-    //vb.height = "99%";
-    //setTimeout(() => {
-    //    vb.width = "100%";
-    //    vb.height = "100%";
-    //    setDebug("" + window.innerWidth + "x" + window.innerHeight);
-    //}, 1);
+    /*
     border.setAttribute('stroke', 'green');
     setTimeout(() => {
         border.setAttribute('stroke', 'black');
     }, 1);
+    /*/
+    border.setAttribute('stroke', 'black');
+    //*/
 };
 
 function main(evt) {
@@ -523,7 +520,7 @@ function main(evt) {
     debugText = createElement('text');
     debugText.setAttribute('y', -20);
     vb.appendChild(debugText);
-    setDebug("DEBUG - 0");
+    setDebug("DEBUG - 1");
 
     vb.setAttribute('onresize', 'imageResize()');
     vbx = 0;
