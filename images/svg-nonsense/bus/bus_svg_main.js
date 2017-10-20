@@ -513,6 +513,7 @@ function main(evt) {
     debugText = createElement('text');
     debugText.setAttribute('y', -20);
     vb.appendChild(debugText);
+    setDebug("DEBUG - 0");
 
     vb.setAttribute('onresize', 'imageResize()');
     vbx = 0;
