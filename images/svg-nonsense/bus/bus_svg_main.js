@@ -5,6 +5,7 @@ var doc;
 var g;
 var vb, vbx, vby, vbh, vbw;
 var border;
+var debugText;
 var timeFactor = 1000 * 6;
 var testTimeAdjustment = 0;
 var DEFAULT_TRIES = 10;
@@ -492,15 +493,27 @@ var Journey = function (steps) {
     };
 };
 
+var setDebug = debugString => debugText.textContent = debugString;
+
 var imageResize = () => {
-    vb.width = "100%";
-    vb.height = "100%";
+    vb.width = "99%";
+    vb.height = "99%";
+    setTimeout(() => {
+        vb.width = "100%";
+        vb.height = "100%";
+        setDebug("" + window.innerWidth + "x" + window.innerHeight);
+    }, 1);
 };
 
 function main(evt) {
     doc = evt.target.ownerDocument
     g = doc.getElementById('block')
     vb = doc.getElementById('vb');
+
+    debugText = createElement('text');
+    debugText.setAttribute('y', -20);
+    vb.appendChild(debugText);
+
     vb.setAttribute('onresize', 'imageResize()');
     vbx = 0;
     vby = 0;
