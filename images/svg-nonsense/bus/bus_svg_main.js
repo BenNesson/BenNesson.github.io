@@ -508,7 +508,9 @@ var imageResize = () => {
         border.setAttribute('stroke', 'black');
     }, 1);
     /*/
-    border.setAttribute('stroke', 'black');
+    setTimeout(() => {
+        border.setAttribute('stroke', 'black');
+    }, 1);
     //*/
 };
 
@@ -520,7 +522,7 @@ function main(evt) {
     debugText = createElement('text');
     debugText.setAttribute('y', -20);
     vb.appendChild(debugText);
-    setDebug("DEBUG - 1");
+    setDebug("DEBUG - 2");
 
     vb.setAttribute('onresize', 'imageResize()');
     vbx = 0;
