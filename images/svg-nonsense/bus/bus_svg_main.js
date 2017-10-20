@@ -502,12 +502,16 @@ var setDebug = debugString => {
 }
 
 var imageResize = () => {
-    vb.width = "99%";
-    vb.height = "99%";
+    //vb.width = "99%";
+    //vb.height = "99%";
+    //setTimeout(() => {
+    //    vb.width = "100%";
+    //    vb.height = "100%";
+    //    setDebug("" + window.innerWidth + "x" + window.innerHeight);
+    //}, 1);
+    border.setAttribute('stroke', 'green');
     setTimeout(() => {
-        vb.width = "100%";
-        vb.height = "100%";
-        setDebug("" + window.innerWidth + "x" + window.innerHeight);
+        border.setAttribute('stroke', 'black');
     }, 1);
 };
 
