@@ -302,6 +302,9 @@ var Journey_Step = function (stepDef) {
         let width = (this.endTime - this.startTime) / timeFactor;
         let color;
         let eString;
+        let openStartPage = () => openStopPage(this.start).bind(this);
+        let openEndPage = () => openStopPage(this.end).bind(this);
+
         if (!this.predicted) {
             color = 'lightgray';
             eString = 'Unknown';
@@ -321,19 +324,17 @@ var Journey_Step = function (stepDef) {
 
         drawRectangle(x, y, width, 24, color, function (xPosition) {
             if (xPosition > 0.0 && xPosition < 0.25) {
-                openStopPage(this.start);
+                openStartPage();
             } else if (xPosition > 0.75 && xPosition < 1.0) {
-                openStopPage(this.end);
+                openEndPage();
             }
-        }.bind(this));
+        });
 
         let rtext = createElement('text');
         rtext.setAttribute('x', x + 2);
         rtext.setAttribute('y', y + 14);
         rtext.textContent = this.startData.routeShortName;
-        rtext.onclick = function () {
-            openStopPage(this.start);
-        }.bind(this);
+        rtext.onclick = openStartPage;
         g.appendChild(rtext);
 
         let eText = createElement('text');
@@ -343,8 +344,8 @@ var Journey_Step = function (stepDef) {
         eText.textContent = eString;
         g.appendChild(eText);
 
-        drawTimeMark(x, y + 24, this.startTime - t0, true);
-        drawTimeMark(x + width, y + 24, this.endTime - t0, false);
+        drawTimeMark(x, y + 24, this.startTime - t0, true).onclick(openStartPage);
+        drawTimeMark(x + width, y + 24, this.endTime - t0, false).onclick(openEndPage);
     }
 };
 
@@ -428,6 +429,12 @@ function drawTimeMark(x, y, ms, isStart) {
     text.setAttribute('text-anchor', anchor);
     text.setAttribute('font-size', '7.5px');
     g.appendChild(text);
+    return {
+        onclick: function (h) {
+            caret.onclick = h;
+            text.onclick = h;
+        }
+    };
 }
 
 function msToMinAndSec(ms) {
@@ -485,10 +492,16 @@ var Journey = function (steps) {
     };
 };
 
+var imageResize = () => {
+    vb.width = "100%";
+    vb.height = "100%";
+};
+
 function main(evt) {
     doc = evt.target.ownerDocument
     g = doc.getElementById('block')
     vb = doc.getElementById('vb');
+    vb.setAttribute('onresize', 'imageResize()');
     vbx = 0;
     vby = 0;
     vbh = 0;
