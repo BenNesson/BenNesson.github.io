@@ -507,9 +507,10 @@ var imageResize = () => {
     // in the middle of a portrait, but the portrait it's in the center of is now too tall to fit on the screen, so you
     // have to scroll down, and it's fucking idiotic.
     //   We can hook into the resize event to find out when it happens, the key is just getting Chrome to redraw the
-    // image.  Apparently to trigger a redraw, we need to have a change in the rendered svg.
+    // image.  Apparently to trigger a redraw, we need to have a change in the rendered svg.  So we make the border
+    // SLIGHTLY lighter, just so there's technically a difference.
     let currentColor = border.getAttribute('stroke');
-    let newColor = currentColor == 'black' ? '#000000' : 'black';
+    let newColor = currentColor == 'black' ? '#010101' : 'black';
     border.setAttribute('stroke', newColor);
     //setTimeout(() => {
     //    border.setAttribute('stroke', 'black');
@@ -524,7 +525,7 @@ function main(evt) {
     debugText = createElement('text');
     debugText.setAttribute('y', -20);
     vb.appendChild(debugText);
-    setDebug("DEBUG - 3");
+    setDebug("DEBUG - 4");
 
     vb.setAttribute('onresize', 'imageResize()');
     vbx = 0;
