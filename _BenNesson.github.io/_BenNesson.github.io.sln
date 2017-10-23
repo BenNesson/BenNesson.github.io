@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{40F3405D-64D3-4139-AC31-9182C3D69964}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "commutes", "commutes", "{D4D6E006-0A59-4C86-B3F5-21F048506CA1}"
+	ProjectSection(SolutionItems) = preProject
+		..\images\svg-nonsense\bus\commutes\bills_to_home.js = ..\images\svg-nonsense\bus\commutes\bills_to_home.js
+		..\images\svg-nonsense\bus\commutes\home_to_work.js = ..\images\svg-nonsense\bus\commutes\home_to_work.js
+		..\images\svg-nonsense\bus\commutes\OBA_data.js = ..\images\svg-nonsense\bus\commutes\OBA_data.js
+		..\images\svg-nonsense\bus\commutes\work_to_bills.js = ..\images\svg-nonsense\bus\commutes\work_to_bills.js
+		..\images\svg-nonsense\bus\commutes\work_to_home.js = ..\images\svg-nonsense\bus\commutes\work_to_home.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{D003F728-5FF4-49E8-887B-F1F2C56E2D76}"
+	ProjectSection(SolutionItems) = preProject
+		..\images\it is a mystery.bmp = ..\images\it is a mystery.bmp
+		..\images\Oganesson - Old English.svg = ..\images\Oganesson - Old English.svg
+		..\images\Oganesson - toggle.svg = ..\images\Oganesson - toggle.svg
+		..\images\Oganesson.svg = ..\images\Oganesson.svg
+		..\images\trig.svg = ..\images\trig.svg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bus-thing", "bus-thing", "{E6F5C9C3-B434-4665-A558-0F725C2FE4A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "commutes", "commutes", "{9EB6A3FE-2C9C-41A2-A8EE-BB99482B98D3}"
+	ProjectSection(SolutionItems) = preProject
+		..\images\bus-thing\commutes\bus_home.html = ..\images\bus-thing\commutes\bus_home.html
+		..\images\bus-thing\commutes\bus_home.js = ..\images\bus-thing\commutes\bus_home.js
+		..\images\bus-thing\commutes\bus_home.svg = ..\images\bus-thing\commutes\bus_home.svg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{E25A8B32-8495-4A98-BAFA-302C80B6D37F}"
+	ProjectSection(SolutionItems) = preProject
+		..\images\bus-thing\core\bus_core.js = ..\images\bus-thing\core\bus_core.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "svg-nonsense", "svg-nonsense", "{49953F33-D14B-4AD1-AF6F-29F0DCB40C10}"
+	ProjectSection(SolutionItems) = preProject
+		..\images\svg-nonsense\BigText.svg = ..\images\svg-nonsense\BigText.svg
+		..\images\svg-nonsense\trig-cos.svg = ..\images\svg-nonsense\trig-cos.svg
+		..\images\svg-nonsense\trig-sin.svg = ..\images\svg-nonsense\trig-sin.svg
+		..\images\svg-nonsense\trig-tan.svg = ..\images\svg-nonsense\trig-tan.svg
+		..\images\svg-nonsense\trig.svg = ..\images\svg-nonsense\trig.svg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bus", "bus", "{24DE080B-854B-42FF-8D47-434EF91BDF90}"
+	ProjectSection(SolutionItems) = preProject
+		..\images\svg-nonsense\bus\bills_to_home.svg = ..\images\svg-nonsense\bus\bills_to_home.svg
+		..\images\svg-nonsense\bus\bus_svg_main.js = ..\images\svg-nonsense\bus\bus_svg_main.js
+		..\images\svg-nonsense\bus\bus_temp.svg = ..\images\svg-nonsense\bus\bus_temp.svg
+		..\images\svg-nonsense\bus\home_to_work.svg = ..\images\svg-nonsense\bus\home_to_work.svg
+		..\images\svg-nonsense\bus\work_to_bills.svg = ..\images\svg-nonsense\bus\work_to_bills.svg
+		..\images\svg-nonsense\bus\work_to_home.svg = ..\images\svg-nonsense\bus\work_to_home.svg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "other", "other", "{FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buspagething", "buspagething", "{5FDBD77C-B665-41C7-85F3-AFC6782E1534}"
+	ProjectSection(SolutionItems) = preProject
+		..\other\buspagething\index.css = ..\other\buspagething\index.css
+		..\other\buspagething\index.html = ..\other\buspagething\index.html
+		..\other\buspagething\index.js = ..\other\buspagething\index.js
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D4D6E006-0A59-4C86-B3F5-21F048506CA1} = {24DE080B-854B-42FF-8D47-434EF91BDF90}
+		{D003F728-5FF4-49E8-887B-F1F2C56E2D76} = {40F3405D-64D3-4139-AC31-9182C3D69964}
+		{E6F5C9C3-B434-4665-A558-0F725C2FE4A8} = {D003F728-5FF4-49E8-887B-F1F2C56E2D76}
+		{9EB6A3FE-2C9C-41A2-A8EE-BB99482B98D3} = {E6F5C9C3-B434-4665-A558-0F725C2FE4A8}
+		{E25A8B32-8495-4A98-BAFA-302C80B6D37F} = {E6F5C9C3-B434-4665-A558-0F725C2FE4A8}
+		{49953F33-D14B-4AD1-AF6F-29F0DCB40C10} = {D003F728-5FF4-49E8-887B-F1F2C56E2D76}
+		{24DE080B-854B-42FF-8D47-434EF91BDF90} = {49953F33-D14B-4AD1-AF6F-29F0DCB40C10}
+		{FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E} = {40F3405D-64D3-4139-AC31-9182C3D69964}
+		{5FDBD77C-B665-41C7-85F3-AFC6782E1534} = {FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E}
+	EndGlobalSection
+EndGlobal
