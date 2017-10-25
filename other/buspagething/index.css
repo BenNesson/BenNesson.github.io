@@ -6,7 +6,7 @@ body {
 
 table, th, td {
     border: 1px solid lightgrey;
-    font-size: 4vw;
+    font-size: 5vw;
     text-align: right;
 }
 
@@ -23,12 +23,12 @@ td {
 .on-time { background-color: darkgreen; }
 .no-prediction { color: darkgrey; }
 .stop-name {
-    font-size: 4vw;
+    font-size: 5vw;
     text-align: center;
     width: 100%;
 }
 .stop-detail {
-    font-size: 2vw;
+    font-size: 2.5vw;
     text-align: center;
     margin-bottom: 10px;
     width: 100%;

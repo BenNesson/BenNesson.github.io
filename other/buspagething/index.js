@@ -91,13 +91,14 @@ function generateRowForArrival(currentTime, arrival) {
     row.appendChild(arrivalTimeCell);
     row.appendChild(howLateCell);
     row.appendChild(howOldCell);
-    
+
     routeCell.innerHTML = latestArrival.routeShortName;
     vehicleCell.innerHTML = latestArrival.vehicleId;
-    
-    var arrivalTime = latestArrival.predicted ? latestArrival.predictedArrivalTime : latestArrival.scheduledArrivalTime;
+
+    let actuallyPredicted = latestArrival.predicted && latestArrival.predictedArrivalTime != 0;
+    var arrivalTime = actuallyPredicted ? latestArrival.predictedArrivalTime : latestArrival.scheduledArrivalTime;
     arrivalTimeCell.innerHTML = formatMillisecondTimespan(arrivalTime - currentTime);
-    if (latestArrival.predicted) {
+    if (actuallyPredicted) {
         var threshold = 30 * 1000;
         var howLate = latestArrival.predictedArrivalTime - latestArrival.scheduledArrivalTime;
         var latenessClass = "on-time";

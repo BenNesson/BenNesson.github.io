@@ -249,7 +249,7 @@ var Journey_Step = function (stepDef) {
     };
 
     this.processData = function () {
-        if (this.startData.predicted) {
+        if (this.startData.predicted && this.startData.predictedArrivalTime != 0) {
             this.predicted = true;
             this.startTime = this.startData.predictedDepartureTime;
             if (this.endData.predicted) {
@@ -259,7 +259,7 @@ var Journey_Step = function (stepDef) {
                 this.endTime = this.endData.scheduledArrivalTime + offSet;
             }
         } else {
-            if (this.endData.predicted) {
+            if (this.endData.predicted && this.endData.predictedArrivalTime != 0) {
                 this.predicted = true;
                 this.endTime = this.endData.predictedArrivalTime;
                 let offset = this.endData.predictedArrivalTime - this.endResponse.currentTime;
