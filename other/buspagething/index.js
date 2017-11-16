@@ -22,6 +22,9 @@ function Launch() {
 }
 
 function Update() {
+    if (updateTimeout) {
+        clearTimeout(updateTimeout);
+    }
     QueryStop(urlParams["stopId"]);
 }
 
@@ -128,6 +131,7 @@ function debug(msg) {
 }
 
 var handleStopResponse;
+var updateTimeout;
 
 function QueryStop(stopId) {
     var url = "./dummy.json";
@@ -149,10 +153,10 @@ function QueryStop(stopId) {
     handleStopResponse = function(response, isError) {
         headElement.removeChild(scriptTag);
         if (isError) {
-            setTimeout(Update, Math.min(urlParams["refreshRate"], 1) * 1000);
+            updateTimeout = setTimeout(Update, Math.min(urlParams["refreshRate"], 1) * 1000);
         } else {
             LoadStop(response);
-            setTimeout(Update, urlParams["refreshRate"] * 1000);
+            updateTimeout = setTimeout(Update, urlParams["refreshRate"] * 1000);
         }
     };
     headElement.appendChild(scriptTag);
