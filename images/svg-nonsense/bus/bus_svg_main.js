@@ -16,6 +16,7 @@ var DEFAULT_TRIES = 10;
 var ticksPerMinute = 60000;
 
 var DEBUGGING = true;
+var unused = 0;
 
 var callbacks = new Object();
 function request(url, callback, tries) {
