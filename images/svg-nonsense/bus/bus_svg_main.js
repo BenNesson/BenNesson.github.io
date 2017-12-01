@@ -194,7 +194,7 @@ function createElement(elementName) {
     return doc.createElementNS('http://www.w3.org/2000/svg', elementName);
 }
 
-var stopPageBaseUrl = "https://BenNesson.github.io/other/buspagething/index.html";
+var stopPageBaseUrl = "https://BenNesson.github.io/other/buspagething/stop.html";
 function openStopPage(stopId) {
     let pageUrl = stopPageBaseUrl + "?key=" + API_KEY + "&stopId=" + stopId;
     let tab = window.open(pageUrl, "_blank");
