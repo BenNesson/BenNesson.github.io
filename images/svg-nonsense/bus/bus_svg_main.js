@@ -15,7 +15,7 @@ var testTimeAdjustment = 0;
 var DEFAULT_TRIES = 10;
 var ticksPerMinute = 60000;
 
-var DEBUGGING = false;
+var DEBUGGING = true;
 
 var callbacks = new Object();
 function request(url, callback, tries) {
