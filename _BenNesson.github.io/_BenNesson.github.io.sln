@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{40F3405D-64D3-4139-AC31-9182C3D69964}"
 EndProject
@@ -60,9 +60,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "other", "other", "{FAE5DDBB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buspagething", "buspagething", "{5FDBD77C-B665-41C7-85F3-AFC6782E1534}"
 	ProjectSection(SolutionItems) = preProject
-		..\other\buspagething\index.css = ..\other\buspagething\index.css
-		..\other\buspagething\index.html = ..\other\buspagething\index.html
-		..\other\buspagething\index.js = ..\other\buspagething\index.js
+		..\other\buspagething\stop.css = ..\other\buspagething\stop.css
+		..\other\buspagething\stop.html = ..\other\buspagething\stop.html
+		..\other\buspagething\stop.js = ..\other\buspagething\stop.js
 	EndProjectSection
 EndProject
 Global
@@ -79,5 +79,8 @@ Global
 		{24DE080B-854B-42FF-8D47-434EF91BDF90} = {49953F33-D14B-4AD1-AF6F-29F0DCB40C10}
 		{FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E} = {40F3405D-64D3-4139-AC31-9182C3D69964}
 		{5FDBD77C-B665-41C7-85F3-AFC6782E1534} = {FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2F31294-E232-4328-9149-515D59062992}
 	EndGlobalSection
 EndGlobal
