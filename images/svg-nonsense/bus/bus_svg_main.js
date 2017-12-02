@@ -1,9 +1,5 @@
 var journeyDefinitions = defineJourneys();
 
-// {% comment %}
-// blah blah blah
-// {% endcomment %}
-
 var urlBase = 'https://api.pugetsound.onebusaway.org/api/where/';
 var doc;
 var g;
@@ -15,8 +11,7 @@ var testTimeAdjustment = 0;
 var DEFAULT_TRIES = 10;
 var ticksPerMinute = 60000;
 
-var DEBUGGING = true;
-var unused = 1;
+var DEBUGGING = false;
 
 var callbacks = new Object();
 function request(url, callback, tries) {
