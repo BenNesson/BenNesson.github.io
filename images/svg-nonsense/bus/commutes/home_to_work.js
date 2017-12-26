@@ -99,7 +99,7 @@ function defineJourneys() {
                 ride45ToUDistrict,
                 walkStep(3),
                 ride(route.Number31)
-                    .from(stop.OnCampusParkway.AtUniversity.WB)
+                    .from(stop.OnCampusParkway.At12th.WB)
                     .to(stop.On35th.AtWoodlawn.WB),
                 walkStep(3)
             ]
@@ -110,7 +110,7 @@ function defineJourneys() {
                 ride45ToUDistrict,
                 walkStep(3),
                 ride(route.Number32)
-                    .from(stop.OnCampusParkway.AtUniversity.WB)
+                    .from(stop.OnCampusParkway.At12th.WB)
                     .to(stop.On35th.AtWoodlawn.WB),
                 walkStep(3)
             ]

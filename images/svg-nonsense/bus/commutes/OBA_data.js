@@ -30,6 +30,11 @@ function prettifyStops(raw) {
             WB: raw.STOP_8TH_85TH_WB
         }
     };
+    let On12th = {
+        AtCampusParkway: {
+            WB: STOP_12TH_CAMPUS_WB
+        }
+    };
     let On15th = {
         At85th: {
             NB: raw.STOP_15TH_85TH_NB,
@@ -128,6 +133,26 @@ function prettifyStops(raw) {
             WB: raw.STOP_AURORA_105TH_WB
         },
     };
+    let On165th = {
+        AtAurora: {
+            NB: raw.STOP_AURORA_165TH_NB,
+            SB: raw.STOP_AURORA_165TH_SB
+        }
+    };
+    let On167th = {
+        AtMeridian: {
+            NB: raw.STOP_MERIDIAN_167TH_NB,
+            SB: raw.STOP_MERIDIAN_167TH_SB
+        }
+    };
+    let On175th = {
+        AtMeridian: {
+            NB: raw.STOP_MERIDIAN_175TH_NB,
+            SB: raw.STOP_MERIDIAN_175TH_SB,
+            EB: raw.STOP_MERIDIAN_175TH_EB,
+            WB: raw.STOP_MERIDIAN_175TH_WB
+        }
+    };
     let OnAshworth = {
         At40th: On40th.AtAshworth
     };
@@ -136,6 +161,7 @@ function prettifyStops(raw) {
         At46th: On46th.AtAurora,
         At85th: On85th.AtAurora,
         At105th: On105th.AtAurora,
+        At165th: On165th.AtAurora,
         AtGaler: {
             NB: raw.STOP_AURORA_GALER_NB,
             SB: raw.STOP_AURORA_GALER_SB
@@ -148,10 +174,10 @@ function prettifyStops(raw) {
         },
     };
     let OnCampusParkway = {
+        At12th: On12th.AtCampusParkway,
         At15th: On15th.AtCampusParkway,
         AtUniversity: {
-            EB: raw.STOP_UNIVERSITY_CAMPUS_EB,
-            WB: raw.STOP_UNIVERSITY_CAMPUS_WB
+            EB: raw.STOP_UNIVERSITY_CAMPUS_EB
         }
     };
     let OnDenny = {
@@ -184,6 +210,10 @@ function prettifyStops(raw) {
         AtSeneca: {
             SB: raw.STOP_SENECA_HARVARD_SB
         }
+    };
+    let OnMeridian = {
+        AtOn167th: On167th.AtMeridian,
+        AtOn175th: On175th.AtMeridian
     };
     let OnOlive = {
         AtDenny: OnDenny.AtOlive
@@ -267,6 +297,9 @@ function prettifyStops(raw) {
         On82nd: On82nd,
         On85th: On85th,
         On105th: On105th,
+        On165th: On165th,
+        On167th: On167th,
+        On175th: On175th,
         OnAshworth: OnAshworth,
         OnAurora: OnAurora,
         OnBroadway: OnBroadway,
@@ -277,6 +310,7 @@ function prettifyStops(raw) {
         OnGaler: OnGaler,
         OnGreenwood: OnGreenwood,
         OnHarvard: OnHarvard,
+        OnMeridian: OnMeridian,
         OnOlive: OnOlive,
         OnPike: OnPike,
         OnPine: OnPine,
@@ -312,7 +346,28 @@ function defineIdentifiers() {
         ROUTE_2: '1_100089',
         ROUTE_26: '1_100151',
 
-        // Near Home
+        ROUTE_373: '1_100215',
+        ROUTE_346: '1_100203',
+        ROUTE_331: '1_100196',
+        ROUTE_301: '1_100175',
+        ROUTE_316: '1_100190',
+        ROUTE_303: '1_100177',
+
+        // Near House
+        STOP_MERIDIAN_167TH_NB: '1_16660',
+        STOP_MERIDIAN_167TH_SB: '1_16260',
+        STOP_MERIDIAN_175TH_EB: '1_75756',
+        STOP_MERIDIAN_175TH_WB: '1_75884',
+        STOP_MERIDIAN_175TH_NB: '1_16680',
+        STOP_MERIDIAN_175TH_SB: '1_16240',
+        STOP_AURORA_165TH_NB: '1_75860',
+        STOP_AURORA_165TH_SB: '1_75780',
+
+        // House <-> Work transfer points
+        STOP_92ND_CORLISS_EB: '1_17022',
+        STOP_92ND_CORLISS_WB: '1_17698',
+
+        // Near Old Apartment
         STOP_AURORA_85TH_NB: '1_7730',
         STOP_AURORA_85TH_SB: '1_7160',
         STOP_AURORA_85TH_WB: '1_5450',
@@ -322,7 +377,7 @@ function defineIdentifiers() {
         STOP_WALLINGFORD_82ND_NB: '1_17650',
         STOP_WALLINGFORD_82ND_SB: '1_17070',
 
-        // Home <-> Work transfer points
+        // Old Apartment <-> Work transfer points
         STOP_AURORA_105TH_NB: '1_7810',
         STOP_AURORA_105TH_SB: '1_7080',
         STOP_AURORA_105TH_EB: '1_40068',
@@ -365,7 +420,7 @@ function defineIdentifiers() {
         STOP_DEXTER_GALER_SB: '1_18340',
 
         STOP_UNIVERSITY_CAMPUS_EB: '1_9575',
-        STOP_UNIVERSITY_CAMPUS_WB: '1_9138',
+        STOP_12TH_CAMPUS_WB: '1_9138',
         STOP_UNIVERSITY_41ST_NB: '1_9581',
         STOP_UNIVERSITY_41ST_SB: '1_9142',
         STOP_15TH_CAMPUS_SB: '1_10914',
