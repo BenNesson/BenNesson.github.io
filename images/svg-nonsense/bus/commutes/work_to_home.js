@@ -11,40 +11,28 @@ function defineJourneys() {
     // define the stuff that gets used multiple times.
     let ride62 = ride(route.Number62),
         ride62East = ride62.from(stop.OnStone.At35th.EB),
-        ride45 = ride(route.Number45),
         rideELine = ride(route.ELine),
-        rideELineGalerTo85th = rideELine
+        rideELineGalerTo165th = rideELine
             .from(stop.OnAurora.AtGaler.NB)
-            .to(stop.OnAurora.At85th.NB),
-        ride28X = ride(route.Number28X);
+            .to(stop.OnAurora.At165th.NB),
+        ride28X = ride(route.Number28X),
+        ride26ToNSC = ride(route.Number26)
+            .from(stop.On40th.AtWallingford.EB)
+            .to(stop.OnCorliss.At92nd.EB),
+        ride346FromNSC = ride(route.Number346)
+            .from(stop.OnCorliss.At92nd.WB)
+            .to(stop.OnMeridian.At167th.NB),
+        ride31East = ride(route.Number31).from(stop.On35th.AtWoodlawn.EB),
+        ride32East = ride(route.Number32).from(stop.On35th.AtWoodlawn.EB),
+        ride373FromUDistrict = ride(route.Number373)
+            .from(stop.OnUniversity.At41st.NB)
+            .to(stop.OnMeridian.At175th.NB),
+        walkTo31Or32 = walkStep(3),
+        walkFromELine = walkStep(18),
+        walkFrom373 = walkStep(13),
+        walkFrom346 = walkStep(5);
 
     return [
-        {
-            name: '32 -> 45',
-            steps: [
-                walkStep(3),
-                ride(route.Number32)
-                    .from(stop.OnWoodlawn.At35th.EB)
-                    .to(stop.OnUniversity.AtCampusParkway.EB),
-                walkStep(2),
-                ride45
-                    .from(stop.OnUniversity.At41st.NB)
-                    .to(stop.OnStone.At85th.WB)
-            ]
-        },
-        {
-            name: '31 -> 45',
-            steps: [
-                walkStep(3),
-                ride(route.Number31)
-                    .from(stop.OnWoodlawn.At35th.EB)
-                    .to(stop.OnUniversity.AtCampusParkway.EB),
-                walkStep(2),
-                ride45
-                    .from(stop.OnUniversity.At41st.NB)
-                    .to(stop.OnStone.At85th.WB)
-            ]
-        },
         {
             name: '62 SB -> E-Line',
             steps: [
@@ -53,18 +41,8 @@ function defineJourneys() {
                     .from(stop.OnStone.At35th.WB)
                     .to(stop.OnDexter.AtGaler.SB),
                 walkStep(4),
-                rideELineGalerTo85th
-            ]
-        },
-        {
-            name: '62 -> 45',
-            steps: [
-                walkStep(8),
-                ride62East.to(stop.OnRavenna.AtWoodlawn.SEB),
-                walkStep(2),
-                ride45
-                    .from(stop.OnRavenna.AtWoodlawn.NWB)
-                    .to(stop.OnStone.At85th.WB)
+                rideELineGalerTo165th,
+                walkFromELine
             ]
         },
         {
@@ -75,43 +53,8 @@ function defineJourneys() {
                 walkStep(7),
                 rideELine
                     .from(stop.OnAurora.At46th.NB)
-                    .to(stop.OnAurora.At85th.NB)
-            ]
-        },
-        {
-            name: 'Just the 26',
-            steps: [
-                walkStep(13),
-                ride(route.Number26)
-                    .from(stop.OnAshworth.At40th.EB)
-                    .to(stop.OnWallingford.At82nd.NB),
-                walkStep(10)
-            ]
-        },
-        {
-            name: '28X -> 45',
-            steps: [
-                walkStep(15),
-                ride28X
-                    .from(stop.OnAurora.At38th.NWB)
-                    .to(stop.On8th.At85th.NB),
-                walkStep(3),
-                ride45
-                    .from(stop.On8th.At85th.EB)
-                    .to(stop.OnAurora.At85th.EB)
-            ]
-        },
-        {
-            name: '5 -> 45',
-            steps: [
-                walkStep(15),
-                ride(route.Number5)
-                    .from(stop.OnAurora.At38th.NWB)
-                    .to(stop.OnGreenwood.At85th.NB),
-                walkStep(2),
-                ride45
-                    .from(stop.OnGreenwood.At85th.EB)
-                    .to(stop.OnAurora.At85th.EB)
+                    .to(stop.OnAurora.At165th.NB),
+                walkFromELine
             ]
         },
         {
@@ -122,7 +65,60 @@ function defineJourneys() {
                     .from(stop.OnAurora.At38th.SEB)
                     .to(stop.OnAurora.AtGaler.SB),
                 walkStep(2),
-                rideELineGalerTo85th
+                rideELineGalerTo165th,
+                walkFromELine
+            ]
+        },
+        {
+            name: '26 -> 346',
+            steps: [
+                walkStep(11),
+                ride26ToNSC,
+                walkStep(2),
+                ride346FromNSC,
+                walkFrom346
+            ]
+        },
+        {
+            name: '31 -> 26 -> 346',
+            steps: [
+                walkTo31Or32,
+                ride31East.to(stop.On40th.AtWallingford.EB),
+                ride26ToNSC,
+                walkStep(2),
+                ride346FromNSC,
+                walkFrom346
+            ]
+        },
+        {
+            name: '32 -> 26 -> 346',
+            steps: [
+                walkTo31Or32,
+                ride32East.to(stop.On40th.AtWallingford.EB),
+                ride26ToNSC,
+                walkStep(2),
+                ride346FromNSC,
+                walkFrom346
+            ]
+        },
+        {
+            name: '31 -> 373',
+            steps: [
+                walkTo31Or32,
+                ride31East.to(stop.OnCampusParkway.AtUniversity.EB),
+                walkStep(5),
+                ride373FromUDistrict,
+                walkFrom373
+            ]
+        },
+        {
+            name: '32 -> 373',
+            steps: [
+                walkTo31Or32,
+                ride32East.to(stop.OnCampusParkway.AtUniversity.EB),
+                walkStep(5),
+                ride373FromUDistrict,
+                walkFrom373
             ]
         }
     ];

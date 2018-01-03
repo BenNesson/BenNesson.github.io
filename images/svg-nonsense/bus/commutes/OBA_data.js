@@ -225,8 +225,8 @@ function prettifyStops(raw) {
         }
     };
     let OnMeridian = {
-        AtOn167th: On167th.AtMeridian,
-        AtOn175th: On175th.AtMeridian
+        At167th: On167th.AtMeridian,
+        At175th: On175th.AtMeridian
     };
     let OnOlive = {
         AtDenny: OnDenny.AtOlive
