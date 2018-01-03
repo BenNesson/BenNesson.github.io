@@ -32,7 +32,7 @@ function prettifyStops(raw) {
     };
     let On12th = {
         AtCampusParkway: {
-            WB: STOP_12TH_CAMPUS_WB
+            WB: raw.STOP_12TH_CAMPUS_WB
         }
     };
     let On15th = {
@@ -78,6 +78,10 @@ function prettifyStops(raw) {
         AtAshworth: {
             EB: raw.STOP_ASHWORTH_40TH_EB,
             WB: raw.STOP_ASHWORTH_40TH_WB
+        },
+        AtWallingford: {
+            EB: raw.STOP_WALLINGFORD_40TH_EB,
+            WB: raw.STOP_WALLINGFORD_40TH_WB
         }
     };
     let On41st = {
@@ -123,6 +127,12 @@ function prettifyStops(raw) {
         AtStone: {
             EB: raw.STOP_STONE_85TH_EB,
             WB: raw.STOP_STONE_85TH_WB
+        }
+    };
+    let On92nd = {
+        AtCorliss: {
+            EB: raw.STOP_92ND_CORLISS_EB,
+            WB: raw.STOP_92ND_CORLISS_WB
         }
     };
     let On105th = {
@@ -179,6 +189,9 @@ function prettifyStops(raw) {
         AtUniversity: {
             EB: raw.STOP_UNIVERSITY_CAMPUS_EB
         }
+    };
+    let OnCorliss = {
+        At92nd: On92nd.AtCorliss
     };
     let OnDenny = {
         AtDexter: {
@@ -259,6 +272,7 @@ function prettifyStops(raw) {
         At3rd: On3rd.AtVirginia
     };
     let OnWallingford = {
+        At40th : On40th.AtWallingford,
         At82nd : On82nd.AtWallingford
     };
     let OnWoodlawn = {
@@ -296,6 +310,7 @@ function prettifyStops(raw) {
         On46th: On46th,
         On82nd: On82nd,
         On85th: On85th,
+        On92nd: On92nd,
         On105th: On105th,
         On165th: On165th,
         On167th: On167th,
@@ -304,6 +319,7 @@ function prettifyStops(raw) {
         OnAurora: OnAurora,
         OnBroadway: OnBroadway,
         OnCampusParkway: OnCampusParkway,
+        OnCorliss: OnCorliss,
         OnDenny: OnDenny,
         OnDexter: OnDexter,
         OnFremont: OnFremont,
@@ -366,6 +382,8 @@ function defineIdentifiers() {
         // House <-> Work transfer points
         STOP_92ND_CORLISS_EB: '1_17022',
         STOP_92ND_CORLISS_WB: '1_17698',
+        STOP_WALLINGFORD_40TH_EB: '1_26965',
+        STOP_WALLINGFORD_40TH_WB: '1_26400',
 
         // Near Old Apartment
         STOP_AURORA_85TH_NB: '1_7730',
@@ -476,6 +494,8 @@ function defineIdentifiers() {
         Number45: raw.ROUTE_45,
         Number49: raw.ROUTE_49,
         Number62: raw.ROUTE_62,
+        Number346: raw.ROUTE_346,
+        Number373: raw.ROUTE_373,
         ELine: raw.ROUTE_ELINE,
         Link: raw.ROUTE_LINK
     };
