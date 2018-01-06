@@ -24,7 +24,7 @@ function defineJourneys() {
         ride62 = ride(route.Number62),
         ride28X = ride(route.Number28X),
         walk = {
-            toEline: walkStep(18),
+            toELine: walkStep(18),
             to346: walkStep(5),
             to373: walkStep(13)
         };
