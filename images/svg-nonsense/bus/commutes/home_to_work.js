@@ -16,7 +16,8 @@ function defineJourneys() {
             .from(stop.OnMeridian.At167th.SB)
             .to(stop.OnCorliss.At92nd.EB),
         ride26FromNSC = ride(route.Number26)
-            .from(stop.OnCorliss.At92nd.WB)
+            .from(stop.OnCorliss.At92nd.WB),
+        ride26FromNSCToWallingford = ride26FromNSC
             .to(stop.On40th.AtWallingford.WB),
         rideELineSouth = ride(route.ELine).from(stop.OnAurora.At165th.SB),
         rideELineTo46th = rideELineSouth.to(stop.OnAurora.At46th.SB),
@@ -80,8 +81,18 @@ function defineJourneys() {
                 walk.to346,
                 ride346ToNSC,
                 walkStep(2),
-                ride26FromNSC,
+                ride26FromNSCToWallingford,
                 walkStep(11)
+            ]
+        },
+        {
+            name: '346 -> 26 -> 62',
+            steps: [
+                walk.to346,
+                ride346ToNSC,
+                ride26FromNSC.to(stop.OnWoodlawn.AtRavenna.SWB),
+                ride(route.Number62).from(stop.OnWoodlawn.AtRavenna.SWB).to(stop.OnStone.At35th.WB),
+                walkStep(7)
             ]
         },
         {
@@ -90,7 +101,7 @@ function defineJourneys() {
                 walk.to346,
                 ride346ToNSC,
                 walkStep(2),
-                ride26FromNSC,
+                ride26FromNSCToWallingford,
                 ride(route.Number31)
                     .from(stop.On40th.AtWallingford.WB)
                     .to(stop.On35th.AtWoodlawn.WB),
@@ -103,7 +114,7 @@ function defineJourneys() {
                 walk.to346,
                 ride346ToNSC,
                 walkStep(2),
-                ride26FromNSC,
+                ride26FromNSCToWallingford,
                 ride(route.Number32)
                     .from(stop.On40th.AtWallingford.WB)
                     .to(stop.On35th.AtWoodlawn.WB),

@@ -250,6 +250,7 @@ function prettifyStops(raw) {
             NEB: raw.STOP_RAVENNA_WOODLAWN_NEB,
             NWB: raw.STOP_RAVENNA_WOODLAWN_NWB,
             SEB: raw.STOP_RAVENNA_WOODLAWN_SEB,
+            SEB_26Only: raw.STOP_RAVENNA_WOODLAWN_SEB_26,
             SWB: raw.STOP_RAVENNA_WOODLAWN_SWB
         },
     };
@@ -423,6 +424,7 @@ function defineIdentifiers() {
         STOP_RAVENNA_WOODLAWN_SWB: '1_17170',
         STOP_RAVENNA_WOODLAWN_NEB: '1_17550',
         STOP_RAVENNA_WOODLAWN_SEB: '1_16390',
+        STOP_RAVENNA_WOODLAWN_SEB_26: '1_26210',
 
         STOP_AURORA_46TH_NB: '1_75409',
         STOP_AURORA_46TH_SB: '1_75408',

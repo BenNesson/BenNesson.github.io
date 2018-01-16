@@ -16,7 +16,8 @@ function defineJourneys() {
             .from(stop.OnAurora.AtGaler.NB)
             .to(stop.OnAurora.At165th.NB),
         ride28X = ride(route.Number28X),
-        ride26ToNSC = ride(route.Number26)
+        ride26 = ride(route.Number26),
+        ride26ToNSC = ride26
             .from(stop.On40th.AtWallingford.EB)
             .to(stop.OnCorliss.At92nd.EB),
         ride346FromNSC = ride(route.Number346)
@@ -55,6 +56,20 @@ function defineJourneys() {
                     .from(stop.OnAurora.At46th.NB)
                     .to(stop.OnAurora.At165th.NB),
                 walkFromELine
+            ]
+        },
+        {
+            name: '64 NB -> 26 -> 346',
+            steps: [
+                walkStep(8),
+                ride62East.to(stop.OnWoodlawn.AtRavenna.SEB),
+                walkStep(2),
+                ride26
+                    .from(stop.OnRavenna.AtWoodlawn.SEB_26Only)
+                    .to(stop.OnCorliss.At92nd.EB),
+                walkStep(2),
+                ride346FromNSC,
+                walkFrom346
             ]
         },
         {
