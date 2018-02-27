@@ -90,6 +90,7 @@ function defineJourneys() {
             steps: [
                 walk.to346,
                 ride346ToNSC,
+                walkStep(2),
                 ride26FromNSC.to(stop.OnWoodlawn.AtRavenna.SWB),
                 ride(route.Number62).from(stop.OnWoodlawn.AtRavenna.SWB).to(stop.OnStone.At35th.WB),
                 walkStep(7)
