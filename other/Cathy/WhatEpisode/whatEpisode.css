@@ -1,0 +1,7 @@
+body {
+    font-family: Helvetica, sans-serif;
+}
+
+td, select, button {
+    font-size: 5vw;
+}
