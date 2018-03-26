@@ -1,0 +1,83 @@
+<html>
+  <head>
+      <script type="text/javascript">
+          let showData = [{
+              name: "Parks and Recreation",
+              seasons: [6, 24, 16, 22, 22, 22, 13]
+          },
+          {
+              name: "Bob's Burgers",
+              seasons: [1,1,1,1]
+              },
+          {
+              name: "Chowder",
+              seasons:[]
+          }, {
+              name: "Gravity Falls",
+              seasons: []
+          }, {
+              name: "Will and Grace",
+              seasons: []
+          }, {
+              name: "Brooklyn 99",
+              seasons: []
+          }];
+          let showPicker, seasonCell, episodeCell;
+          let initElements = function () {
+              showPicker = document.getElementById("ShowPicker");
+              seasonCell = document.getElementById("seasonCell");
+              episodeCell = document.getElementById("episodeCell");
+          };
+          let populate = function () {
+              for (let i in showData) {
+                  let newOption = document.createElement("OPTION");
+                  newOption.setAttribute("value", i);
+                  newOption.innerHTML = showData[i].name;
+                  showPicker.appendChild(newOption);
+              }
+          };
+          let pickEpisodeFromSeasons = function (seasons) {
+              let total = seasons.reduce((t, c) => t + c);
+              let episodeIndex = Math.ceil(Math.random() * total);
+              let result = { season: 1, episode: episodeIndex };
+              while (result.episode > seasons[result.season - 1]) {
+                  result.episode -= seasons[result.season - 1];
+                  result.season++;
+              }
+              return result;
+          };
+
+          function pickEpisode() {
+              let selection = showPicker.value;
+              let seasons = showData[selection].seasons;
+              let pick = pickEpisodeFromSeasons(seasons);
+              seasonCell.innerHTML = pick.season;
+              episodeCell.innerHTML = pick.episode;
+          }
+          function init() {
+              initElements();
+              populate();
+              pickEpisode();
+          }
+      </script>
+  </head>
+  <body onload="init()">
+      <div>
+          <table>
+              <tr>
+                  <td>Show: </td>
+                  <td><select id="ShowPicker" oninput="pickEpisode()" /></td>
+              </tr>
+              <tr>
+              <td>Season: </td>
+                  <td id="seasonCell" />
+              </tr>
+              <tr>
+                  <td>Episode: </td>
+                  <td id="episodeCell" />
+              </tr>
+          </table>
+          <button onclick="pickEpisode()">Pick again</button>
+      </div>
+  </body>
+</html>
