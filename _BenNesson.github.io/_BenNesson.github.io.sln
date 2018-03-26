@@ -65,6 +65,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buspagething", "buspagethin
 		..\other\buspagething\stop.js = ..\other\buspagething\stop.js
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cathy", "Cathy", "{A6A5937A-7B40-4820-B0E3-F496A7373C2C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WhatEpisode", "WhatEpisode", "{E1A9229C-5FBE-4DBB-BACE-4D681E3F097B}"
+	ProjectSection(SolutionItems) = preProject
+		..\other\Cathy\WhatEpisode\index.html = ..\other\Cathy\WhatEpisode\index.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +86,8 @@ Global
 		{24DE080B-854B-42FF-8D47-434EF91BDF90} = {49953F33-D14B-4AD1-AF6F-29F0DCB40C10}
 		{FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E} = {40F3405D-64D3-4139-AC31-9182C3D69964}
 		{5FDBD77C-B665-41C7-85F3-AFC6782E1534} = {FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E}
+		{A6A5937A-7B40-4820-B0E3-F496A7373C2C} = {FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E}
+		{E1A9229C-5FBE-4DBB-BACE-4D681E3F097B} = {A6A5937A-7B40-4820-B0E3-F496A7373C2C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2F31294-E232-4328-9149-515D59062992}
