@@ -1,0 +1,17 @@
+<html>
+  <head id="h">
+    <script src="./stops.js"></script>
+    <link href="./stops.css" media="all" type="text/css" rel="stylesheet" />
+  </head>
+  <body onload="Launch()">
+    <div onclick="Update()">
+      <div id="header" class="header">Stops Near Location</div>
+      <div class="position">
+        <div id="lat"></div>
+        <div id="lon"></div>
+      </div>
+    </div>
+    <table id="stopTable"></table>
+    <div id="debug"></div>
+  </body>
+</html>
