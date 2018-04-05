@@ -59,14 +59,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "other", "other", "{FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buspagething", "buspagething", "{5FDBD77C-B665-41C7-85F3-AFC6782E1534}"
-	ProjectSection(SolutionItems) = preProject
-		..\other\buspagething\stop.css = ..\other\buspagething\stop.css
-		..\other\buspagething\stop.html = ..\other\buspagething\stop.html
-		..\other\buspagething\stop.js = ..\other\buspagething\stop.js
-		..\other\buspagething\stops.css = ..\other\buspagething\stops.css
-		..\other\buspagething\stops.html = ..\other\buspagething\stops.html
-		..\other\buspagething\stops.js = ..\other\buspagething\stops.js
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cathy", "Cathy", "{A6A5937A-7B40-4820-B0E3-F496A7373C2C}"
 EndProject
@@ -75,6 +67,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WhatEpisode", "WhatEpisode"
 		..\other\Cathy\WhatEpisode\index.html = ..\other\Cathy\WhatEpisode\index.html
 		..\other\Cathy\WhatEpisode\whatEpisode.css = ..\other\Cathy\WhatEpisode\whatEpisode.css
 		..\other\Cathy\WhatEpisode\whatEpisode.js = ..\other\Cathy\WhatEpisode\whatEpisode.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{ACBC687B-F84B-4B86-BBFB-047F2F1867BA}"
+	ProjectSection(SolutionItems) = preProject
+		..\other\buspagething\core\onebusaway.interop.js = ..\other\buspagething\core\onebusaway.interop.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "stop", "stop", "{5B74C433-3924-4B85-A12F-2EE66E618B37}"
+	ProjectSection(SolutionItems) = preProject
+		..\other\buspagething\stop\stop.css = ..\other\buspagething\stop\stop.css
+		..\other\buspagething\stop\stop.html = ..\other\buspagething\stop\stop.html
+		..\other\buspagething\stop\stop.js = ..\other\buspagething\stop\stop.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "stops", "stops", "{9C7F6874-496D-4BC8-8E82-0E59A0E9DDFD}"
+	ProjectSection(SolutionItems) = preProject
+		..\other\buspagething\stops\stops.css = ..\other\buspagething\stops\stops.css
+		..\other\buspagething\stops\stops.html = ..\other\buspagething\stops\stops.html
+		..\other\buspagething\stops\stops.js = ..\other\buspagething\stops\stops.js
 	EndProjectSection
 EndProject
 Global
@@ -93,6 +104,9 @@ Global
 		{5FDBD77C-B665-41C7-85F3-AFC6782E1534} = {FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E}
 		{A6A5937A-7B40-4820-B0E3-F496A7373C2C} = {FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E}
 		{E1A9229C-5FBE-4DBB-BACE-4D681E3F097B} = {A6A5937A-7B40-4820-B0E3-F496A7373C2C}
+		{ACBC687B-F84B-4B86-BBFB-047F2F1867BA} = {5FDBD77C-B665-41C7-85F3-AFC6782E1534}
+		{5B74C433-3924-4B85-A12F-2EE66E618B37} = {5FDBD77C-B665-41C7-85F3-AFC6782E1534}
+		{9C7F6874-496D-4BC8-8E82-0E59A0E9DDFD} = {5FDBD77C-B665-41C7-85F3-AFC6782E1534}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2F31294-E232-4328-9149-515D59062992}

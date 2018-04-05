@@ -15,11 +15,13 @@ var urlParams = {
 
 let setLat, setLon;
 
+function handlePositionResponse(position) {
+    setLat(position.coords.latitude);
+    setLon(position.coords.longitude);
+}
+
 function getLocation() {
-    return navigator.geolocation.getCurrentPosition(pos => {
-        setLat(pos.coords.latitude);
-        setLon(pos.coords.longitude);
-    });
+    return navigator.geolocation.getCurrentPosition(handlePositionResponse);
 }
 
 function Launch() {
