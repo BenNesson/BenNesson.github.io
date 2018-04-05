@@ -63,6 +63,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buspagething", "buspagethin
 		..\other\buspagething\stop.css = ..\other\buspagething\stop.css
 		..\other\buspagething\stop.html = ..\other\buspagething\stop.html
 		..\other\buspagething\stop.js = ..\other\buspagething\stop.js
+		..\other\buspagething\stops.css = ..\other\buspagething\stops.css
+		..\other\buspagething\stops.html = ..\other\buspagething\stops.html
+		..\other\buspagething\stops.js = ..\other\buspagething\stops.js
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cathy", "Cathy", "{A6A5937A-7B40-4820-B0E3-F496A7373C2C}"

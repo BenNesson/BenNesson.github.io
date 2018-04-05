@@ -41,6 +41,10 @@ function formatMillisecondTimespan(milliseconds){
     return (isNegative ? "-" : "") + totalMinutes + (totalSeconds < 10 ? ":0" : ":") + totalSeconds;
 }
 
+function isActuallyPredicted(arrival) {
+    return arrival.predicted && arrival.predictedArrivalTime != 0;
+}
+
 let maxTimeToLive = 20;
 function createCacheNode(arrival) {
     return {
@@ -48,7 +52,7 @@ function createCacheNode(arrival) {
         ttl: maxTimeToLive,
         get: function (update) {
             this.ttl = maxTimeToLive;
-            if (update.lastUpdateTime > this.a.lastUpdateTime) {
+            if (isActuallyPredicted(update) && update.lastUpdateTime > this.a.lastUpdateTime) {
                 this.a = update;
             }
             return this.a;
@@ -98,7 +102,7 @@ function generateRowForArrival(currentTime, arrival) {
     routeCell.innerHTML = latestArrival.routeShortName;
     vehicleCell.innerHTML = latestArrival.vehicleId;
 
-    let actuallyPredicted = latestArrival.predicted && latestArrival.predictedArrivalTime != 0;
+    let actuallyPredicted = isActuallyPredicted(latestArrival);
     var arrivalTime = actuallyPredicted ? latestArrival.predictedArrivalTime : latestArrival.scheduledArrivalTime;
     arrivalTimeCell.innerHTML = formatMillisecondTimespan(arrivalTime - currentTime);
     if (actuallyPredicted) {

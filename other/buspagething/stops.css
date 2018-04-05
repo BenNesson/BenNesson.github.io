@@ -1,0 +1,19 @@
+body {
+    font-family: Helvetica;
+    background-color: black;
+    color: lightgrey;
+}
+
+table, th, td {
+    border: 1px solid lightgrey;
+    font-size: 5vw;
+    text-align: right;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    width: auto;
+}
