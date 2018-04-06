@@ -76,7 +76,7 @@ function generateRowForStop(stopData) {
 
 function linkToStop(code, id) {
     let key = urlParams["key"];
-    let link = `<a href="../stop.html?key=${key}&stopId=${id}">${code}</a>`;
+    let link = `<a href="../stop/stop.html?key=${key}&stopId=${id}" target="_blank">${code}</a>`;
     return link;
 }
 
