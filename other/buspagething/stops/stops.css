@@ -6,8 +6,8 @@ body {
 
 table, th, td {
     border: 1px solid lightgrey;
-    font-size: 5vw;
-    text-align: right;
+    font-size: 4vw;
+    text-align: left;
 }
 
 table {
@@ -16,6 +16,10 @@ table {
 
 td {
     width: auto;
+}
+
+a {
+    color: lightgrey;
 }
 
 .header {

@@ -1,3 +1,5 @@
+/// <reference path="../core/onebusaway.interop.js" />
+
 var urlParams = {
     "minutesBefore": 5,
     "minutesAfter": 35,
@@ -138,32 +140,23 @@ var handleStopResponse;
 var updateTimeout;
 
 function QueryStop(stopId) {
-    var url = "./dummy.json";
-    if (stopId !== "dummy") {
-        url = "https://api.pugetsound.onebusaway.org/api/where/"
-            + "arrivals-and-departures-for-stop/"
-            + stopId + ".json?"
-            + "key=" + urlParams["key"]
-            + "&minutesBefore=" + urlParams["minutesBefore"]
-            + "&minutesAfter=" + urlParams["minutesAfter"]
-            + "&includeReferences=false"
-            + "&callback=handleStopResponse"
-            + "&dummy=" + new Date().getTime();
-    }
-    var headElement = document.getElementById("h");
-    var scriptTag = document.createElement("SCRIPT");
-    scriptTag.setAttribute("src", url);
-    scriptTag.onerror = onScriptError;
-    handleStopResponse = function(response, isError) {
-        headElement.removeChild(scriptTag);
-        if (isError) {
-            updateTimeout = setTimeout(Update, Math.min(urlParams["refreshRate"], 1) * 1000);
-        } else {
-            LoadStop(response);
-            updateTimeout = setTimeout(Update, urlParams["refreshRate"] * 1000);
+    OBA.api_request(
+        {
+            method: "arrivals-and-departures-for-stop",
+            id: stopId,
+            params: {
+                key: urlParams["key"],
+                minutesBefore: urlParams["minutesBefore"],
+                minutesAfter: urlParams["minutesAfter"],
+                includeReferences: false,
+                dummy: new Date().getTime()
+            },
+            callback: function (response) {
+                LoadStop(response);
+                updateTimeout = setTimeout(Update, urlParams["refreshRate"] * 1000);
+            }
         }
-    };
-    headElement.appendChild(scriptTag);
+    );
 }
 
 function onScriptError(event, source, line, column, error) {
