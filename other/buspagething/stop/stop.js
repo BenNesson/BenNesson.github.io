@@ -136,7 +136,6 @@ function debug(msg) {
     debugDiv.innerHTML += ("<br />" + msg);
 }
 
-var handleStopResponse;
 var updateTimeout;
 
 function QueryStop(stopId) {
@@ -159,10 +158,6 @@ function QueryStop(stopId) {
     );
 }
 
-function onScriptError(event, source, line, column, error) {
-    handleStopResponse(null, true);
-}
-
 function LoadStopInfo(response) {
     var stopNameTag = document.getElementById("stopName");
     stopNameTag.innerHTML = response.data.entry.name;
@@ -171,16 +166,15 @@ function LoadStopInfo(response) {
 }
 
 function QueryStopInfo(stopId) {
-    url = "https://api.pugetsound.onebusaway.org/api/where/"
-            + "stop/"
-            + stopId + ".json?"
-            + "key=" + urlParams["key"]
-            + "&includeReferences=false"
-            + "&callback=LoadStopInfo";
-    var headElement = document.getElementById("h");
-    var scriptTag = document.createElement("SCRIPT");
-    scriptTag.setAttribute("src", url);
-    headElement.appendChild(scriptTag);
+    OBA.api_request({
+        method: "stop",
+        id: stopId,
+        params: {
+            key: urlParams["key"],
+            includeReferences: false
+        },
+        callback: LoadStopInfo
+    });
 }
 
 function LoadStop(response) {

@@ -18,7 +18,7 @@ var OBA = (function () {
         return result;
     };
 
-    let request = function (url, callback, tries) {
+    let request = function (url, callback, onError, tries) {
         if (typeof (tries) === 'undefined') {
             tries = DEFAULT_TRIES;
         }
@@ -31,14 +31,16 @@ var OBA = (function () {
                     callback(r);
                 } else if (tries > 0) {
                     request(url, callback, tries - 1);
-                } else {
-                    // debug something here I guess
+                } else if (onError) {
+                    onError();
                 }
                 document.head.removeChild(scriptTag);
                 delete callbacks[callbackName];
             }
         };
-        scriptTag.setAttribute('src', `${url}&callback=OBA.callbacks.${callbackName}.cb`);
+        let fullCallbackName = `OBA.callbacks.${callbackName}.cb`;
+        scriptTag.setAttribute('src', `${url}&callback=${fullCallbackName}`);
+        scriptTag.setAttribute('onerror', `${fullCallbackName}({code:0})`);
         document.head.appendChild(scriptTag);
     };
 
