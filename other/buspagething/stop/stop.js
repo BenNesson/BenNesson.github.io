@@ -173,7 +173,8 @@ function QueryStopInfo(stopId) {
             key: urlParams["key"],
             includeReferences: false
         },
-        callback: LoadStopInfo
+        callback: LoadStopInfo,
+        onError: () => { }
     });
 }
 

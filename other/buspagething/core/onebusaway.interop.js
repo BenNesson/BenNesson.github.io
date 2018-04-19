@@ -60,7 +60,7 @@ var OBA = (function () {
             _url = `${_url}/${requestData.id}`;
         }
         _url = `${_url}.json?${flattenParams(requestData.params)}`;
-        request(_url, requestData.callback);
+        request(_url, requestData.callback, requestData.onError);
     };
 
     return {

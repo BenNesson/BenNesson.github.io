@@ -11,6 +11,7 @@ function defineJourneys() {
     // define the stuff that gets used multiple times.
     let ride62 = ride(route.Number62),
         ride62East = ride62.from(stop.OnStone.At35th.EB),
+        ride62ToGreenLake = ride62East.to(stop.OnWoodlawn.AtRavenna.SEB),
         rideELine = ride(route.ELine),
         rideELineGalerTo165th = rideELine
             .from(stop.OnAurora.AtGaler.NB)
@@ -59,10 +60,10 @@ function defineJourneys() {
             ]
         },
         {
-            name: '64 NB -> 26 -> 346',
+            name: '62 NB -> 26 -> 346',
             steps: [
                 walkStep(8),
-                ride62East.to(stop.OnWoodlawn.AtRavenna.SEB),
+                ride62ToGreenLake,
                 walkStep(2),
                 ride26
                     .from(stop.OnRavenna.AtWoodlawn.SEB_26Only)
@@ -113,6 +114,18 @@ function defineJourneys() {
                 ride26ToNSC,
                 walkStep(2),
                 ride346FromNSC,
+                walkFrom346
+            ]
+        },
+        {
+            name: '62 NB -> 316',
+            steps: [
+                walkStep(8),
+                ride62ToGreenLake,
+                walkStep(5),
+                ride(route.Number316)
+                    .from(stop.OnRavenna.AtWoodlawn.NEB)
+                    .to(stop.OnMeridian.At167th.NB),
                 walkFrom346
             ]
         },

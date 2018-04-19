@@ -496,6 +496,7 @@ function defineIdentifiers() {
         Number45: raw.ROUTE_45,
         Number49: raw.ROUTE_49,
         Number62: raw.ROUTE_62,
+        Number316: raw.ROUTE_316,
         Number346: raw.ROUTE_346,
         Number373: raw.ROUTE_373,
         ELine: raw.ROUTE_ELINE,
