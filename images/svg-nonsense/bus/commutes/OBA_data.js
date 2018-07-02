@@ -129,10 +129,22 @@ function prettifyStops(raw) {
             WB: raw.STOP_STONE_85TH_WB
         }
     };
+    let On90th = {
+        AtWallingford: {
+            NB: raw.STOP_WALLINGFORD_90TH_NB,
+            SB: raw.STOP_WALLINGFORD_90TH_SB
+        }
+    };
     let On92nd = {
         AtCorliss: {
             EB: raw.STOP_92ND_CORLISS_EB,
             WB: raw.STOP_92ND_CORLISS_WB
+        }
+    };
+    let On97th = {
+        AtCollegeWay: {
+            NB: raw.STOP_COLLEGE_WAY_97TH_NB,
+            SB: raw.STOP_COLLEGE_WAY_97TH_SB
         }
     };
     let On105th = {
@@ -189,6 +201,9 @@ function prettifyStops(raw) {
         AtUniversity: {
             EB: raw.STOP_UNIVERSITY_CAMPUS_EB
         }
+    };
+    let OnCollegeWay = {
+        At97th: On97th.AtCollegeWay
     };
     let OnCorliss = {
         At92nd: On92nd.AtCorliss
@@ -274,7 +289,8 @@ function prettifyStops(raw) {
     };
     let OnWallingford = {
         At40th : On40th.AtWallingford,
-        At82nd : On82nd.AtWallingford
+        At82nd: On82nd.AtWallingford,
+        At90th: On90th.AtWallingford
     };
     let OnWoodlawn = {
         At35th: On35th.AtWoodlawn,
@@ -311,7 +327,9 @@ function prettifyStops(raw) {
         On46th: On46th,
         On82nd: On82nd,
         On85th: On85th,
+        On90th: On90th,
         On92nd: On92nd,
+        On97th: On97th,
         On105th: On105th,
         On165th: On165th,
         On167th: On167th,
@@ -320,6 +338,7 @@ function prettifyStops(raw) {
         OnAurora: OnAurora,
         OnBroadway: OnBroadway,
         OnCampusParkway: OnCampusParkway,
+        OnCollegeWay: OnCollegeWay,
         OnCorliss: OnCorliss,
         OnDenny: OnDenny,
         OnDexter: OnDexter,
@@ -383,6 +402,12 @@ function defineIdentifiers() {
         // House <-> Work transfer points
         STOP_92ND_CORLISS_EB: '1_17022',
         STOP_92ND_CORLISS_WB: '1_17698',
+        STOP_COLLEGE_WAY_97TH_NB: '1_17710',
+        STOP_COLLEGE_WAY_97TH_SB: '1_17010',
+        STOP_NORTH_SEATTLE_COLLEGE_WB: '1_17694',
+        STOP_NORTH_SEATTLE_COLLEGE_EB: '1_17695',
+        STOP_WALLINGFORD_90TH_NB: '1_17680',
+        STOP_WALLINGFORD_90TH_SB: '1_17040',
         STOP_WALLINGFORD_40TH_EB: '1_26965',
         STOP_WALLINGFORD_40TH_WB: '1_26400',
 
