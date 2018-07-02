@@ -308,6 +308,10 @@ function prettifyStops(raw) {
             BayA: {
                 NEB: raw.STOP_WESTLAKE_STATION_A_NEB
             }
+        },
+        NorthSeattleCollege: {
+            EB: raw.STOP_NORTH_SEATTLE_COLLEGE_EB,
+            WB: raw.STOP_NORTH_SEATTLE_COLLEGE_WB
         }
     };
 
