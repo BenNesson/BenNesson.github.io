@@ -24,7 +24,7 @@ function defineJourneys() {
         ride346FromNSC = ride(route.Number346)
             .from(stop.OnCollegeWay.At97th.NB)
             .to(stop.OnMeridian.At167th.NB),
-        ride316From90th = ride(route.Number346)
+        ride316From90th = ride(route.Number316)
             .from(stop.OnWallingford.At90th.NB)
             .to(stop.OnMeridian.At167th.NB),
         ride31East = ride(route.Number31).from(stop.On35th.AtWoodlawn.EB),
@@ -156,7 +156,7 @@ function defineJourneys() {
                 ride62ToGreenLake,
                 walkStep(5),
                 ride(route.Number316)
-                    .from(stop.OnRavenna.AtWoodlawn.NEB)
+                    .from(stop.OnRavenna.AtWoodlawn.NWB)
                     .to(stop.OnMeridian.At167th.NB),
                 walkFrom346
             ]
