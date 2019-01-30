@@ -16,11 +16,20 @@ var urlParams = {
     }
 })();
 
-let setLat, setLon, createElement, createRow, createCell, createHeader;
+let setLat, setLon, setAcc, setTime, showPosition, createElement, createRow, createCell, createHeader;
+
+function roundCoordinate(coord, decimalPlaces = 2) {
+    const factor = Math.pow(10, decimalPlaces);
+    return Math.floor(coord * factor) / factor;
+}
 
 function handlePositionResponse(position) {
-    setLat(position.coords.latitude);
-    setLon(position.coords.longitude);
+    setLat(roundCoordinate(position.coords.latitude));
+    setLon(roundCoordinate(position.coords.longitude));
+    setAcc(position.coords.accuracy);
+    let positionTime = new Date(position.timestamp);
+    setTime(positionTime.toLocaleTimeString());
+    showPosition();
     OBA.api_request({
         method: "stops-for-location",
         params: {
@@ -94,8 +103,14 @@ function getLocation() {
 function Launch() {
     let latDiv = document.getElementById("lat");
     let lonDiv = document.getElementById("lon");
+    let accDiv = document.getElementById("acc");
+    let timeDiv = document.getElementById("time");
+    let positionDiv = document.getElementById("positionDiv");
     setLat = lat => latDiv.innerHTML = lat;
     setLon = lon => lonDiv.innerHTML = lon;
+    setAcc = acc => accDiv.innerHTML = acc;
+    setTime = time => timeDiv.innerHTML = time;
+    showPosition = () => positionDiv.style.visibility = "visible";
     createElement = tag => document.createElement(tag);
     createRow = () => createElement("TR");
     createCell = () => createElement("TD");

@@ -7,9 +7,9 @@
   <body onload="Launch()">
     <div onclick="Update()">
       <div id="header" class="header">Stops Near Location</div>
-      <div class="position">
-        <div id="lat"></div>
-        <div id="lon"></div>
+      <div id="positionDiv" class="position" style="visibility: hidden;">
+        <p><span id="lat"></span>, <span id="lon"></span></p>
+        <p>(w/in <span id="acc"></span> meters, as of <span id="time"></span>)</p>
       </div>
     </div>
     <table id="stopTable"></table>
