@@ -22,6 +22,14 @@ function prettifyStops(raw) {
             SWB: raw.STOP_5TH_PINE_SWB
         }
     };
+    let On7th = {
+        AtNorthlake: {
+            EB: raw.STOP_NORTHLAKE_7TH_EB
+        },
+        At42nd: {
+            NB: raw.STOP_42ND_7TH_NB
+        }
+    };
     let On8th = {
         At85th: {
             NB: raw.STOP_8TH_85TH_NB,
@@ -89,6 +97,9 @@ function prettifyStops(raw) {
             NB: raw.STOP_UNIVERSITY_41ST_NB,
             SB: raw.STOP_UNIVERSITY_41ST_SB
         },
+    };
+    let On42nd = {
+        At7th: On7th.At42nd
     };
     let On45th = {
         AtStone: {
@@ -243,6 +254,9 @@ function prettifyStops(raw) {
         At167th: On167th.AtMeridian,
         At175th: On175th.AtMeridian
     };
+    let OnNorthlake = {
+        At7th: On7th.AtNorthlake
+    };
     let OnOlive = {
         AtDenny: OnDenny.AtOlive
     };
@@ -319,6 +333,7 @@ function prettifyStops(raw) {
         On3rd: On3rd,
         On4th: On4th,
         On5th: On5th,
+        On7th: On7th,
         On8th: On8th,
         On15th: On15th,
         On20th: On20th,
@@ -327,6 +342,7 @@ function prettifyStops(raw) {
         On38th: On38th,
         On40th: On40th,
         On41st: On41st,
+        On42nd: On42nd,
         On45th: On45th,
         On46th: On46th,
         On82nd: On82nd,
@@ -351,6 +367,7 @@ function prettifyStops(raw) {
         OnGreenwood: OnGreenwood,
         OnHarvard: OnHarvard,
         OnMeridian: OnMeridian,
+        OnNorthlake: OnNorthlake,
         OnOlive: OnOlive,
         OnPike: OnPike,
         OnPine: OnPine,
@@ -414,6 +431,8 @@ function defineIdentifiers() {
         STOP_WALLINGFORD_90TH_SB: '1_17040',
         STOP_WALLINGFORD_40TH_EB: '1_26965',
         STOP_WALLINGFORD_40TH_WB: '1_26400',
+        STOP_NORTHLAKE_7TH_EB: '1_29426',
+        STOP_42ND_7TH_NB: '1_5417',
 
         // Near Old Apartment
         STOP_AURORA_85TH_NB: '1_7730',
