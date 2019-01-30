@@ -22,6 +22,11 @@ a {
     color: lightgrey;
 }
 
+p {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
 .header {
     font-size: 5vw;
     text-align: center;
