@@ -96,6 +96,7 @@ function linkToStop(code, id) {
 function getLocation() {
     let geoOptions = {
         enableHighAccuracy: true
+        maximumAge: 5 * 60 * 1000
     };
     return navigator.geolocation.getCurrentPosition(handlePositionResponse, handlePositionError, geoOptions);
 }
