@@ -26,7 +26,7 @@ function roundCoordinate(coord, decimalPlaces = 2) {
 function handlePositionResponse(position) {
     setLat(roundCoordinate(position.coords.latitude));
     setLon(roundCoordinate(position.coords.longitude));
-    setAcc(position.coords.accuracy);
+    setAcc(roundCoordinate(position.coords.accuracy));
     let positionTime = new Date(position.timestamp);
     setTime(positionTime.toLocaleTimeString());
     showPosition();
@@ -96,6 +96,7 @@ function linkToStop(code, id) {
 function getLocation() {
     let geoOptions = {
         enableHighAccuracy: true
+        maximumAge: 5 * 60 * 1000
     };
     return navigator.geolocation.getCurrentPosition(handlePositionResponse, handlePositionError, geoOptions);
 }
