@@ -42,10 +42,6 @@ function handlePositionResponse(position) {
     });
 }
 
-function handlePositionError() {
-    // uhhhh, Iunno
-}
-
 function LoadStops(response) {
     let stopTable = document.getElementById("stopTable");
 
@@ -95,10 +91,19 @@ function linkToStop(code, id) {
 
 function getLocation() {
     let geoOptions = {
-        enableHighAccuracy: true
+        enableHighAccuracy: true,
         maximumAge: 5 * 60 * 1000
     };
-    return navigator.geolocation.getCurrentPosition(handlePositionResponse, handlePositionError, geoOptions);
+    navigator.geolocation.getCurrentPosition(
+        handlePositionResponse,
+        (err) => {
+            delete geoOptions.maximumAge;
+            navigator.geolocation.getCurrentPosition(
+                handlePositionResponse,
+                e => { },
+                geoOptions);
+        },
+        geoOptions);
 }
 
 function Launch() {
