@@ -16,7 +16,10 @@ var urlParams = {
     }
 })();
 
-let setLat, setLon, setAcc, setTime, showPosition, createElement, createRow, createCell, createHeader;
+let setLat, setLon, setAcc, setTime,
+    showPosition,
+    createElement, createRow, createCell, createHeader,
+    positionWatch;
 
 function roundCoordinate(coord, decimalPlaces = 2) {
     const factor = Math.pow(10, decimalPlaces);
@@ -89,11 +92,14 @@ function linkToStop(code, id) {
     return link;
 }
 
+let defaultGeoOptions = () => ({
+    enableHighAccuracy: true,
+    maximumAge: Infinity
+});
+
 function getLocation() {
-    let geoOptions = {
-        enableHighAccuracy: true,
-        maximumAge: 5 * 60 * 1000
-    };
+    let geoOptions = defaultGeoOptions();
+    geoOptions.maximumAge = 5 * 60 * 1000;
     navigator.geolocation.getCurrentPosition(
         handlePositionResponse,
         (err) => {
@@ -103,6 +109,16 @@ function getLocation() {
                 e => { },
                 geoOptions);
         },
+        geoOptions);
+}
+
+function watchLocation() {
+    let geoOptions = defaultGeoOptions();
+    // We don't currently ever STOP watching, but store it jsut in case, for future
+    // use or debugging.
+    positionWatch = navigator.geolocation.watchPosition(
+        handlePositionResponse,
+        e => { },
         geoOptions);
 }
 
@@ -121,7 +137,9 @@ function Launch() {
     createRow = () => createElement("TR");
     createCell = () => createElement("TD");
     createHeader = () => createElement("TH");
-    Update();
+
+    //Update();
+    watchLocation();
 }
 
 function Update() {
