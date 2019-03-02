@@ -1,4 +1,4 @@
-/// <reference path="../core/onebusaway.interop.js" />
+﻿/// <reference path="../core/onebusaway.interop.js" />
 
 var urlParams = {
     "minutesBefore": 5,
@@ -47,17 +47,47 @@ function isActuallyPredicted(arrival) {
     return arrival.predicted && arrival.predictedArrivalTime != 0;
 }
 
+function timeAlongRoute(tripStatus) {
+    return tripStatus.lastUpdateTime - tripStatus.scheduleDeviation;
+}
+
+function calculateDeviationRate(firstArrival, secondArrival) {
+    let firstTripStatus = firstArrival.tripStatus;
+    let secondTripStatus = secondArrival.tripStatus;
+    let deviationDelta = timeAlongRoute(firstTripStatus) - timeAlongRoute(secondTripStatus);
+    let updateDelta = firstTripStatus.lastUpdateTime - secondTripStatus.lastUpdateTime;
+    return deviationDelta / updateDelta;
+}
+
+function updateCacheNodeData(data, newArrival) {
+    data.previousArrival = data.currentArrival;
+    data.currentArrival = newArrival;
+
+    // calculate deltas
+    data.totalDelta = calculateDeviationRate(data.initialArrival, data.currentArrival);
+    data.latestDelta = calculateDeviationRate(data.previousArrival, data.currentArrival);
+
+    data.hasDelta = true;
+}
+
 let maxTimeToLive = 20;
 function createCacheNode(arrival) {
     return {
-        a: arrival,
+        data: {
+            initialArrival: arrival,
+            currentArrival: arrival,
+            previousArrival: arrival,
+            hasDelta: false,
+            totalDelta: 0,
+            latestDelta: 0
+        },
         ttl: maxTimeToLive,
         get: function (update) {
             this.ttl = maxTimeToLive;
-            if (isActuallyPredicted(update) && update.lastUpdateTime > this.a.lastUpdateTime) {
-                this.a = update;
+            if (isActuallyPredicted(update) && update.lastUpdateTime > this.data.currentArrival.lastUpdateTime) {
+                updateCacheNodeData(this.data, update);
             }
-            return this.a;
+            return this.data;
         }
     }
 }
@@ -72,6 +102,7 @@ function getLatestData(currentTime, arrival) {
     return cache.get(tripId).get(arrival);
 }
 
+// iterate through the cache and remove any entries that have aged out.
 function keepCacheFresh() {
     let staleKeys = [];
     for (let kvp of cache.entries()) {
@@ -87,30 +118,32 @@ function keepCacheFresh() {
 }
 
 function generateRowForArrival(currentTime, arrival) {
-    let latestArrival = getLatestData(currentTime, arrival);
-    var row = document.createElement("TR");
-    var routeCell = document.createElement("TD");
-    var vehicleCell = document.createElement("TD");
-    var arrivalTimeCell = document.createElement("TD");
-    var departureTimeCell = document.createElement("TD");
-    var howLateCell = document.createElement("TD");
-    var howOldCell = document.createElement("TD");
+    let latestData = getLatestData(currentTime, arrival);
+    let latestArrival = latestData.currentArrival;
+    let row = document.createElement("TR");
+    let routeCell = document.createElement("TD");
+    let vehicleCell = document.createElement("TD");
+    let arrivalTimeCell = document.createElement("TD");
+    let howLateCell = document.createElement("TD");
+    let howOldCell = document.createElement("TD");
+    let deltaCell = document.createElement("TD");
     row.appendChild(routeCell);
     row.appendChild(vehicleCell);
     row.appendChild(arrivalTimeCell);
     row.appendChild(howLateCell);
     row.appendChild(howOldCell);
+    row.appendChild(deltaCell);
 
     routeCell.innerHTML = latestArrival.routeShortName;
     vehicleCell.innerHTML = latestArrival.vehicleId;
 
     let actuallyPredicted = isActuallyPredicted(latestArrival);
-    var arrivalTime = actuallyPredicted ? latestArrival.predictedArrivalTime : latestArrival.scheduledArrivalTime;
+    let arrivalTime = actuallyPredicted ? latestArrival.predictedArrivalTime : latestArrival.scheduledArrivalTime;
     arrivalTimeCell.innerHTML = formatMillisecondTimespan(arrivalTime - currentTime);
     if (actuallyPredicted) {
-        var threshold = 30 * 1000;
-        var howLate = latestArrival.predictedArrivalTime - latestArrival.scheduledArrivalTime;
-        var latenessClass = "on-time";
+        let threshold = 30 * 1000;
+        let howLate = latestArrival.predictedArrivalTime - latestArrival.scheduledArrivalTime;
+        let latenessClass = "on-time";
         if (howLate < 0) {
             latenessClass = "early";
         } else if (howLate > threshold) {
@@ -125,6 +158,13 @@ function generateRowForArrival(currentTime, arrival) {
         howOldCell.innerHTML = "???";
         howOldCell.setAttribute("class", "no-prediction");
     }
+
+    if (latestData.hasDelta) {
+        deltaCell.innerHTML = 
+            latestData.totalDelta.toFixed(1) + "/" +
+            latestData.latestDelta.toFixed(1);
+    }
+
     return row;
 }
 
@@ -189,7 +229,7 @@ function LoadStop(response) {
     }
 
     //write the headers
-    var headers = ["Route", "Vehicle ID", "Arrival In", "How Late?", "Ping Age?"];
+    var headers = ["Route", "Vehicle ID", "Arrival In", "How Late?", "Ping Age?", "Δ(0)/Δ(n-1)"];
     var headerRow = document.createElement("TR");
     for (var hi in headers) {
         var h = document.createElement("TH");
