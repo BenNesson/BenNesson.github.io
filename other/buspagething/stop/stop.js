@@ -48,7 +48,7 @@ function isActuallyPredicted(arrival) {
 }
 
 function timeAlongRoute(tripStatus) {
-    return tripStatus.lastUpdateTime - tripStatus.scheduleDeviation;
+    return tripStatus.lastUpdateTime - (tripStatus.scheduleDeviation * 1000);
 }
 
 function calculateDeviationRate(firstArrival, secondArrival) {
