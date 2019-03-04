@@ -51,11 +51,15 @@ function timeAlongRoute(tripStatus) {
     return tripStatus.lastUpdateTime - (tripStatus.scheduleDeviation * 1000);
 }
 
+function calculateUpdateDelta(firstStatus, secondStatus) {
+    return secondStatus.lastUpdateTime - firstStatus.lastUpdateTime;
+}
+
 function calculateDeviationRate(firstArrival, secondArrival) {
     let firstTripStatus = firstArrival.tripStatus;
     let secondTripStatus = secondArrival.tripStatus;
     let deviationDelta = timeAlongRoute(firstTripStatus) - timeAlongRoute(secondTripStatus);
-    let updateDelta = firstTripStatus.lastUpdateTime - secondTripStatus.lastUpdateTime;
+    let updateDelta = -1 * calculateUpdateDelta(firstTripStatus, secondTripStatus);
     return deviationDelta / updateDelta;
 }
 
@@ -66,6 +70,9 @@ function updateCacheNodeData(data, newArrival) {
     // calculate deltas
     data.totalDelta = calculateDeviationRate(data.initialArrival, data.currentArrival);
     data.latestDelta = calculateDeviationRate(data.previousArrival, data.currentArrival);
+
+    data.totalSpan = calculateUpdateDelta(data.initialArrival.tripStatus, data.currentArrival.tripStatus);
+    data.latestSpan = calculateUpdateDelta(data.previousArrival.tripStatus, data.currentArrival.tripStatus);
 
     data.hasDelta = true;
 }
@@ -79,7 +86,9 @@ function createCacheNode(arrival) {
             previousArrival: arrival,
             hasDelta: false,
             totalDelta: 0,
-            latestDelta: 0
+            totalSpan: 0,
+            latestDelta: 0,
+            latestSpan: 0
         },
         ttl: maxTimeToLive,
         get: function (update) {
@@ -160,9 +169,22 @@ function generateRowForArrival(currentTime, arrival) {
     }
 
     if (latestData.hasDelta) {
-        deltaCell.innerHTML = 
-            latestData.totalDelta.toFixed(1) + "/" +
+        deltaCell.setAttribute("class", "delta-info");
+        //deltaCell.innerHTML = 
+        //    latestData.totalDelta.toFixed(1) + "/" +
+        //    latestData.latestDelta.toFixed(1);
+        let topDiv = document.createElement("DIV");
+        let bottomDiv = document.createElement("DIV");
+        
+        topDiv.innerHTML =
+            "" + formatMillisecondTimespan(latestData.totalSpan) + ": " +
+            latestData.totalDelta.toFixed(1);
+        bottomDiv.innerHTML =
+            "" + formatMillisecondTimespan(latestData.latestSpan) + ": " +
             latestData.latestDelta.toFixed(1);
+
+        deltaCell.appendChild(topDiv);
+        deltaCell.appendChild(bottomDiv);
     }
 
     return row;
@@ -229,7 +251,7 @@ function LoadStop(response) {
     }
 
     //write the headers
-    var headers = ["Route", "Vehicle ID", "Arrival In", "How Late?", "Ping Age?", "Δ(0)/Δ(n-1)"];
+    var headers = ["Route", "Vehicle ID", "Arrival In", "How Late?", "Ping Age", "ΔRate"];
     var headerRow = document.createElement("TR");
     for (var hi in headers) {
         var h = document.createElement("TH");
