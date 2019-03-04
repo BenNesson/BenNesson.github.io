@@ -3,30 +3,39 @@
 // the show, and "seasons" is an array of integers representing how many
 // episodes are in each season.
 let seriesData = [{
+    // DONE
     name: "Parks and Recreation",
     seasons: [6, 24, 16, 22, 22, 22, 13]
 }, {
+    // in season 9 (going up live, but I ain't updating this every week)
     name: "Bob's Burgers",
     seasons: [13, 9, 23, 22, 21, 19, 22, 21]
 }, {
+    // in season 6 (going up live, but I ain't updating this every week)
     name: "Brooklyn 99",
-    seasons: [22, 23, 23, 22]
+    seasons: [22, 23, 23, 22, 22]
 }, {
+    // DONE
     name: "30 Rock",
     seasons: [21, 15, 22, 22, 22, 22, 13]
 }, {
+    // DONE
     name: "King of the Hill",
     seasons: [12, 23, 25, 24, 20, 22, 23, 22, 15, 15, 12, 22, 24]
 }, {
+    // DONE
     name: "The League",
     seasons: [6, 13, 13, 13, 13, 13, 13]
 }, {
+    // still airing / latest not on Hulu yet
     name: "Always Sunny",
     seasons: [7, 10, 15, 13, 12, 13, 13, 10, 10, 10, 10, 10]
 }, {
+    // season 10 coming
     name: "Archer",
-    seasons: [10, 13, 13, 13, 13, 13, 10, 8]
+    seasons: [10, 13, 13, 13, 13, 13, 10, 8, 8]
 }, {
+    // season 4 coming (apparently)
     name: "Rick and Morty",
     seasons: [11, 10, 10]
 }

@@ -4,4 +4,5 @@ body {
 
 td, select, button {
     font-size: 5vw;
+    margin: 1vw 1vw 1vw 1vw;
 }
