@@ -16,11 +16,23 @@ var urlParams = {
     }
 })();
 
-let setLat, setLon, createElement, createRow, createCell, createHeader;
+let setLat, setLon, setAcc, setTime,
+    showPosition,
+    createElement, createRow, createCell, createHeader,
+    positionWatch;
+
+function roundCoordinate(coord, decimalPlaces = 2) {
+    const factor = Math.pow(10, decimalPlaces);
+    return Math.floor(coord * factor) / factor;
+}
 
 function handlePositionResponse(position) {
-    setLat(position.coords.latitude);
-    setLon(position.coords.longitude);
+    setLat(roundCoordinate(position.coords.latitude));
+    setLon(roundCoordinate(position.coords.longitude));
+    setAcc(roundCoordinate(position.coords.accuracy));
+    let positionTime = new Date(position.timestamp);
+    setTime(positionTime.toLocaleTimeString());
+    showPosition();
     OBA.api_request({
         method: "stops-for-location",
         params: {
@@ -80,20 +92,54 @@ function linkToStop(code, id) {
     return link;
 }
 
+let defaultGeoOptions = () => ({
+    enableHighAccuracy: true,
+    maximumAge: Infinity
+});
+
 function getLocation() {
-    return navigator.geolocation.getCurrentPosition(handlePositionResponse);
+    let geoOptions = defaultGeoOptions();
+    geoOptions.maximumAge = 5 * 60 * 1000;
+    navigator.geolocation.getCurrentPosition(
+        handlePositionResponse,
+        (err) => {
+            delete geoOptions.maximumAge;
+            navigator.geolocation.getCurrentPosition(
+                handlePositionResponse,
+                e => { },
+                geoOptions);
+        },
+        geoOptions);
+}
+
+function watchLocation() {
+    let geoOptions = defaultGeoOptions();
+    // We don't currently ever STOP watching, but store it jsut in case, for future
+    // use or debugging.
+    positionWatch = navigator.geolocation.watchPosition(
+        handlePositionResponse,
+        e => { },
+        geoOptions);
 }
 
 function Launch() {
     let latDiv = document.getElementById("lat");
     let lonDiv = document.getElementById("lon");
+    let accDiv = document.getElementById("acc");
+    let timeDiv = document.getElementById("time");
+    let positionDiv = document.getElementById("positionDiv");
     setLat = lat => latDiv.innerHTML = lat;
     setLon = lon => lonDiv.innerHTML = lon;
+    setAcc = acc => accDiv.innerHTML = acc;
+    setTime = time => timeDiv.innerHTML = time;
+    showPosition = () => positionDiv.style.visibility = "visible";
     createElement = tag => document.createElement(tag);
     createRow = () => createElement("TR");
     createCell = () => createElement("TD");
     createHeader = () => createElement("TH");
-    Update();
+
+    //Update();
+    watchLocation();
 }
 
 function Update() {
