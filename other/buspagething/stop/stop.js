@@ -64,17 +64,25 @@ function calculateDeviationRate(firstArrival, secondArrival) {
 }
 
 function updateCacheNodeData(data, newArrival) {
-    data.previousArrival = data.currentArrival;
-    data.currentArrival = newArrival;
+    if (!data.hasPrediction) {
+        // First predicted arrival.  Throw away the other info, it's useless for calculating deltas.
+        data.initialArrival = newArrival;
+        data.previousArrival = newArrival;
+        data.currentArrival = newArrival;
+        data.hasPrediction = true;
+    } else {
+        data.previousArrival = data.currentArrival;
+        data.currentArrival = newArrival;
 
-    // calculate deltas
-    data.totalDelta = calculateDeviationRate(data.initialArrival, data.currentArrival);
-    data.latestDelta = calculateDeviationRate(data.previousArrival, data.currentArrival);
+        // calculate deltas
+        data.totalDelta = calculateDeviationRate(data.initialArrival, data.currentArrival);
+        data.latestDelta = calculateDeviationRate(data.previousArrival, data.currentArrival);
 
-    data.totalSpan = calculateUpdateDelta(data.initialArrival.tripStatus, data.currentArrival.tripStatus);
-    data.latestSpan = calculateUpdateDelta(data.previousArrival.tripStatus, data.currentArrival.tripStatus);
+        data.totalSpan = calculateUpdateDelta(data.initialArrival.tripStatus, data.currentArrival.tripStatus);
+        data.latestSpan = calculateUpdateDelta(data.previousArrival.tripStatus, data.currentArrival.tripStatus);
 
-    data.hasDelta = true;
+        data.hasDelta = true;
+    }
 }
 
 let maxTimeToLive = 20;
@@ -84,6 +92,7 @@ function createCacheNode(arrival) {
             initialArrival: arrival,
             currentArrival: arrival,
             previousArrival: arrival,
+            hasPrediction: isActuallyPredicted(arrival),
             hasDelta: false,
             totalDelta: 0,
             totalSpan: 0,
