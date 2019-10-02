@@ -22,12 +22,12 @@ td {
 .early { background-color: darkred; }
 .on-time { background-color: darkgreen; }
 .no-prediction { color: darkgrey; }
-.stop-name {
+#stopName {
     font-size: 5vw;
     text-align: center;
     width: 100%;
 }
-.stop-detail {
+#stopDetail {
     font-size: 2.5vw;
     text-align: center;
     margin-bottom: 10px;
@@ -36,4 +36,42 @@ td {
 
 .delta-info {
     font-size: 2.5vw;
+}
+
+#header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content:  space-between;
+}
+
+#headerLeft {
+    justify-content: left;
+}
+
+#headerRight {
+    justify-content: right;
+}
+
+#stopInfo {
+    flex-direction: column;
+}
+
+.slid-out {
+    left: -200%;
+}
+
+.slid-in {
+    left: 0;
+    transition-delay: 0.5s;
+}
+
+.slider {
+    transition: left 0.5s;
+    position: absolute;
+    top: 0;
+}
+
+#mainDiv {
+    position:relative;
 }

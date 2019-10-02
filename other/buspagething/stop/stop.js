@@ -18,6 +18,22 @@ var urlParams = {
     }
 })();
 
+function Toggle() {
+    let stopTable = document.getElementById("stopTable");
+    let settingsTable = document.getElementById("settings");
+    if (stopTable.classList.contains("slid-in")) {
+        stopTable.classList.remove("slid-in");
+        stopTable.classList.add("slid-out");
+        settingsTable.classList.remove("slid-out");
+        settingsTable.classList.add("slid-in");
+    } else {
+        settingsTable.classList.remove("slid-in");
+        settingsTable.classList.add("slid-out");
+        stopTable.classList.remove("slid-out");
+        stopTable.classList.add("slid-in");
+    }
+}
+
 function Launch() {
     QueryStopInfo(urlParams["stopId"]);
     Update();

@@ -5,11 +5,22 @@
     <link href="./stop.css" media="all" type="text/css" rel="stylesheet"></link>
   </head>
   <body onload="Launch()">
-    <div onclick="Update()">
-      <div id="stopName" class="stop-name"></div>
-      <div id="stopDetail" class="stop-detail"></div>
+    <div id="header" onclick="Update()">
+      <div id="headerLeft">SETTINGS</div>
+      <div id="stopInfo">
+        <div id="stopName"></div>
+        <div id="stopDetail"></div>
+      </div>
+      <div id="headerRight">MORE<br />SETTINGS</div>
     </div>
-    <table id="stopTable"></table>
+    <div id="mainDiv">
+      <table id="stopTable" class="slider slid-in"></table>
+      <table id="settings" class="slider slid-out">
+        <tr><td>Property</td><td>Value</td></tr>
+        <tr><td>Foo</td><td>Fart</td></tr>
+        <tr><td>Bar</td><td>Blart</td></tr>
+      </table>
+    </div>
     <div id="debug"></div>
   </body>
 </html>
