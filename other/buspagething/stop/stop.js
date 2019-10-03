@@ -6,6 +6,7 @@ var urlParams = {
     "refreshRate": 10,
     "key": "TEST"
 };
+
 (window.onpopstate = function() {
     var match,
         pl = /\+/g,
@@ -35,8 +36,34 @@ function Toggle() {
 }
 
 function Launch() {
+    ConfigureSettings();
     QueryStopInfo(urlParams["stopId"]);
     Update();
+}
+
+function ConfigureSettings() {
+    let settingsTable = document.getElementById("settings");
+    let createRow = (paramName, paramValue) => {
+        let row = document.createElement("tr");
+        let labelCell = document.createElement("td");
+        labelCell.innerText = paramName;
+        row.appendChild(labelCell);
+        let inputCell = document.createElement("td");
+        let input = document.createElement("input");
+        input.setAttribute("value", paramValue);
+        input.setAttribute("type", isNaN(paramValue) ? "text" : "number");
+        input.onchange = () => {
+            urlParams[paramName] = input.value;
+        };
+        inputCell.appendChild(input);
+        row.appendChild(inputCell);
+        return row;
+    };
+    let urlParamKeys = Object.keys(urlParams);
+    for (let i in urlParamKeys) {
+        let key = urlParamKeys[i];
+        settingsTable.appendChild(createRow(key, urlParams[key]));
+    }
 }
 
 function Update() {
