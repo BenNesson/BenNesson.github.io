@@ -7,6 +7,54 @@ var urlParams = {
     "key": "TEST"
 };
 
+let Param = (name, type) => {
+    let _this = this;
+    let _value = null;
+    let _default = null;
+    let _isHidden = false;
+    return {
+        Name: name,
+        setValue: (v) => {
+            _value = v;
+            return _this;
+        },
+        getValue: () => _value,
+        setDefault: (v) => {
+            _default = v;
+            if (_value === null) {
+                _value = v;
+            }
+            return _this;
+        },
+        getDefault: () => _default,
+        hide: () => {
+            _isHidden = true;
+            return _this;
+        },
+        isHidden: () => _isHidden
+    };
+};
+
+let Params = (pArray) => {
+    let dictionary = {};
+    for (let i in pArray) {
+        dictionary[pArray[i].Name] = pArray[i];
+    }
+    return {
+        get: (key) => dictionary[key].getValue(),
+        set: (key, value) => {
+            
+        }
+    };
+};
+
+var urlParams_ = Params([
+    Param("minutesBefore", NumberType).setDefault(5),
+    Param("minutesAfter", NumberType).setDefault(35),
+    Param("refreshRate", NumberType).setDefault(10),
+    Param("key", StringType).setDefault("TEST").hide()
+]);
+
 (window.onpopstate = function() {
     var match,
         pl = /\+/g,
