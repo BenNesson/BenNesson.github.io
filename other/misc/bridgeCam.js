@@ -15,11 +15,9 @@ let Update = () => {
     $.get("https://cors-anywhere.herokuapp.com/" + newSrc, (data, status, xhr) =>{
         imgTimeStr = xhr.getResponseHeader("Last-Modified");
         imgTime = Date.parse(imgTimeStr);
-        //let timeStampInfo = document.getElementById("timeStampInfo");
-        //timeStampInfo.innerHTML = "Timestamp: " + fileTime;
     });
     img.src = newSrc;
-    refreshTimeout = setTimeout(Update, 30000);
+    refreshTimeout = setTimeout(Update, autoRefreshPeriod);
 };
 
 let UpdateImageAge = () => {
@@ -34,7 +32,7 @@ let UpdateImageAge = () => {
     let dSeconds = (tSeconds % 60);
     let timeStampInfo = document.getElementById("timeStampInfo");
     timeStampInfo.innerHTML =
-        "Supposed image age: " +
+        "Ostensible Image Age: " +
         (isNegative ? "-" : "") +
         minutes + ":" +
         ("0" + dSeconds).substr(-2);
