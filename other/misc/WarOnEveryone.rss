@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>War On Everyone</title>
+    <link>http://www.thewaroneveryone.com</link>
+    <language>en</language>
+    <copyright/>
+    <description>The War On Everyone</description>
+    <image>
+      <url>https://megaphone-prod.s3.amazonaws.com/podcasts/22c36480-3778-11e8-806d-cfb84f1d0648/image/uploads_2F1547069138516-4edafwuejvc-14cc4c048140986ac2bacd6b0e0f022d_2FBehindTheBastards-Logo-iHR-FINAL-3000x3000.jpg</url>
+      <title>The War On Everyone</title>
+      <link>http://www.thewaroneveryone.com</link>
+    </image>
+    <item>
+      <title>
+        Chapter 1: The Eternal Fascist
+      </title>
+      <description>
+        There is nothing new under the sun. In this chapter, you'll learn about "Ur-Fascism", and how humor and irony have historically been used to enable its rise.
+      </description>
+      <enclosure url="" length="0" type="augio/mpeg" />
+    </item>
+  </channel>
+</rss>
