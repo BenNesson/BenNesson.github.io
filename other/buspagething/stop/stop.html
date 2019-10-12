@@ -5,13 +5,17 @@
     <link href="./stop.css" media="all" type="text/css" rel="stylesheet"></link>
   </head>
   <body onload="Launch()">
-    <div id="header" onclick="Update()">
-      <div id="headerLeft" onclick="Toggle()">SETTINGS</div>
+    <div id="header">
+      <div id="headerLeft">
+        <input class="bus-button" style="height: 80%" type="button" onclick="Toggle()" value="SETTINGS" />
+      </div>
       <div id="stopInfo">
         <div id="stopName"></div>
         <div id="stopDetail"></div>
       </div>
-      <div id="headerRight" style="visibility: hidden">MORE<br />SETTINGS</div>
+      <div id="headerRight">
+        <input class="bus-button" style="height: 80%" type="button" onclick="Update()" value="UPDATE" />
+      </div>
     </div>
     <div id="mainDiv">
       <table id="stopTable" class="slider slid-in"></table>

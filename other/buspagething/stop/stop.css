@@ -75,3 +75,10 @@ td {
 #mainDiv {
     position:relative;
 }
+
+.bus-button {
+    font-family: Helvetica;
+    background: black;
+    color: white;
+    font-weight: bolder;
+}

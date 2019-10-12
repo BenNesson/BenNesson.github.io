@@ -1,21 +1,83 @@
 ﻿/// <reference path="../core/onebusaway.interop.js" />
 
-var urlParams = {
+let Param = (name) => {
+    let _data = {};
+    let _setValue = v => { _data.value = v; };
+    let _getValue = () => _data.value;
+    let _hasValue = () => typeof(_getValue()) !== "undefined";
+    let _setDefault = d => { _data.default = d; };
+    let _getDefault = () => _data.default;
+    let _hasDefault = () => typeof(_getDefault()) !== "undefined";
+    let _getQueryString = () => {
+        if (_hasValue()) {
+            if (_hasDefault() && _getValue() === _getDefault()) {
+                return "";
+            } else {
+                return name + "=" + _getValue();
+            }
+        } else {
+            return "";
+        }
+    };
+
+    let _this = {
+        name: name,
+        inputElement: document.createElement("input"),
+        hasValue: _hasValue,
+        setValue: v => { _setValue(v); return _this; },
+        getValue: _getValue,
+        hasDefault: _hasDefault,
+        setDefault: d => { _setDefault(d); return _this; },
+        getDefault: _getDefault,
+        getQueryString: _getQueryString,
+    };
+    _this.inputElement.className = "settings-input";
+    _this.inputElement.onchange = _this.setValue;
+    
+    return _this;
+};
+
+let StringParam = (name) => {
+    let _this = Param(name);
+    _this.inputElement.type = "text";
+};
+
+let NumberParam = (name) => {
+    let _this = Param(name);
+    _this.inputElement.type = "number";
+};
+
+var urlParams = {/*
+    "minutesBefore": NumberParam("minutesBefore").setDefault(5),
+    "minutesAfter": NumberParam("minutesAfter").setDefault(35),
+    "refreshRate": NumberParam("refreshRate").setDefault(10),
+    "key": StringParam("key").setDefault("TEST")
+    /*/
     "minutesBefore": 5,
     "minutesAfter": 35,
     "refreshRate": 10,
     "key": "TEST"
+    //*/
 };
 
 (window.onpopstate = function() {
-    var match,
+    let match,
         pl = /\+/g,
         search = /([^&=]+)=?([^&]*)/g,
-        decode = function(s) { return decodeURIComponent(s.replace(pl, " ")); },
+        decode = s => decodeURIComponent(s.replace(pl, " ")),
         query = window.location.search.substring(1);
 
     while (match = search.exec(query)) {
-        urlParams[decode(match[1])] = decode(match[2]);
+        let key = decode(match[1]);
+        let value = decode(match[2]);
+        let isString = isNaN(value);
+        if (isString)
+        {
+            
+        } else {
+
+        }
+        //urlParams[decode(match[1])] = decode(match[2]);
     }
 })();
 
