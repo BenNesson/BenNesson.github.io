@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0">
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+     xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0"
+     xmlns:atom="http://www.w3.org/2005/atom"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     version="2.0">
   <channel>
     <title>War On Everyone</title>
     <link>http://www.thewaroneveryone.com</link>
@@ -11,6 +15,9 @@
       <title>The War On Everyone</title>
       <link>http://www.thewaroneveryone.com</link>
     </image>
+    <itunes:explicit>yes</itunes:explicit>
+    <itunes:type>serial</itunes:type>
+
     <item>
       <title>
         Chapter 1: The Eternal Fascist
@@ -18,7 +25,8 @@
       <description>
         There is nothing new under the sun. In this chapter, you'll learn about "Ur-Fascism", and how humor and irony have historically been used to enable its rise.
       </description>
-      <enclosure url="https://jbactree.com/misc/TWoE_Ch_1.mp3" length="0" type="audio/mpeg" />
+      <pubDate>Thu, 10 Oct 2019 10:00:00 -0000</pubDate>
+      <enclosure url="https://jbactee.com/misc/TWoE_Ch_1.mp3" length="0" type="audio/mpeg" />
     </item>
   </channel>
 </rss>
