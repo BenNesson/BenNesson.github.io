@@ -45,14 +45,6 @@ td {
     justify-content:  space-between;
 }
 
-#headerLeft {
-    justify-content: left;
-}
-
-#headerRight {
-    justify-content: right;
-}
-
 #stopInfo {
     flex-direction: column;
 }
@@ -75,3 +67,36 @@ td {
 #mainDiv {
     position:relative;
 }
+
+.bus-button {
+    font-weight: bolder;
+    font-size: 2.5vw;
+    width: 15vw;
+    height: 10vw;
+}
+
+.bus-button:disabled {
+    color: #BBBBBB;
+    background: #666666;
+    font-weight: lighter;
+}
+
+.header-wing-outer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%
+}
+
+.header-wing-inner {
+    height: 80%;
+    width: 100%
+}
+
+input {
+    font-family: Helvetica;
+    font-size: 5vw;
+    color: white;
+    background: #444444;
+}
+
