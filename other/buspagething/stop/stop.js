@@ -6,6 +6,107 @@ var urlParams = {
     "refreshRate": 10,
     "key": "TEST"
 };
+
+let StringType = "text";
+let NumberType = "number";
+
+let Param = (name, type) => {
+    let _type = type;
+    let _hasValue = false;
+    let _value = null;
+    let _hasDefault = false;
+    let _default = null;
+    let _isHidden = false;
+
+    let _inputElement = document.createElement("input");
+    _inputElement.type = type;
+    _inputElement.onchange = () => {
+        _hasValue = true;
+        _value = _inputElement.value;
+    };
+
+    let _this;
+    let _setDefault = (v) => {
+        _hasDefault = true;
+        _default = v;
+        if (_value === null) {
+            _setValue(v);
+        }
+        return _this;
+    };
+    let _getDefault = () => _default;
+    let _setValue = (v) => {
+        _hasValue = true;
+        _value = v;
+        _inputElement.value = v;
+        return _this;
+    };
+    let _getValue = () => _hasValue ? _value : _default;
+    let _hide = () => {
+        _isHidden = true;
+        return _this;
+    };
+    let _getIsHidden = () => _isHidden;
+
+    _this = {
+        Name: name,
+        Input: _inputElement,
+
+        setDefault: _setDefault,
+        getDefault: _getDefault,
+        setValue: _setValue,
+        getValue: _getValue,
+        hide: _hide,
+        isHidden: _getIsHidden,
+    };
+
+    if (type === NumberType) {
+        let _step = 1;
+        _this.getStep = () => _step;
+        _this.setStep = (s) => {
+            _step = s;
+            _inputElement.step = s;
+            return _this;
+        };
+    }
+
+    return _this;
+};
+
+let Params = (pArray) => {
+    let dictionary = {};
+    let _keys = () => Object.keys(dictionary);
+    let _paramUndefined = (name) => _keys().indexOf(name) == -1;
+    let _get = (key) => dictionary[key];
+    let _getValue = (key) => _paramUndefined(key) ? undefined : _get(key).getValue();
+    let _set = (key, value) => {
+        if (_paramUndefined(key)) {
+            dictionary[key] = Param(key, isNaN(value) ? StringType : NumberType).setValue(value);
+        } else {
+            dictionary[key].setValue(value);
+        }
+    };
+    let _isHidden = (key) => _paramUndefined(key) || dictionary[key].isHidden();
+
+    for (let i in pArray) {
+        dictionary[pArray[i].Name] = pArray[i];
+    }
+    return {
+        get: _get,
+        getValue: _getValue,
+        set: _set,
+        keys: _keys,
+        isHidden: _isHidden,
+    };
+};
+
+var urlParams_ = Params([
+    Param("minutesBefore", NumberType).setDefault(5).setStep(5),
+    Param("minutesAfter", NumberType).setDefault(35).setStep(5),
+    Param("refreshRate", NumberType).setDefault(10),
+    Param("key", StringType).setDefault("TEST").hide()
+]);
+
 (window.onpopstate = function() {
     var match,
         pl = /\+/g,
@@ -14,20 +115,73 @@ var urlParams = {
         query = window.location.search.substring(1);
 
     while (match = search.exec(query)) {
-        urlParams[decode(match[1])] = decode(match[2]);
+        //urlParams[decode(match[1])] = decode(match[2]);
+        urlParams_.set(decode(match[1]), decode(match[2]));
     }
 })();
 
+function Toggle() {
+    let stopTable = document.getElementById("stopTable");
+    let settingsTable = document.getElementById("settings");
+    if (stopTable.classList.contains("slid-in")) {
+        stopTable.classList.remove("slid-in");
+        stopTable.classList.add("slid-out");
+        settingsTable.classList.remove("slid-out");
+        settingsTable.classList.add("slid-in");
+    } else {
+        settingsTable.classList.remove("slid-in");
+        settingsTable.classList.add("slid-out");
+        stopTable.classList.remove("slid-out");
+        stopTable.classList.add("slid-in");
+    }
+}
+
 function Launch() {
-    QueryStopInfo(urlParams["stopId"]);
+    ConfigureSettings();
+    QueryStopInfo(urlParams_.getValue("stopId"));
     Update();
+}
+
+function ConfigureSettings() {
+    let settingsTable = document.getElementById("settings");
+    let createRow = (paramName, paramValue) => {
+        let row = document.createElement("tr");
+        let labelCell = document.createElement("td");
+        labelCell.innerText = paramName;
+        row.appendChild(labelCell);
+        let inputCell = document.createElement("td");
+        let input = document.createElement("input");
+        input.setAttribute("value", paramValue);
+        input.setAttribute("type", isNaN(paramValue) ? "text" : "number");
+        input.onchange = () => {
+            urlParams_.set(paramName, input.value);
+        };
+        inputCell.appendChild(input);
+        row.appendChild(inputCell);
+        return row;
+    };
+    let urlParamKeys = urlParams_.keys();
+    for (let i in urlParamKeys) {
+        let key = urlParamKeys[i];
+        if (!urlParams_.isHidden(key)) {
+            let row = document.createElement("tr");
+            let labelCell = document.createElement("td");
+            labelCell.innerText = key;
+            row.appendChild(labelCell);
+            let inputCell = document.createElement("td");
+            inputCell.appendChild(urlParams_.get(key).Input);
+            row.appendChild(inputCell);
+            //settingsTable.appendChild(createRow(key, urlParams_.getValue(key)));
+            settingsTable.appendChild(row);
+        }
+    }
 }
 
 function Update() {
     if (updateTimeout) {
         clearTimeout(updateTimeout);
     }
-    QueryStop(urlParams["stopId"]);
+    QueryStop(urlParams_.getValue("stopId"));
 }
 
 function formatMillisecondTimespan(milliseconds){
@@ -215,15 +369,15 @@ function QueryStop(stopId) {
             method: "arrivals-and-departures-for-stop",
             id: stopId,
             params: {
-                key: urlParams["key"],
-                minutesBefore: urlParams["minutesBefore"],
-                minutesAfter: urlParams["minutesAfter"],
+                key: urlParams_.getValue("key"),
+                minutesBefore: urlParams_.getValue("minutesBefore"),
+                minutesAfter: urlParams_.getValue("minutesAfter"),
                 includeReferences: false,
                 dummy: new Date().getTime()
             },
             callback: function (response) {
                 LoadStop(response);
-                updateTimeout = setTimeout(Update, urlParams["refreshRate"] * 1000);
+                updateTimeout = setTimeout(Update, urlParams_.getValue("refreshRate") * 1000);
             }
         }
     );
@@ -241,7 +395,7 @@ function QueryStopInfo(stopId) {
         method: "stop",
         id: stopId,
         params: {
-            key: urlParams["key"],
+            key: urlParams_.getValue("key"),
             includeReferences: false
         },
         callback: LoadStopInfo,

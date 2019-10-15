@@ -22,12 +22,12 @@ td {
 .early { background-color: darkred; }
 .on-time { background-color: darkgreen; }
 .no-prediction { color: darkgrey; }
-.stop-name {
+#stopName {
     font-size: 5vw;
     text-align: center;
     width: 100%;
 }
-.stop-detail {
+#stopDetail {
     font-size: 2.5vw;
     text-align: center;
     margin-bottom: 10px;
@@ -37,3 +37,66 @@ td {
 .delta-info {
     font-size: 2.5vw;
 }
+
+#header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content:  space-between;
+}
+
+#stopInfo {
+    flex-direction: column;
+}
+
+.slid-out {
+    left: -200%;
+}
+
+.slid-in {
+    left: 0;
+    transition-delay: 0.5s;
+}
+
+.slider {
+    transition: left 0.5s;
+    position: absolute;
+    top: 0;
+}
+
+#mainDiv {
+    position:relative;
+}
+
+.bus-button {
+    font-weight: bolder;
+    font-size: 2.5vw;
+    width: 15vw;
+    height: 10vw;
+}
+
+.bus-button:disabled {
+    color: #BBBBBB;
+    background: #666666;
+    font-weight: lighter;
+}
+
+.header-wing-outer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%
+}
+
+.header-wing-inner {
+    height: 80%;
+    width: 100%
+}
+
+input {
+    font-family: Helvetica;
+    font-size: 5vw;
+    color: white;
+    background: #444444;
+}
+

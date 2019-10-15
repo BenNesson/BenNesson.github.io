@@ -5,11 +5,35 @@
     <link href="./stop.css" media="all" type="text/css" rel="stylesheet"></link>
   </head>
   <body onload="Launch()">
-    <div onclick="Update()">
-      <div id="stopName" class="stop-name"></div>
-      <div id="stopDetail" class="stop-detail"></div>
+    <div id="header">
+      <div class="header-wing-outer">
+        <div style="margin: auto" class="header-wing-inner">
+          <input class="bus-button"
+                 type="button"
+                 onclick="Toggle()"
+                 value="SETTINGS" />
+        </div>
+      </div>
+      <div id="stopInfo">
+        <div id="stopName"></div>
+        <div id="stopDetail"></div>
+      </div>
+      <div class="header-wing-outer">
+        <div class="header-wing-inner">
+          <input id="updateButton"
+                 class="bus-button"
+                 type="button"
+                 onclick="Update()"
+                 value="UPDATE" />
+        </div>
+      </div>
     </div>
-    <table id="stopTable"></table>
+    <div id="mainDiv">
+      <table id="stopTable" class="slider slid-in"></table>
+      <table id="settings" class="slider slid-out">
+        <tr><th>Property</th><th>Value</th></tr>
+      </table>
+    </div>
     <div id="debug"></div>
   </body>
 </html>
