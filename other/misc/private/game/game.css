@@ -1,0 +1,18 @@
+body {
+    background: black;
+    color: white;
+}
+
+table, th, td {
+    border: 1px solid lightgrey;
+    font-size: 5vw;
+    text-align: right;
+}
+
+table {
+  width: 100%;
+}
+
+td {
+  width: auto;
+}
