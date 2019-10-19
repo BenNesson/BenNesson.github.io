@@ -106,7 +106,9 @@ let GameView = (gameModel) => {
 
         let oddsDiv = addResultEntry("Odds");
         let oddsSpan = oddsDiv.appendNewChild("span");
-        oddsSpan.innerText = formatOdds(1/(gameModel.roundCount + 1));
+        let winGap = gameModel.roundCount - gameModel.winTarget + 1;
+        let picks = gameModel.roundCount + 1;
+        oddsSpan.innerText = formatOdds(winGap/picks);
         let reCalcOdds = () => {
             let newOdds = calcOdds(
                 gameModel.barModel.value,
