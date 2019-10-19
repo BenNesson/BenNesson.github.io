@@ -6,6 +6,7 @@ let ValueView = (valModel) => {
     m_playButton.disabled = true;
     m_playButton.type = "button";
     m_playButton.addEventListener("click", () => { valModel.evaluate(); });
+    m_playButton.classList.add("gameButton");
     let _isEnabled = () => !m_playButton.disabled;
     let _enable = () => { m_playButton.disabled = valModel.isSet; };
     let _disable = () => { m_playButton.disabled = true; };
@@ -44,6 +45,14 @@ let GameView = (gameModel) => {
         roundView.buttonText = "Play...";
         m_roundViews.push(roundView);
     }
+    let m_resultsSpan = document.createElement("span");
+    gameModel.gameWonEvent.addHandler(rc => {
+        m_resultsSpan.innerText = "Yay you won!  (after " + rc + " rounds)";
+    });
+    gameModel.gameLostEvent.addHandler(rc => {
+        m_resultsSpan.innerText = "Sorry, you lost.  (after " + rc + " rounds)";
+    });
+
     m_barView.enable();
     gameModel.barModel.evaluatedEvent.addHandler(x => {
         for (let i = 0; i < gameModel.roundCount; i++) {
@@ -64,9 +73,83 @@ let GameView = (gameModel) => {
                 row.style.background = (score >= gameModel.barModel.value ? "green" : "red");
             });
             row.appendNewChild("td").innerText = "Round " + (i + 1);
-            row.appendNewChild("td").appendChild(m_roundViews[i].playButton);
-            row.appendNewChild("td").appendChild(m_roundViews[i].scoreSpan);
+            row.appendNewChild("td").appendNewChild("div").appendChild(m_roundViews[i].playButton);
+            row.appendNewChild("td").appendNewChild("div").appendChild(m_roundViews[i].scoreSpan);
         }
+
+        return table;
+    })();
+
+    let m_resultsTable = (() => {
+        let table = document.createElement("table");
+        attachAppendChild(table);
+
+        let addResultEntry = (label) => {
+            let row = table.appendNewChild("tr");
+            row.appendNewChild("td").innerText = label;
+            return row.appendNewChild("td");
+        };
+
+        addResultEntry("Rounds").appendNewChild("span").innerText = gameModel.roundCount;
+        addResultEntry("Win Target").appendNewChild("span").innerText = gameModel.winTarget;
+        
+        let winCountSpan = addResultEntry("Wins").appendNewChild("span");
+        winCountSpan.innerText = 0;
+        let roundsLeftSpan = addResultEntry("Rounds Remaining").appendNewChild("span");
+        roundsLeftSpan.innerText = gameModel.roundCount;
+        for (let i = 0; i < gameModel.roundCount; i++) {
+            gameModel.roundEvaluatedEvents[i].addHandler(_ => {
+                winCountSpan.innerText = gameModel.roundsWon;
+                roundsLeftSpan.innerText = gameModel.roundsLeft;
+            });
+        }
+
+        let oddsDiv = addResultEntry("Odds");
+        let oddsSpan = oddsDiv.appendNewChild("span");
+        oddsSpan.innerText = formatOdds(1/(gameModel.roundCount + 1));
+        let reCalcOdds = () => {
+            let newOdds = calcOdds(
+                gameModel.barModel.value,
+                gameModel.winsNeeded,
+                gameModel.roundsLeft);
+            oddsSpan.innerText = formatOdds(newOdds);
+        }
+        gameModel.barModel.evaluatedEvent.addHandler(_ => { reCalcOdds(); });
+        for (let i = 0; i < gameModel.roundCount; i++) {
+            gameModel.getRoundModel(i).evaluatedEvent.addHandler(_ => { reCalcOdds(); });
+        }
+
+        let playRemaining = (start) => {
+            let triggerNext = (i) => {
+                setTimeout(() => { playRemaining(i); }, 250);
+            };
+            if (typeof(start) === "undefined") {
+                triggerNext(0);
+            } else {
+                for (let i = start; i < gameModel.roundCount; i++) {
+                    let roundModel = gameModel.getRoundModel(i);
+                    if (!roundModel.isSet) {
+                        roundModel.evaluate();
+                        triggerNext(i + 1);
+                        break;
+                    }
+                }
+            }
+        };
+
+        let outcomeDiv = addResultEntry("Outcome");
+        let outcomeSpan = outcomeDiv.appendNewChild("span");
+        outcomeSpan.innerText = "In progress...";
+        gameModel.gameWonEvent.addHandler(rc => {
+            outcomeDiv.style.background = "green";
+            outcomeSpan.innerText = "WON (in " + rc + " rounds)";
+            playRemaining();
+        });
+        gameModel.gameLostEvent.addHandler(rc => {
+            outcomeDiv.style.background = "red";
+            outcomeSpan.innerText = "LOST (in " + rc + " rounds)";
+            playRemaining();
+        });
 
         return table;
     })();
@@ -75,6 +158,6 @@ let GameView = (gameModel) => {
         get roundTable() { return m_roundTable; },
         get setBarButton() { return m_barView.playButton; },
         get barValueSpan() { return m_barView.scoreSpan; },
-        //get 
+        get resultsTable() { return m_resultsTable; },
     };
 };
