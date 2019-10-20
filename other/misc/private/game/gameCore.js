@@ -59,3 +59,22 @@ let calcOdds = (loseOdds, winsNeeded, roundsLeft) => {
     }
     return totalOdds;
 };
+
+let cookieMonster = (() => {
+    let _this = {
+        get cookieDict() {
+            let cookieSplit = document.cookie.split("; ");
+            let result = {};
+            for (let i in cookieSplit) {
+                let entry = cookieSplit[i];
+                let entrySplit = entry.split("=");
+                result[entrySplit[0]] = entrySplit[1];
+            }
+            return result;
+        },
+    };
+    _this.get = (key) => _this.cookieDict[key];
+    _this.set = (key, val) => document.cookie = key + "=" + val;
+    _this.delete = (key) => document.cookie = key + '=""; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+    return _this;
+})();

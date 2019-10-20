@@ -9,6 +9,16 @@ let mainDiv;
 let bar;
 let scoreThings = [];
 
+let isDevMode = (()=>{
+    let devCheck = "devCheck";
+    cookieMonster.set(devCheck, devCheck);
+    if (cookieMonster.get(devCheck) === devCheck) {
+        cookieMonster.delete(devCheck);
+        return false;
+    }
+    return true;
+})();
+
 let mcSim = (iterations) => {
     let winCount = 0;
     for (let i = 0; i < iterations; i++) {
