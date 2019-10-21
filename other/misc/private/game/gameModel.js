@@ -83,8 +83,8 @@ let GameModel = (roundCount, winTarget) => {
         let i_ = i;
         newRound.evaluatedEvent.addHandler(playedRound);
         newRound.evaluatedEvent.addHandler(v=>{
+            m_history.push(i_);
             if (!m_deserializing) {
-                m_history.push(i_);
                 _serializeToCookie();
             }
         });
