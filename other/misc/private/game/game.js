@@ -8,8 +8,8 @@ let wins = 0;
 let mainDiv;
 let bar;
 let scoreThings = [];
-let windowStart = 12;
-let windowEnd = 13;
+let windowStart = 13;
+let windowEnd = 14;
 
 let getWindowTiming = (loadTime) => {
     let loadHour = loadTime.getHours();
@@ -66,8 +66,13 @@ let InitializeGame = (mainDiv) => {
     let barDiv = mainDiv.appendNewChild("div");
     barDiv.classList.add("barDiv");
 
+    let gameStateKey = "gameState;"
     let gameModel = GameModel(roundCount, winTarget);
+    gameModel.serializationKey = gameStateKey;
     let gameView = GameView(gameModel);
+    if (cookieMonster.has(gameStateKey)) {
+        gameModel.deserialize(cookieMonster.get(gameStateKey));
+    }
     barDiv.appendNewChild("div").appendChild(gameView.setBarButton);
     barDiv.appendNewChild("div").appendChild(gameView.barValueSpan);
     mainDiv.appendChild(gameView.roundTable);

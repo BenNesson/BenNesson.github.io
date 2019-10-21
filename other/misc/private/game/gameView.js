@@ -5,7 +5,9 @@ let ValueView = (valModel) => {
     let m_playButton = document.createElement("input");
     m_playButton.disabled = true;
     m_playButton.type = "button";
-    m_playButton.addEventListener("click", () => { valModel.evaluate(); });
+    m_playButton.addEventListener("click", () => {
+        valModel.evaluate();
+    });
     m_playButton.classList.add("gameButton");
     let _isEnabled = () => !m_playButton.disabled;
     let _enable = () => { m_playButton.disabled = valModel.isSet; };
