@@ -53,7 +53,8 @@ let loadTime = () => {
 
     let result;
     if (cookieMonster.has(loadTimeKey)) {
-        result = Date.parse(cookieMonster.get(loadTimeKey));
+        let resultMS = Date.parse(cookieMonster.get(loadTimeKey))
+        result = new Date(resultMS);
     } else {
         result = new Date();
         cookieMonster.set(loadTimeKey, result);
