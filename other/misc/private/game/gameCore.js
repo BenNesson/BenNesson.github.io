@@ -87,7 +87,7 @@ let cookieMonster = (() => {
 
     _this.get = (key) => _this.cookieDict[key];
     _this.set = (key, val) => document.cookie = key + "=" + val + "; expires=" + _getExprTime();
-    _this.has = (key) => Object.keys(_this.cookieDict).find(k => k === key) > -1;
+    _this.has = (key) => Object.keys(_this.cookieDict).indexOf(key) > -1;
     _this.delete = (key) => document.cookie = key + '=""; expires=Thu, 01 Jan 1970 00:00:00 UTC';
     return _this;
 })();
