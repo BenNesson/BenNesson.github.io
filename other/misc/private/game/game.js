@@ -8,15 +8,15 @@ let wins = 0;
 let mainDiv;
 let bar;
 let scoreThings = [];
-let windowStart = 13;
-let windowEnd = 14;
+let windowStart = 15;
+let windowEnd = 16;
 
 let getWindowTiming = (loadTime) => {
     let loadHour = loadTime.getHours();
     let loadMinute = loadTime.getMinutes();
     let loadSecond = loadTime.getSeconds();
 
-    if (loadTime.getMonth() > 9) {
+    if (loadTime.getMonth() !== 9) {
         if (loadHour < windowStart) {
             return {
                 okay: false,
@@ -94,6 +94,8 @@ let InitializeTimeOutOfBounds = (mainDiv, loadTiming) => {
                .innerText = text;
     }
     appendDiv(oobString);
+    mainDiv.appendNewChild("div").style.height = "4vw";
+    appendDiv("You're locked out for the rest of the day.");
     mainDiv.appendNewChild("div").style.height = "4vw";
     appendDiv("Better luck tomorrow!");
 };
