@@ -52,7 +52,7 @@ let GameModel = (roundCount, winTarget) => {
     let winsNeeded = () => winTarget - m_wins;
     let canWin = () => roundsLeft() >= winsNeeded();
     let _serializeToCookie = () => {
-        if (typeof(m_serializationKey) !== "undefined") {
+        if (!deserializing && typeof(m_serializationKey) !== "undefined") {
             cookieMonster.set(m_serializationKey, _serialize());
         }
     };
