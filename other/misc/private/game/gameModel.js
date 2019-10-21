@@ -57,7 +57,9 @@ let GameModel = (roundCount, winTarget) => {
         }
     };
     m_barValue.evaluatedEvent.addHandler((v) => {
-        _serializeToCookie();
+        if (!m_deserializing) {
+            _serializeToCookie();
+        }
     });
 
     let playedRound = (v) => {
