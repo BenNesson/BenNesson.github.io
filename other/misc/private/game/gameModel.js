@@ -73,7 +73,6 @@ let GameModel = (roundCount, winTarget) => {
         if (m_roundsPlayed === roundCount) {
             m_gameEndedEvent.fire(m_wins);
         }
-        _serializeToCookie();
     };
 
     let m_rounds = [];
@@ -82,12 +81,13 @@ let GameModel = (roundCount, winTarget) => {
     for (let i = 0; i < roundCount; i++) {
         let newRound = ValueModel();
         let i_ = i;
+        newRound.evaluatedEvent.addHandler(playedRound);
         newRound.evaluatedEvent.addHandler(v=>{
             if (!m_deserializing) {
                 m_history.push(i_);
+                _serializeToCookie();
             }
         });
-        newRound.evaluatedEvent.addHandler(playedRound);
         m_rounds.push(newRound);
         m_roundEvaluatedEvents.push(newRound.evaluatedEvent);
     }
