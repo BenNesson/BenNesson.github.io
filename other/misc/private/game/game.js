@@ -19,6 +19,22 @@ let isDevMode = (()=>{
     return true;
 })();
 
+let isWindowOpen = (()=> {
+    let now = new Date();
+    let nowHours = now.getHours();
+    return nowHours === 15;
+})();
+
+//let isTooEarly 
+
+let tomorrowMidnight = (() => {
+    let today = new Date();
+    today.setHours(0);
+    today.setMinutes(0);
+    today.setSeconds(0);
+    return new Date(today.setMilliseconds(0) + 24 * 60 * 60 * 1000);
+})();
+
 let mcSim = (iterations) => {
     let winCount = 0;
     for (let i = 0; i < iterations; i++) {
