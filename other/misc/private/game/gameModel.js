@@ -52,14 +52,12 @@ let GameModel = (roundCount, winTarget) => {
     let winsNeeded = () => winTarget - m_wins;
     let canWin = () => roundsLeft() >= winsNeeded();
     let _serializeToCookie = () => {
-        if (typeof(m_serializationKey) !== "undefined") {
+        if (!m_deserializing && typeof(m_serializationKey) !== "undefined") {
             cookieMonster.set(m_serializationKey, _serialize());
         }
     };
     m_barValue.evaluatedEvent.addHandler((v) => {
-        if (!m_deserializing) {
-            _serializeToCookie();
-        }
+        _serializeToCookie();
     });
 
     let playedRound = (v) => {
@@ -86,9 +84,7 @@ let GameModel = (roundCount, winTarget) => {
         newRound.evaluatedEvent.addHandler(playedRound);
         newRound.evaluatedEvent.addHandler(v=>{
             m_history.push(i_);
-            if (!m_deserializing) {
-                _serializeToCookie();
-            }
+            _serializeToCookie();
         });
         m_rounds.push(newRound);
         m_roundEvaluatedEvents.push(newRound.evaluatedEvent);
