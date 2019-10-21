@@ -63,18 +63,31 @@ let calcOdds = (loseOdds, winsNeeded, roundsLeft) => {
 let cookieMonster = (() => {
     let _this = {
         get cookieDict() {
-            let cookieSplit = document.cookie.split("; ");
             let result = {};
-            for (let i in cookieSplit) {
-                let entry = cookieSplit[i];
-                let entrySplit = entry.split("=");
-                result[entrySplit[0]] = entrySplit[1];
+            let cookieStr = document.cookie;
+            if (cookieStr !== "") {
+                let cookieSplit = cookieStr.split("; ");
+                for (let i in cookieSplit) {
+                    let entry = cookieSplit[i];
+                    let entrySplit = entry.split("=");
+                    result[entrySplit[0]] = entrySplit[1];
+                }
             }
             return result;
         },
     };
+
+    let _getExprTime = () => {
+        let today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        return new Date(today.setMilliseconds(0) + 24 * 60 * 60 * 1000);
+    };
+
     _this.get = (key) => _this.cookieDict[key];
-    _this.set = (key, val) => document.cookie = key + "=" + val;
+    _this.set = (key, val) => document.cookie = key + "=" + val + "; expires=" + _getExprTime();
+    _this.has = (key) => Object.keys(_this.cookieDict).find(k => k === key) > -1;
     _this.delete = (key) => document.cookie = key + '=""; expires=Thu, 01 Jan 1970 00:00:00 UTC';
     return _this;
 })();
