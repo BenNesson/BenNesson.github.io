@@ -16,25 +16,27 @@ let getWindowTiming = (loadTime) => {
     let loadMinute = loadTime.getMinutes();
     let loadSecond = loadTime.getSeconds();
 
-    if (loadHour < windowStart) {
-        return {
-            okay: false,
-            error: "early",
-            hours: windowStart - loadHour - 1,
-            minutes: 60 - loadMinute,
-            seconds: 60 - loadSecond
-        };
-    } else if (loadHour >= windowEnd) {
-        return {
-            okay: false,
-            error: "late",
-            hours: loadHour - windowEnd,
-            minutes: loadMinute,
-            seconds: loadSecond
-        };
-    } else {
-        return { okay: true };
+    if (loadTime.getMonth() > 9) {
+        if (loadHour < windowStart) {
+            return {
+                okay: false,
+                error: "early",
+                hours: windowStart - loadHour - 1,
+                minutes: 60 - loadMinute,
+                seconds: 60 - loadSecond
+            };
+        } else if (loadHour >= windowEnd) {
+            return {
+                okay: false,
+                error: "late",
+                hours: loadHour - windowEnd,
+                minutes: loadMinute,
+                seconds: loadSecond
+            };
+        }
     }
+
+    return { okay: true };
 };
 
 let isDevMode = (()=>{
