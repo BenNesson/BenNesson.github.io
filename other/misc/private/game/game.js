@@ -2,8 +2,8 @@
 /// <reference path="./gameModel.js" />
 /// <reference path="./gameView.js" />
 
-let roundCount = 12;
-let winTarget = 11;
+let roundCount = 15;
+let winTarget = 14;
 let wins = 0;
 let mainDiv;
 let bar;
