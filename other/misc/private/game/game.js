@@ -68,7 +68,7 @@ let InitializeGame = (mainDiv) => {
     let barDiv = mainDiv.appendNewChild("div");
     barDiv.classList.add("barDiv");
 
-    let gameStateKey = "gameState;"
+    let gameStateKey = "gameState";
     let gameModel = GameModel(roundCount, winTarget);
     gameModel.serializationKey = gameStateKey;
     let gameView = GameView(gameModel);
