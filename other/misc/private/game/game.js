@@ -2,8 +2,8 @@
 /// <reference path="./gameModel.js" />
 /// <reference path="./gameView.js" />
 
-let roundCount = 12;
-let winTarget = 11;
+let roundCount = 15;
+let winTarget = 14;
 let wins = 0;
 let mainDiv;
 let bar;
@@ -34,14 +34,6 @@ let Initialize = () => {
     attachAppendChild(mainDiv);
     let barDiv = mainDiv.appendNewChild("div");
     barDiv.classList.add("barDiv");
-
-    let dimensionsDiv = mainDiv.appendNewChild("div");
-    let widthDiv = dimensionsDiv.appendNewChild("div");
-    widthDiv.appendNewChild("span").innerText = "Width: ";
-    widthDiv.appendNewChild("span").innerText = document.body.clientWidth;
-    let heightDiv = dimensionsDiv.appendNewChild("div");
-    heightDiv.appendNewChild("span").innerText = "Height: ";
-    heightDiv.appendNewChild("span").innerText = document.body.clientHeight;
 
     let gameModel = GameModel(roundCount, winTarget);
     let gameView = GameView(gameModel);
