@@ -95,9 +95,13 @@ let InitializeTimeOutOfBounds = (mainDiv, loadTiming) => {
     }
     appendDiv(oobString);
     mainDiv.appendNewChild("div").style.height = "4vw";
-    appendDiv("You're locked out for the rest of the day.");
+    let timeFormat = (t) => "" + t % 12 + (t < 12 ? ":00 am" : ":00 pm");
+    appendDiv(
+        "(You have to initially load the game between " +
+        timeFormat(windowStart) + " and " +
+        timeFormat(windowEnd) + " to be able to play.  Then you have until midnight to finish.)");
     mainDiv.appendNewChild("div").style.height = "4vw";
-    appendDiv("Better luck tomorrow!");
+    appendDiv("You're locked out for the rest of the day.  Better luck tomorrow!");
 };
 
 let Initialize = () => {
