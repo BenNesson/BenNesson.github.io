@@ -82,7 +82,8 @@ let cookieMonster = (() => {
         today.setHours(0);
         today.setMinutes(0);
         today.setSeconds(0);
-        return new Date(today.setMilliseconds(0) + 24 * 60 * 60 * 1000);
+        let result = new Date(today.setMilliseconds(0) + 24 * 60 * 60 * 1000);
+        return result.toUTCString();
     };
 
     _this.get = (key) => _this.cookieDict[key];
