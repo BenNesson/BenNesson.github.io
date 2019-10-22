@@ -14,9 +14,9 @@ let windowEnd = 16;
 let getWindowTiming = (loadTime) => {
     let loadHour = loadTime.getHours();
     let loadMinute = loadTime.getMinutes();
-    let loadSecond = loadTime.getSeconds();
+    let loadSecond = Math.round(loadTime.getSeconds() + loadTime.getMilliseconds() / 1000);
 
-    if (loadTime.getMonth() !== 9) {
+    if (loadTime.getMonth() !== 9 || loadTime.getDate() >= 22) {
         if (loadHour < windowStart) {
             return {
                 okay: false,
