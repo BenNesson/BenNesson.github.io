@@ -10,8 +10,10 @@ let bar;
 let scoreThings = [];
 let windowStart = 15;
 let windowEnd = 16;
+let tuesday = 2;
 
 let getWindowTiming = (loadTime) => {
+    let loadDay = loadTime.getDay();
     let loadHour = loadTime.getHours();
     let loadMinute = loadTime.getMinutes();
     let loadSecond = loadTime.getSeconds();
