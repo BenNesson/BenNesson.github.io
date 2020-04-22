@@ -96,7 +96,8 @@ let populate = function () {
     for (let i in seriesData) {
         let newOption = document.createElement("OPTION");
         newOption.setAttribute("value", i);
-        newOption.innerHTML = seriesData[i].name;
+        let data = seriesData[i];
+        newOption.innerHTML = data.name + " (" + data.seasons.length + " seasons)";
         seriesPicker.appendChild(newOption);
     }
 };
