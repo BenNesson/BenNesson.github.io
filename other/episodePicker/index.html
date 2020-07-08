@@ -1,10 +1,15 @@
 <html>
   <head>
     <script type="text/javascript">
-      let script = document.createElement("SCRIPT");
-      script.setAttribute("type", "text/javascript");
-      script.setAttribute("src", "./whatEpisode.js?_dummy=" + (new Date()).valueOf());
-      document.head.appendChild(script);
+        //<![CDATA[
+        function loadScript(relPath) {
+            let script = document.createElement("SCRIPT");
+            script.setAttribute("type", "text/javascript");
+            script.setAttribute("src", "./" + relPath + "?_dummy=" + (Math.random()));
+            document.head.appendChild(script);   
+        }
+        loadScript("whatEpisode.js");
+        //]]>
     </script>
     <link href="./whatEpisode.css" media="all" type="text/css" rel="stylesheet" />
   </head>
