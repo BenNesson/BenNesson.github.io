@@ -1,15 +1,17 @@
-<html>
+<html lang="en" xml:lang="en">
   <head>
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="robots" content="noindex,nofollow" />
     <script type="text/javascript">
-        //<![CDATA[
-        function loadScript(relPath) {
-            let script = document.createElement("SCRIPT");
-            script.setAttribute("type", "text/javascript");
-            script.setAttribute("src", "./" + relPath + "?_dummy=" + (Math.random()));
-            document.head.appendChild(script);   
-        }
-        loadScript("whatEpisode.js");
-        //]]>
+      //<![CDATA[
+      function loadScript(relPath) {
+        let script = document.createElement("SCRIPT");
+        script.setAttribute("type", "text/javascript");
+        script.setAttribute("src", "./" + relPath + "?_dummy=" + (Math.random()));
+        document.head.appendChild(script);
+      }
+      loadScript("whatEpisode.js");
+      //]]>
     </script>
     <link href="./whatEpisode.css" media="all" type="text/css" rel="stylesheet" />
   </head>
@@ -31,6 +33,16 @@
       </table>
       <br />
       <button onclick="pickEpisode()">Pick again</button>
+    </div>
+    <div style="visibility: hidden">
+      Here's a bunch of English text that won't show up, so that hopefully stupid fucking Chrome will stop thinking this fucking page is in Southern Sotho and offering to translate.
+      Gosh golly fucking jeepers would it ever be nice if I could just fucking TELL Chrome that the page is in English, but nope, there's no fucking way to do that.
+      You can tell it to not offer to translate at all, but you can't tell it "Yo, if'n you wanna translate this, FYI, you're starting from [whatever]."
+      On principle, I don't like telling it to never translate, so I guess the only alternative is to give it enough fucking English text that it can piece together that the fucking page is in fucking English.
+      In case it wasn't clear: fuck you, Chrome, your browser is fucking dogshit.  This is a pretty obvious problem with a pretty obvious solution.
+      Just look!  Up above!  At the opening html tag!  I fucking told you what language this is!  Twice!
+      And look, in that meta tag in the head!  I told you a third fucking time!  Pull your fucking heads out of your fucking asses!
+      If that's not enough text yet, I'll be back soon to berate you further, you fucking dunces.
     </div>
   </body>
 </html>
