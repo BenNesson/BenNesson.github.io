@@ -88,6 +88,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "stops", "stops", "{9C7F6874
 		..\other\buspagething\stops\stops.js = ..\other\buspagething\stops\stops.js
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "episodePicker", "episodePicker", "{D11E4789-8A8A-48AF-9929-A99AFC227F4C}"
+	ProjectSection(SolutionItems) = preProject
+		..\other\episodePicker\index.html = ..\other\episodePicker\index.html
+		..\other\episodePicker\whatEpisode.css = ..\other\episodePicker\whatEpisode.css
+		..\other\episodePicker\whatEpisode.js = ..\other\episodePicker\whatEpisode.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{2152C20C-6F99-436F-83D2-BAB1273AD17C}"
+	ProjectSection(SolutionItems) = preProject
+		..\other\misc\bridgeCam.css = ..\other\misc\bridgeCam.css
+		..\other\misc\bridgeCam.html = ..\other\misc\bridgeCam.html
+		..\other\misc\bridgeCam.js = ..\other\misc\bridgeCam.js
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +121,8 @@ Global
 		{ACBC687B-F84B-4B86-BBFB-047F2F1867BA} = {5FDBD77C-B665-41C7-85F3-AFC6782E1534}
 		{5B74C433-3924-4B85-A12F-2EE66E618B37} = {5FDBD77C-B665-41C7-85F3-AFC6782E1534}
 		{9C7F6874-496D-4BC8-8E82-0E59A0E9DDFD} = {5FDBD77C-B665-41C7-85F3-AFC6782E1534}
+		{D11E4789-8A8A-48AF-9929-A99AFC227F4C} = {FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E}
+		{2152C20C-6F99-436F-83D2-BAB1273AD17C} = {FAE5DDBB-ACC7-4885-9CA4-21CB63DEC09E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D2F31294-E232-4328-9149-515D59062992}
