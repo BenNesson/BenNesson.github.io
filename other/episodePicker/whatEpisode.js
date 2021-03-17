@@ -46,7 +46,7 @@ let seriesData = [
     }, {
         // season 4 coming (apparently)
         name: "Rick and Morty",
-        seasons: [11, 10, 10]
+        seasons: [11, 10, 10, 10]
     }, {
         // DONE
         name: "Better Off Ted",
