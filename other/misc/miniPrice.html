@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            //<![CDATA[
+            var highRow = () => document.getElementById("highRow"),
+                fairRow = () => document.getElementById("fairRow"),
+                greatRow = () => document.getElementById("greatRow"),
+                excellentRow = () => document.getElementById("excellentRow"),
+                msrpInput = () => document.getElementById("msrpInput"),
+                offerInput = () => document.getElementById("offerInput"),
+                percentOffInput = () => document.getElementById("percentOffInput");
+
+            function highlightRow(percentOff) {
+                let rows = [highRow(), fairRow(), greatRow(), excellentRow()];
+                for (let i in rows) {
+                    rows[i].classList.remove("rowHighlight");
+                }
+                if (percentOff > 0.12) {
+                    excellentRow().classList.add("rowHighlight");
+                } else if (percentOff > 0.08) {
+                    greatRow().classList.add("rowHighlight");
+                } else if (percentOff > 0.04) {
+                    fairRow().classList.add("rowHighlight");
+                } else {
+                    highRow().classList.add("rowHighlight");
+                }
+            }
+
+            function offerChange() {
+                let offer, msrp;
+                if (Number.isInteger(offer = Number.parseInt(offerInput().value)) &&
+                    Number.isInteger(msrp = Number.parseInt(msrpInput().value))) {
+                    let discount = msrp - offer;
+                    let percentOff = discount / msrp;
+                    percentOffInput().value = percentOff * 100;
+                    highlightRow(percentOff);
+                }
+            }
+
+            function percentOffChange() {
+                let percentOff, msrp;
+                if (!Number.isNaN(percentOff = Number.parseFloat(percentOffInput().value) / 100) &&
+                    Number.isInteger(msrp = Number.parseInt(msrpInput().value))) {
+                    let discount = msrp * percentOff;
+                    let offer = msrp - discount;
+                    offerInput().value = offer;
+                    highlightRow(percentOff);
+                }
+            }
+            //]]>
+        </script>
+        <style>
+            input, table, tr, td {
+                font-size: 5vw;
+            }
+            table, tr, td {
+                border: 1px black solid;
+                border-collapse: collapse;
+                padding: 7.5px;
+            }
+            .rowHighlight {
+                background-color: lightcyan;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <tr id="highRow">
+                <td>High:</td>
+                <td>&lt;4% off MSRP</td>
+            </tr>
+            <tr id="fairRow">
+                <td>Fair:</td>
+                <td>4-8% off MSRP</td>
+            </tr>
+            <tr id="greatRow">
+                <td>Great:</td>
+                <td>8-12% off MSRP</td>
+            </tr>
+            <tr id="excellentRow">
+                <td>Excellent:</td>
+                <td>&gt;12% off MSRP</td>
+            </tr>
+            <tr><td colspan="2"></td></tr>
+            <tr>
+                <td>MSRP:</td>
+                <td><input type="text" id="msrpInput" oninput="offerChange()" value="30000" /></td>
+            </tr>
+            <tr>
+                <td>Offer:</td>
+                <td><input type="text" id="offerInput" oninput="offerChange()" /></td>
+            </tr>
+            <tr>
+                <td>% off:</td>
+                <td><input type="text" id="percentOffInput" oninput="percentOffChange()" /></td>
+            </tr>
+        </table>
+    </body>
+</html>
