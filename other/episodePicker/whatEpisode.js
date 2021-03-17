@@ -4,21 +4,21 @@
 // episodes are in each season.
 let seriesData = [
     {
-        // in season 10 (going up live, but I ain't updating this every week)
+        // in season 11 (going up live, but I ain't updating this every week)
         name: "Bob's Burgers",
-        seasons: [13, 9, 23, 22, 21, 19, 22, 21, 22,
-            18 // current season, update here
+        seasons: [13, 9, 23, 22, 21, 19, 22, 21, 22, 22,
+            14 // current season, update here
         ]
     }, {
-        // in season 7 (going up live, but I ain't updating this every week)
+        // I think between seasons?
         name: "Brooklyn 99",
-        seasons: [22, 23, 23, 22, 22, 18,
-            12 // current season, update here
+        seasons: [22, 23, 23, 22, 22, 18, 13,
+            0 // current season, update here
         ]
     }, {
         // I think still airing, but between seasons rn
         name: "Letterkenny",
-        seasons: [6, 7, 7, 7, 7, 7, 6, 7]
+        seasons: [6, 7, 7, 7, 7, 7, 6, 7, 7]
     }, {
         // DONE
         name: "30 Rock",
@@ -42,9 +42,9 @@ let seriesData = [
     }, {
         // current, but a new season coming
         name: "Archer",
-        seasons: [10, 13, 13, 13, 13, 13, 10, 8, 8, 9]
+        seasons: [10, 13, 13, 13, 13, 13, 10, 8, 8, 9, 8]
     }, {
-        // season 4 coming (apparently)
+        // season 5 coming someday (apparently)
         name: "Rick and Morty",
         seasons: [11, 10, 10, 10]
     }, {
@@ -63,6 +63,10 @@ let seriesData = [
         // Still airing, between seasons(?)
         name: "Travel Man",
         seasons: [4, 8, 4, 5, 4, 5, 4]
+    }, {
+        // DONE
+        name: "Stan Against Evil",
+        seasons: [8, 8, 8]
     }
 ];
 
