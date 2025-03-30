@@ -67,6 +67,10 @@ let seriesData = [
         // DONE
         name: "Stan Against Evil",
         seasons: [8, 8, 8]
+    }, {
+        // DONE
+        name: "New Girl",
+        seasons: [24, 25, 23, 22, 22, 22, 8]
     }
 ];
 
