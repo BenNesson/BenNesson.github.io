@@ -86,6 +86,13 @@ let seriesData = [
         // DONE
         name: "New Girl",
         seasons: [24, 25, 23, 22, 22, 22, 8]
+    },
+    {
+        // Currently airing season 5
+        name: "The Great North",
+        seasons: [11, 22, 22, 20,
+            8 // current season, update here
+        ]
     }
 ];
 
