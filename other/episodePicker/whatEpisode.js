@@ -11,9 +11,9 @@ let seriesData = [
         ]
     },
     {
-        // DONE, but 0-seasons aren't on Netflix
+        // DONE
         name: "Brooklyn 99",
-        seasons: [0, 0, 23, 22, 22, 18, 0, 0 ]
+        seasons: [22, 23, 23, 22, 22, 18, 13, 10 ]
     },
     {
         // DONE
