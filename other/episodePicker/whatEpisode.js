@@ -108,6 +108,7 @@ let seriesData = [
 // GLOBALS
 let showPicker, seasonCell, episodeCell;
 
+let SELECTED_SERIES_KEY = "selectedSeries";
 
 // INTERNAL FUNCTIONS
 let initElements = function () {
@@ -157,8 +158,32 @@ let pickEpisodeFromSeasons = function (seasons) {
     return result;
 };
 
+let readCookie = (key) => {
+    let cookieValues = document.cookie
+        .split("; ")
+        .map(c => c.split("="));
+    let found = cookieValues.find(kvp => kvp[0] === key);
+    if (found) {
+        return found[1];
+    }
+
+    return null;
+};
+
+let writeCookie = (key, val) => {
+    document.cookie = `${key}=${val}`;
+}
+
+let resume = () => {
+    let selectedSeries = readCookie(SELECTED_SERIES_KEY);
+    if (selectedSeries) {
+        seriesPicker.selectedIndex = selectedSeries;
+    }
+};
+
 // EXPORTED FUNCTIONS
 function pickEpisode() {
+    writeCookie(SELECTED_SERIES_KEY, seriesPicker.selectedIndex);
     let selection = seriesPicker.value;
     let seasons = seriesData[selection].seasons;
     let pick = pickEpisodeFromSeasons(seasons);
@@ -169,5 +194,6 @@ function pickEpisode() {
 function init() {
     initElements();
     populate();
+    resume();
     pickEpisode();
 }
