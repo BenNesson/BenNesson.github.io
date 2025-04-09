@@ -6,93 +6,103 @@ let seriesData = [
     {
         // in season 15 (going up live, but I ain't updating this every week)
         name: "Bob's Burgers",
-        seasons: [13, 9, 23, 22, 21, 19, 22, 21, 22, 22, 22, 22, 22, 16,
+        seasons: [ 13, 9, 23, 22, 21, 19, 22, 21, 22, 22, 22, 22, 22, 16,
             10 // current season, update here
         ]
     },
     {
         // DONE
         name: "Brooklyn 99",
-        seasons: [22, 23, 23, 22, 22, 18, 13, 10 ]
+        seasons: [ 22, 23, 23, 22, 22, 18, 13, 10 ]
     },
     {
         // DONE
         name: "Letterkenny",
-        seasons: [6, 7, 7, 7, 7, 7, 6, 7, 7, 7, 7, 6]
+        seasons: [ 6, 7, 7, 7, 7, 7, 6, 7, 7, 7, 7, 6 ]
     },
     {
         // DONE
         name: "30 Rock",
-        seasons: [21, 15, 22, 22, 22, 22, 13]
+        seasons: [ 21, 15, 22, 22, 22, 22, 13 ]
     },
     {
         // DONE
         name: "Parks and Recreation",
-        seasons: [6, 24, 16, 22, 22, 22, 13]
+        seasons: [ 6, 24, 16, 22, 22, 22, 13 ]
     },
     {
         // DONE
         name: "King of the Hill",
-        seasons: [12, 23, 25, 24, 20, 22, 23, 22, 15, 15, 12, 22, 24]
+        seasons: [ 12, 23, 25, 24, 20, 22, 23, 22, 15, 15, 12, 22, 24 ]
     },
     {
         // DONE
         name: "The League",
-        seasons: [6, 13, 13, 13, 13, 13, 13]
+        seasons: [ 6, 13, 13, 13, 13, 13, 13 ]
     },
     {
         // still airing; FX gets shit on Hulu pretty quick, but they're between seasons rn
         name: "Always Sunny",
-        seasons: [7, 10, 15, 13, 12, 13, 13, 10, 10, 10, 10, 10, 10, 10, 8, 8]
+        seasons: [ 7, 10, 15, 13, 12, 13, 13, 10, 10, 10, 10, 10, 10, 10, 8, 8 ]
     },
     {
         // DONE
         name: "Archer",
-        seasons: [10, 13, 13, 13, 13, 13, 10, 8, 8, 9, 8, 8, 8, 8]
+        seasons: [ 10, 13, 13, 13, 13, 13, 10, 8, 8, 9, 8, 8, 8, 8 ]
     },
     {
         // season 8 coming someday (apparently)
         name: "Rick and Morty",
-        seasons: [11, 10, 10, 10, 10, 10, 10]
+        seasons: [ 11, 10, 10, 10, 10, 10, 10 ]
     },
     {
         // DONE
         name: "Better Off Ted",
-        seasons: [13, 13]
+        seasons: [ 13, 13 ]
     },
     {
         // DONE
         name: "Raising Hope",
-        seasons: [22, 22, 22, 22]
+        seasons: [ 22, 22, 22, 22 ]
     },
     //{
     //    // AVAILABILITY PRETTY DICEY
     //    // Still airing, between seasons(?)
     //    name: "Drunk History",
-    //    seasons: [8, 10, 13, 11, 14, 16]
+    //    seasons: [ 8, 10, 13, 11, 14, 16 ]
     //},
     //{
     //    // Removing because I think the guy got TERFy or some shit
     //    // Still airing, between seasons(?)
     //    name: "Travel Man",
-    //    seasons: [4, 8, 4, 5, 4, 5, 4]
+    //    seasons: [ 4, 8, 4, 5, 4, 5, 4 ]
     //},
     {
         // DONE
         name: "Stan Against Evil",
-        seasons: [8, 8, 8]
+        seasons: [ 8, 8, 8 ]
     },
     {
         // DONE
         name: "New Girl",
-        seasons: [24, 25, 23, 22, 22, 22, 8]
+        seasons: [ 24, 25, 23, 22, 22, 22, 8 ]
     },
     {
         // Currently airing season 5
         name: "The Great North",
-        seasons: [11, 22, 22, 20,
+        seasons: [ 11, 22, 22, 20,
             8 // current season, update here
         ]
+    },
+    {
+        // DONE
+        name: "Comedy Bang Bang",
+        seasons: [ 10, 20, 20, 40, 20 ]
+    },
+    {
+        // DONE
+        name: "Detroiters",
+        seasons: [ 10, 10 ]
     }
 ];
 
