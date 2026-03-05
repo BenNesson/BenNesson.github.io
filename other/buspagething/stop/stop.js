@@ -372,7 +372,7 @@ function QueryStop(stopId) {
                 key: urlParams_.getValue("key"),
                 minutesBefore: urlParams_.getValue("minutesBefore"),
                 minutesAfter: urlParams_.getValue("minutesAfter"),
-                includeReferences: false,
+                includeReferences: true,
                 dummy: new Date().getTime()
             },
             callback: function (response) {
