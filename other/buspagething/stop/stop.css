@@ -10,6 +10,18 @@ table, th, td {
     text-align: right;
 }
 
+.routeNumber {
+    font-size: 4vw;
+    text-align: center;
+}
+
+.routeHeadsign {
+    font-size: 1vw;
+    padding-right: 0.1vw;
+    padding-left: 0.1vw;
+    text-align: center;
+}
+
 table {
   width: 100%;
 }

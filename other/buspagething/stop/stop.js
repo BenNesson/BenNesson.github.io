@@ -294,6 +294,7 @@ function generateRowForArrival(currentTime, arrival) {
     let latestArrival = latestData.currentArrival;
     let row = document.createElement("TR");
     let routeCell = document.createElement("TD");
+    routeCell.classList.add('routeCell');
     let vehicleCell = document.createElement("TD");
     let arrivalTimeCell = document.createElement("TD");
     let howLateCell = document.createElement("TD");
@@ -306,7 +307,16 @@ function generateRowForArrival(currentTime, arrival) {
     row.appendChild(howOldCell);
     row.appendChild(deltaCell);
 
-    routeCell.innerHTML = latestArrival.routeShortName;
+    let routeNumber = document.createElement("DIV");
+    routeNumber.classList.add('routeNumber');
+    let routeHeadsign = document.createElement("DIV");
+    routeHeadsign.classList.add('routeHeadsign');
+
+    //routeCell.innerHTML = latestArrival.routeShortName;
+    routeNumber.innerHTML = latestArrival.routeShortName;
+    routeHeadsign.innerHTML = latestArrival.tripHeadsign;
+    routeCell.appendChild(routeNumber);
+    routeCell.appendChild(routeHeadsign);
     vehicleCell.innerHTML = latestArrival.vehicleId;
 
     let actuallyPredicted = isActuallyPredicted(latestArrival);
