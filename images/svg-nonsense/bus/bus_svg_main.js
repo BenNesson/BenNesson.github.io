@@ -222,7 +222,9 @@ var Journey_Step = function (stepDef) {
                         startResponse.data.entry.arrivalsAndDepartures,
                         this.route,
                         startResponse.currentTime + tOffset);
-                    this.processEnd(this.startData.tripId);
+                    if (this.startData) {
+                        this.processEnd(this.startData.tripId);
+                    }
                 }.bind(this),
                 minBefore,
                 minAfter
@@ -249,7 +251,7 @@ var Journey_Step = function (stepDef) {
     };
 
     this.processData = function () {
-        if (this.startData.predicted && this.startData.predictedArrivalTime != 0) {
+        if (this.startData.predicted && this.startData.predictedArrivalTime > 0) {
             this.predicted = true;
             this.startTime = this.startData.predictedDepartureTime;
             if (this.endData.predicted) {
